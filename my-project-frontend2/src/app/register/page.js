@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
+// import { useEffect } from 'react';
+// import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
 
 export default function Register() {
@@ -10,14 +10,14 @@ export default function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push('/');
-    }
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     router.push('/');
+  //   }
+  // }, [isAuthenticated]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -27,8 +27,9 @@ export default function Register() {
         email,
         password,
       });
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('x-auth-token', response.data.token);
       setMessage('Registration successful!');
+      router.push('/');
     } catch (error) {
       setMessage('Registration failed. Please try again.');
     }

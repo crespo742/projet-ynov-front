@@ -1,31 +1,31 @@
-'use client';
+// 'use client';
 
-import { createContext, useContext, useState } from 'react';
+// import { createContext, useContext, useState } from 'react';
 
-const AuthContext = createContext();
+// const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
+// export function AuthProvider({ children }) {
+//     const [user, setUser] = useState(null);
 
-    const login = (token) => {
-        localStorage.setItem('token', token);
-        setUser({ token });
-    };
+//     const login = (token) => {
+//         localStorage.setItem('x-auth-token', token);
+//         setUser({ token });
+//     };
 
-    const logout = () => {
-        localStorage.removeItem('token');
-        setUser(null);
-    };
+//     const logout = () => {
+//         localStorage.removeItem('x-auth-token');
+//         setUser(null);
+//     };
 
-    const isAuthenticated = !!user;
+//     const isAuthenticated = !!user;
 
-    return (
-        <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+//     return (
+//         <AuthContext.Provider value={{ user, login, logout, isAuthenticated }}>
+//             {children}
+//         </AuthContext.Provider>
+//     );
+// }
 
-export function useAuth() {
-    return useContext(AuthContext);
-}
+// export function useAuth() {
+//     return useContext(AuthContext);
+// }

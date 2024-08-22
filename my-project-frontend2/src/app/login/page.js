@@ -1,22 +1,22 @@
 'use client';
 import { useState } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
-import { useAuth } from '../../context/AuthContext';
-import { useRouter } from 'next/navigation';
+// import { useEffect } from 'react';
+// import { useAuth } from '../../context/AuthContext';
+// import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const { isAuthenticated } = useAuth();
-  const router = useRouter();
+  // const { isAuthenticated } = useAuth();
+  // const router = useRouter();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      router.push('/');
-    }
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     router.push('/');
+  //   }
+  // }, [isAuthenticated]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,7 +25,7 @@ export default function Login() {
         email,
         password,
       });
-      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('x-auth-token', response.data.token);
       setMessage('Login successful!');
     } catch (error) {
       setMessage('Login failed. Please try again.');
