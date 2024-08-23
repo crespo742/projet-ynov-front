@@ -26,8 +26,15 @@ export default function Home() {
       {error && <p>{error}</p>}
       <ul>
         {motoAds.map((ad) => (
-          <li key={ad._id}>
+          <li key={ad._id} style={{ marginBottom: '20px' }}>
             <h2>{ad.title}</h2>
+            {ad.image && ad.image.length > 0 && (
+              <img 
+                src={ad.image[0]} 
+                alt={ad.title} 
+                style={{ maxWidth: '100%', height: 'auto', marginBottom: '10px' }}
+              />
+            )}
             <p>{ad.description}</p>
             <p>Price: ${ad.price}</p>
             <p>Brand: {ad.brand}</p>
