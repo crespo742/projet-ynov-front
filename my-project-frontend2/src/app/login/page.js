@@ -9,12 +9,13 @@ export default function Login() {
   const [message, setMessage] = useState('');
   const router = useRouter();
   
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user.isAdmin || user.isModo) {
-    router.push('/admin/users');
-  } else {
-    router.push('/');
-  }
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // if (user.isAdmin || user.isModo) {
+  //   router.push('/admin/users');
+  // } else {
+  //   router.push('/');
+  // }
+  // c'est une bonne idée mais si il y a rien, il sera bloquer et ne pourras pas se connecter
 
   const handleSubmit = async (event) => {
     event.preventDefault();

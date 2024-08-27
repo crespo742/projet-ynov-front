@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 export default function UserDetailPage({ params }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);  // L'utilisateur dont on affiche les détails
+  const [currentUser, setCurrentUser] = useState(null);  // L'utilisateur actuellement connecté
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const router = useRouter();
@@ -13,6 +14,13 @@ export default function UserDetailPage({ params }) {
   const userId = params.id;
 
   useEffect(() => {
+    // Récupérer les détails de l'utilisateur actuel (connecté)
+    const fetchCurrentUser = () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      setCurrentUser(user);
+    };
+
+    // Récupérer les détails de l'utilisateur dont on affiche les informations
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('x-auth-token');
@@ -25,6 +33,7 @@ export default function UserDetailPage({ params }) {
       }
     };
 
+    fetchCurrentUser();
     fetchUser();
   }, [userId]);
 
@@ -45,7 +54,7 @@ export default function UserDetailPage({ params }) {
     return <p>{error}</p>;
   }
 
-  if (!user) {
+  if (!user || !currentUser) {
     return <p>Loading...</p>;
   }
 
@@ -56,10 +65,17 @@ export default function UserDetailPage({ params }) {
       <p>Moderator: {user.isModo ? 'Yes' : 'No'}</p>
       <p>Admin: {user.isAdmin ? 'Yes' : 'No'}</p>
 
-      {user.isModo ? (
-        <p>This user is already a moderator.</p>
+      {/* Vérifier si l'utilisateur connecté est admin */}
+      {currentUser.isAdmin ? (
+        <>
+          {user.isModo ? (
+            <p>This user is already a moderator.</p>
+          ) : (
+            <button onClick={handleSetModerator}>Set as Moderator</button>
+          )}
+        </>
       ) : (
-        <button onClick={handleSetModerator}>Set as Moderator</button>
+        <p>You don't have the rights to change this user's attributes!</p>
       )}
 
       <p>{message}</p>

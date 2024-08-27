@@ -9,16 +9,16 @@ export default function AdminLayout({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem('x-auth-token');
-    const user = JSON.parse(localStorage.getItem('user'));    
-    
-    if (!token || !user || !user.isAdmin) {
-      router.push('/login');  // Redirige vers la page de login si non admin
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!token || !user || (!user.isAdmin && !user.isModo)) {
+      router.push('/login');  // Redirige vers la page de login si l'utilisateur n'est ni admin ni modérateur
     }
   }, [router]);
 
   return (
     <div>
-      <h1>Admin Panel</h1>
+      <h1>Admin/Moderator Panel</h1>
       {children}
     </div>
   );
