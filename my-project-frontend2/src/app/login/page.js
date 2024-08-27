@@ -1,22 +1,20 @@
 'use client';
 import { useState } from 'react';
 import axios from 'axios';
-// import { useEffect } from 'react';
-// import { useAuth } from '../../context/AuthContext';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  // const { isAuthenticated } = useAuth();
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     router.push('/');
-  //   }
-  // }, [isAuthenticated]);
+  const router = useRouter();
+  
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user.isAdmin || user.isModo) {
+    router.push('/admin/users');
+  } else {
+    router.push('/');
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,7 +24,14 @@ export default function Login() {
         password,
       });
       localStorage.setItem('x-auth-token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
       setMessage('Login successful!');
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user.isAdmin || user.isModo) {
+        router.push('/admin/users');
+      } else {
+        router.push('/');
+      }
     } catch (error) {
       setMessage('Login failed. Please try again.');
     }
