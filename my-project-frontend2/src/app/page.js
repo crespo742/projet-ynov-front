@@ -24,6 +24,11 @@ export default function Home() {
   return (
     <div>
       <h1>All Moto Ads</h1>
+
+      <Link href={'/chat'}>
+        <p>ixi sheyzg</p>
+      </Link>
+
       {error && <p>{error}</p>}
       <ul>
         {motoAds.map((ad) => (

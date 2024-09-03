@@ -24,6 +24,7 @@ export default function Login() {
         email,
         password,
       });
+      localStorage.clear();
       localStorage.setItem('x-auth-token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
       setMessage('Login successful!');
