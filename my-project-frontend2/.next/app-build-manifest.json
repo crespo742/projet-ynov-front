@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/chat/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/chat/page.js"
+      "static/chunks/app/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -15,10 +15,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/[id]/page.js"
     ],
-    "/chat/[id]/page": [
+    "/register/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/chat/[id]/page.js"
+      "static/chunks/app/register/page.js"
+    ],
+    "/add-moto/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/add-moto/page.js"
     ]
   }
 }

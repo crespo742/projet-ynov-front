@@ -1,4 +1,6 @@
 {
-  "/chat/[id]/page": "app/chat/[id]/page.js",
-  "/[id]/page": "app/[id]/page.js"
+  "/page": "app/page.js",
+  "/register/page": "app/register/page.js",
+  "/[id]/page": "app/[id]/page.js",
+  "/add-moto/page": "app/add-moto/page.js"
 }

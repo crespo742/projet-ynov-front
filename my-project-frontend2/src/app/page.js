@@ -26,7 +26,7 @@ export default function Home() {
       <h1>All Moto Ads</h1>
 
       <Link href={'/chat'}>
-        <p>ixi sheyzg</p>
+        <p>lien vers le chat</p>
       </Link>
 
       {error && <p>{error}</p>}
@@ -44,7 +44,7 @@ export default function Home() {
                   />
                 )}
                 <p>{ad.description}</p>
-                <p>Price: ${ad.price}</p>
+                <p>PricePerDay: ${ad.pricePerDay}</p>
                 <p>Brand: {ad.brand}</p>
                 <p>Model: {ad.model}</p>
                 <p>Year: {ad.year}</p>

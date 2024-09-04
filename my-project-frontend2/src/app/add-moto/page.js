@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function AddMoto() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
+  const [pricePerDay, setPricePerDay] = useState('');
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [year, setYear] = useState('');
@@ -28,7 +28,7 @@ export default function AddMoto() {
       const formData = new FormData();
       formData.append('title', title);
       formData.append('description', description);
-      formData.append('price', price);
+      formData.append('pricePerDay', pricePerDay);
       formData.append('brand', brand);
       formData.append('model', model);
       formData.append('year', year);
@@ -73,11 +73,11 @@ export default function AddMoto() {
           required
         />
         <br />
-        <label>Price:</label>
+        <label>PricePerDay:</label>
         <input
           type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
+          value={pricePerDay}
+          onChange={(e) => setPricePerDay(e.target.value)}
           required
         />
         <br />
