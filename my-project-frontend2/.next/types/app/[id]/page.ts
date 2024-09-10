@@ -1,4 +1,4 @@
-// File: C:\Users\crespo\Desktop\ecole-projet\projet-ynov-front\my-project-frontend2\src\app\[id]\page.js
+// File: C:\Users\killi\OneDrive\Bureau\projet_ynov_M2\projet-ynov-front\my-project-frontend2\src\app\[id]\page.js
 import * as entry from '../../../../src/app/[id]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
