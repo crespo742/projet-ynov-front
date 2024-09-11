@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import FilterComponent from './components/FilterComponent';
 
 export default function Home() {
   const [motoAds, setMotoAds] = useState([]);
@@ -24,6 +25,8 @@ export default function Home() {
   return (
     <div>
       <h1>All Moto Ads</h1>
+
+      <FilterComponent setMotoAds={setMotoAds} />
 
       <Link href={'/chat'}>
         <p>lien vers le chat</p>
