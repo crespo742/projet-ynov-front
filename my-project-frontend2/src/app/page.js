@@ -52,6 +52,7 @@ export default function Home() {
                 <p>Model: {ad.model}</p>
                 <p>Year: {ad.year}</p>
                 <p>Mileage: {ad.mileage} km</p>
+                <p>Location: {ad.location}</p>
               </div>
             </Link>
           </li>

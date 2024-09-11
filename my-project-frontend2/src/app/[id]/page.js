@@ -86,6 +86,7 @@ export default function MotoAdPage({ params }) {
       <p>Mileage: {motoAd.mileage} km</p>
       <p>Seller: {motoAd.user.name}</p>
       <p>Contact: {motoAd.user.email}</p>
+      <p>Location: {motoAd.location}</p>
 
       <label>Start Date:</label>
       <DatePicker

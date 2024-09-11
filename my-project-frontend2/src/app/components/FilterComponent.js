@@ -1,7 +1,9 @@
+// src/components/FilterComponent.js
 'use client';
 
 import { useState } from 'react';
 import axios from 'axios';
+import LocationAutocomplete from './LocationAutocomplete'; // Importer le composant d'autocomplétion
 
 export default function FilterComponent({ setMotoAds }) {
   const [filters, setFilters] = useState({
@@ -10,6 +12,7 @@ export default function FilterComponent({ setMotoAds }) {
     minPrice: '',
     maxPrice: '',
     search: '',
+    location: '',
   });
 
   const handleInputChange = (e) => {
@@ -21,20 +24,13 @@ export default function FilterComponent({ setMotoAds }) {
 
   const fetchFilteredAds = async () => {
     try {
-      const { brand, year, minPrice, maxPrice, search } = filters;
+      const { brand, year, minPrice, maxPrice, search, location } = filters;
       const response = await axios.get('http://localhost:3001/api/moto-ads/filter', {
-        params: { brand, year, minPrice, maxPrice, search },
+        params: { brand, year, minPrice, maxPrice, search, location },
       });
-      setMotoAds(response.data);  // Met à jour les annonces filtrées dans le parent
+      setMotoAds(response.data);
     } catch (error) {
       console.error('Failed to fetch filtered ads:', error);
-    }
-  };
-
-  // Gère l'événement "Enter" pour déclencher les filtres
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      fetchFilteredAds();
     }
   };
 
@@ -45,7 +41,6 @@ export default function FilterComponent({ setMotoAds }) {
         name="search"
         value={filters.search}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}  // Déclenche le filtre avec la touche Entrée
         placeholder="Search by title"
       />
       <input
@@ -53,7 +48,6 @@ export default function FilterComponent({ setMotoAds }) {
         name="brand"
         value={filters.brand}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
         placeholder="Filter by brand"
       />
       <input
@@ -61,7 +55,6 @@ export default function FilterComponent({ setMotoAds }) {
         name="year"
         value={filters.year}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
         placeholder="Filter by year"
       />
       <input
@@ -69,7 +62,6 @@ export default function FilterComponent({ setMotoAds }) {
         name="minPrice"
         value={filters.minPrice}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
         placeholder="Min price"
       />
       <input
@@ -77,9 +69,12 @@ export default function FilterComponent({ setMotoAds }) {
         name="maxPrice"
         value={filters.maxPrice}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
         placeholder="Max price"
       />
+
+      {/* Filtre de localisation */}
+      <LocationAutocomplete onSelectLocation={(location) => setFilters({ ...filters, location })} />
+
       <button onClick={fetchFilteredAds}>Apply Filters</button>
     </div>
   );
