@@ -8,6 +8,7 @@ import FilterComponent from './components/FilterComponent';
 export default function Home() {
   const [motoAds, setMotoAds] = useState([]);
   const [error, setError] = useState('');
+  const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
   useEffect(() => {
     const fetchMotoAds = async () => {
@@ -22,6 +23,22 @@ export default function Home() {
     fetchMotoAds();
   }, []);
 
+  useEffect(() => {
+    const fetchUnreadMessagesCount = async () => {
+      try {
+        const token = localStorage.getItem('x-auth-token');
+        const response = await axios.get('http://localhost:3001/api/messages/unread-count', {
+          headers: { 'x-auth-token': token },
+        });
+        setUnreadMessagesCount(response.data.unreadCount);
+      } catch (error) {
+        console.error('Failed to fetch unread messages count:', error);
+      }
+    };
+
+    fetchUnreadMessagesCount();
+  }, []);
+
   return (
     <div>
       <h1>All Moto Ads</h1>
@@ -29,7 +46,7 @@ export default function Home() {
       <FilterComponent setMotoAds={setMotoAds} />
 
       <Link href={'/chat'}>
-        <p>lien vers le chat</p>
+        <p>Messagerie {unreadMessagesCount > 0 && `(${unreadMessagesCount} non lu(s))`}</p>
       </Link>
 
       {error && <p>{error}</p>}
