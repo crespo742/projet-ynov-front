@@ -89,13 +89,14 @@ export default function MotoAdPage({ params }) {
         <img src={motoAd.image[0]} alt={motoAd.title} style={{ maxWidth: '400px', maxHeight: '300px' }} />
       )}
       <p>{motoAd.description}</p>
-      <p>Price: ${motoAd.pricePerDay} per day</p>
+      <p>Price: €{motoAd.pricePerDay} per day</p>
       <p>Brand: {motoAd.brand}</p>
       <p>Model: {motoAd.model}</p>
       <p>Year: {motoAd.year}</p>
       <p>Mileage: {motoAd.mileage} km</p>
       <p>Seller: {motoAd.user.name}</p>
       <p>Contact: {motoAd.user.email}</p>
+      <p>Location: {motoAd.location}</p>
 
       <label>Start Date:</label>
       <DatePicker

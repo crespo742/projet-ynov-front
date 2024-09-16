@@ -1,7 +1,9 @@
 'use client';
+
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import LocationAutocomplete from '../components/LocationAutocomplete'; // Import du composant
 
 export default function AddMoto() {
   const [title, setTitle] = useState('');
@@ -11,6 +13,7 @@ export default function AddMoto() {
   const [model, setModel] = useState('');
   const [year, setYear] = useState('');
   const [mileage, setMileage] = useState('');
+  const [location, setLocation] = useState(''); // Localisation
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState('');
 
@@ -33,6 +36,7 @@ export default function AddMoto() {
       formData.append('model', model);
       formData.append('year', year);
       formData.append('mileage', mileage);
+      formData.append('location', location); // Ajouter la localisation
       if (image) {
         formData.append('image', image);
       }
@@ -120,6 +124,12 @@ export default function AddMoto() {
           accept="image/*"
         />
         <br />
+
+        {/* Ajouter le champ d'autocomplétion de localisation */}
+        <label>Location:</label>
+        <LocationAutocomplete onSelectLocation={setLocation} />
+        <br />
+
         <button type="submit">Create Ad</button>
       </form>
       <p>{message}</p>

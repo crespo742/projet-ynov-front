@@ -24,21 +24,27 @@ export default function ConversationsPage() {
     fetchConversations();
   }, []);
 
+  const currentUserId = JSON.parse(localStorage.getItem('user')).id;
+
   return (
     <div>
       <h1>Your Conversations</h1>
       {error && <p>{error}</p>}
       <ul>
-        {conversations.map((conversation, index) => (
-          <li key={index}>
-            <Link href={`/chat/${conversation.participants[0]._id === localStorage.getItem('user').id ? conversation.participants[1] : conversation.participants[0]}`}>
-              <div style={{ cursor: 'pointer', border: '1px solid black', padding: '10px', margin: '10px 0' }}>
-                <p>Conversation with: {conversation.participants[0]._id === localStorage.getItem('user').id ? conversation.participants[1].name : conversation.participants[0].name}</p>
-                <p>Last message: {conversation.latestMessage.content}</p>
-              </div>
-            </Link>
-          </li>
-        ))}
+        {conversations.map((conversation, index) => {
+          const otherParticipant = conversation.participants.find(participant => participant._id !== currentUserId);
+
+          return (
+            <li key={index}>
+              <Link href={`/chat/${otherParticipant._id}`}>
+                <div style={{ cursor: 'pointer', border: '1px solid black', padding: '10px', margin: '10px 0' }}>
+                  <p>Conversation with: {otherParticipant.name}</p>
+                  <p>Last message: {conversation.latestMessage.content}</p>
+                </div>
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

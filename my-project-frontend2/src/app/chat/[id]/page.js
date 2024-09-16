@@ -7,19 +7,30 @@ export default function ConversationPage({ params }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [error, setError] = useState('');
-  const [currentUserName, setCurrentUserName] = useState(''); // Variable d'état pour le nom de l'utilisateur connecté
+  const [currentUserName, setCurrentUserName] = useState('');
   const { id } = params;
 
   const fetchMessages = async () => {
     try {
       const token = localStorage.getItem('x-auth-token');
       const user = JSON.parse(localStorage.getItem('user'));
-      setCurrentUserName(user.name); // Stocke le nom de l'utilisateur connecté
+      setCurrentUserName(user.name);
 
       const response = await axios.get(`http://localhost:3001/api/messages/${id}`, {
         headers: { 'x-auth-token': token }
       });
-      setMessages(response.data);
+      const fetchedMessages = response.data;
+
+      // Marquer les messages comme lus
+      fetchedMessages.forEach(async (message) => {
+        if (!message.isRead && message.recipient._id === user.id) {
+          await axios.put(`http://localhost:3001/api/messages/mark-as-read/${message._id}`, {}, {
+            headers: { 'x-auth-token': token }
+          });
+        }
+      });
+
+      setMessages(fetchedMessages);
     } catch (error) {
       setError('Failed to fetch messages');
     }

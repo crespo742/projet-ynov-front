@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import FilterComponent from './components/FilterComponent';
 
 export default function Home() {
   const [motoAds, setMotoAds] = useState([]);
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
+  const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
   useEffect(() => {
     // Récupérer les annonces de motos
@@ -29,13 +31,31 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    const fetchUnreadMessagesCount = async () => {
+      try {
+        const token = localStorage.getItem('x-auth-token');
+        const response = await axios.get('http://localhost:3001/api/messages/unread-count', {
+          headers: { 'x-auth-token': token },
+        });
+        setUnreadMessagesCount(response.data.unreadCount);
+      } catch (error) {
+        console.error('Failed to fetch unread messages count:', error);
+      }
+    };
+
+    fetchUnreadMessagesCount();
+  }, []);
+
   return (
     <div>
       <h1>All Moto Ads</h1>
 
       {/* Bouton pour accéder à la page de chat */}
+      <FilterComponent setMotoAds={setMotoAds} />
+
       <Link href={'/chat'}>
-        <p>lien vers le chat</p>
+        <p>Messagerie {unreadMessagesCount > 0 && `(${unreadMessagesCount} non lu(s))`}</p>
       </Link>
 
       {/* Afficher le bouton "Mes Réservations" uniquement si l'utilisateur est connecté */}
@@ -65,6 +85,7 @@ export default function Home() {
                 <p>Model: {ad.model}</p>
                 <p>Year: {ad.year}</p>
                 <p>Mileage: {ad.mileage} km</p>
+                <p>Location: {ad.location}</p>
               </div>
             </Link>
           </li>
