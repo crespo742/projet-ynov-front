@@ -54,17 +54,6 @@ export default function Home() {
       {/* Bouton pour accéder à la page de chat */}
       <FilterComponent setMotoAds={setMotoAds} />
 
-      <Link href={'/chat'}>
-        <p>Messagerie {unreadMessagesCount > 0 && `(${unreadMessagesCount} non lu(s))`}</p>
-      </Link>
-
-      {/* Afficher le bouton "Mes Réservations" uniquement si l'utilisateur est connecté */}
-      {user && (
-        <Link href={`/reservation/${user.id}`}>
-          <button style={{ margin: '20px', padding: '10px' }}>Mes Réservations</button>
-        </Link>
-      )}
-
       {error && <p>{error}</p>}
       <ul>
         {motoAds.map((ad) => (

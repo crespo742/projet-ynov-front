@@ -1,7 +1,6 @@
 // src/app/layout.js
 
-import '../styles/layout.css';
-import Link from 'next/link';
+import ClientLayout from './ClientLayout';
 
 export const metadata = {
   title: 'Next.js',
@@ -20,75 +19,7 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body>
-        {/* Header */}
-        <header className="site-header">
-          <div className="header-content">
-            <div className="logo">
-              <img src="/logo.png" alt="Logo" />
-            </div>
-            <nav className="header-nav">
-              <a href="/features">Features</a>
-              <a href="/pricing">Pricing</a>
-              <a href="/community">Community</a>
-              <a href="/support">Support</a>
-            </nav>
-            <div className="header-buttons">
-              <Link href={'/login'}>
-                <button className="login-button">Log in</button>
-              </Link>
-              <Link href={'/register'}>
-                <button className="register-button">Register</button>
-              </Link>
-            </div>
-          </div>
-        </header>
-
-        {/* Contenu principal */}
-        <main className="site-main">
-          {children}
-        </main>
-
-        {/* Footer */}
-        <footer className="site-footer">
-          <div className="footer-content">
-            <div className="footer-links">
-              <div className="footer-column">
-                <h4>Mobile app</h4>
-                <a href="/features">Features</a>
-                <a href="/live-share">Live Share</a>
-                <a href="/video-record">Video record</a>
-              </div>
-              <div className="footer-column">
-                <h4>Community</h4>
-                <a href="/featured-artists">Featured artists</a>
-                <a href="/portal">The Portal</a>
-                <a href="/live-events">Live events</a>
-              </div>
-              <div className="footer-column">
-                <h4>Company</h4>
-                <a href="/about-us">About us</a>
-                <a href="/contact">Contact us</a>
-                <a href="/history">History</a>
-              </div>
-            </div>
-            <div className="footer-buttons">
-              <button className="register-button">Register</button>
-              <button className="login-button">Log in</button>
-            </div>
-          </div>
-
-          {/* Section des réseaux sociaux en dessous de la ligne */}
-          <div className="footer-social-section">
-            <hr />
-            <div className="footer-social">
-              <span>Follow us:</span>
-              <img src="/facebook.png" alt="Facebook" />
-              <img src="/insta.png" alt="Instagram" />
-              <img src="/twitter.png" alt="Twitter" />
-            </div>
-            <p className="footer-bottom">&copy; Photo, Inc. 2024. We love our users!</p>
-          </div>
-        </footer>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

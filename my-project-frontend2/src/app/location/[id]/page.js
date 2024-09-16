@@ -2,16 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './userReservations.css'; // Import du fichier CSS
 
 export default function UserReservations({ params }) {
   const [reservations, setReservations] = useState([]);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
 
-  const { id } = params; // Récupère l'ID de l'utilisateur depuis les props de la page
+  const { id } = params;
 
   useEffect(() => {
-    if (!id) return; // Ne fait rien si l'ID est undefined
+    if (!id) return;
 
     const fetchReservations = async () => {
       try {
@@ -19,17 +20,16 @@ export default function UserReservations({ params }) {
         setReservations(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des réservations:', error);
-        setError('Failed to fetch reservations');
+        setError('Échec de la récupération des réservations');
       }
     };
 
     fetchReservations();
   }, [id]);
 
-  // Fonction pour capturer le paiement de la caution
   const capturePayment = async (paymentIntentId) => {
     try {
-      console.log('Tentative de capture pour:', paymentIntentId); 
+      console.log('Tentative de capture pour:', paymentIntentId);
       const response = await axios.post('http://localhost:3001/api/rentals/capture-payment', { paymentIntentId });
       setMessage('Paiement capturé avec succès.');
     } catch (error) {
@@ -38,10 +38,9 @@ export default function UserReservations({ params }) {
     }
   };
 
-  // Fonction pour annuler l'autorisation de paiement de la caution
   const cancelPayment = async (paymentIntentId) => {
     try {
-      console.log('Tentative d\'annulation pour:', paymentIntentId); 
+      console.log('Tentative d\'annulation pour:', paymentIntentId);
       const response = await axios.post('http://localhost:3001/api/rentals/cancel-payment', { paymentIntentId });
       setMessage('Autorisation annulée avec succès.');
     } catch (error) {
@@ -50,7 +49,6 @@ export default function UserReservations({ params }) {
     }
   };
 
-  // Fonction pour rembourser la caution
   const refundDeposit = async (paymentSessionId, deposit) => {
     try {
       console.log('Tentative de remboursement pour la caution:', paymentSessionId);
@@ -66,28 +64,38 @@ export default function UserReservations({ params }) {
   };
 
   return (
-    <div>
-      <h1>Mes Réservations</h1>
-      {message && <p>{message}</p>}
-      {error && <p>{error}</p>}
+    <div className="reservations-wrapper">
+      <div className="reservations-header">
+        <h1 className="reservations-title">Mes Locations</h1>
+        {message && <p className="reservations-message">{message}</p>}
+        {error && <p className="reservations-error">{error}</p>}
+      </div>
+
       {reservations.length > 0 ? (
-        <ul>
+        <div className="reservations-list">
           {reservations.map((reservation) => (
-            <li key={reservation._id}>
-              <h2>Moto: {reservation.motoAdId ? reservation.motoAdId.title : 'Non spécifiée'}</h2>
-              <p>Du {new Date(reservation.startDate).toLocaleDateString()} au {new Date(reservation.endDate).toLocaleDateString()}</p>
-              <p>Montant: {reservation.amount} €</p>
-              <p>Caution: {reservation.deposit} €</p>
-              {reservation.paymentIntentId && (
-                <>
-                  <button onClick={() => cancelPayment(reservation.paymentIntentId)}>Annuler la caution</button>
-                </>
-              )}
-            </li>
+            <div key={reservation._id} className="reservation-card">
+              <div className="reservation-header">
+                <h2 className="reservation-moto">{reservation.motoAdId ? reservation.motoAdId.title : 'Moto non spécifiée'}</h2>
+              </div>
+              <div className="reservation-details">
+                <p className="reservation-dates">
+                  Du <span>{new Date(reservation.startDate).toLocaleDateString()}</span> au <span>{new Date(reservation.endDate).toLocaleDateString()}</span>
+                </p>
+                <p className="reservation-amount"><strong>Montant:</strong> {reservation.amount} €</p>
+                <p className="reservation-deposit"><strong>Caution:</strong> {reservation.deposit} €</p>
+                {reservation.paymentIntentId && (
+                  <div className="reservation-actions">
+                    <button className="action-button cancel" onClick={() => cancelPayment(reservation.paymentIntentId)}>Annuler la caution</button>
+                    <button className="action-button capture">Envoyer un message</button>
+                  </div>
+                )}
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
-        <p>Aucune réservation trouvée.</p>
+        <p className="no-reservations">Aucune location trouvée.</p>
       )}
     </div>
   );

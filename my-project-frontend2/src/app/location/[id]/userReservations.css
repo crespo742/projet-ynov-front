@@ -1,0 +1,156 @@
+/* src/app/userReservations.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .reservations-wrapper {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .reservations-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .reservations-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .reservations-message,
+  .reservations-error {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border-radius: 8px;
+    padding: 10px;
+  }
+  
+  .reservations-error {
+    background-color: #ffdddd;
+    color: #d9534f;
+  }
+  
+  .reservations-message {
+    background-color: #ddffdd;
+    color: #3c763d;
+  }
+  
+  .reservations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .reservation-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .reservation-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reservation-header {
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .reservation-moto {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .reservation-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .reservation-dates {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .reservation-dates span {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .reservation-amount,
+  .reservation-deposit {
+    font-size: 1.1rem;
+    color: #2c3e50;
+  }
+  
+  .reservation-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button.cancel {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+  }
+  
+  .action-button.cancel:hover {
+    background-color: #c9302c;
+  }
+  
+  .action-button.capture {
+    background-color: #5bc0de;
+    color: white;
+    border: none;
+  }
+  
+  .action-button.capture:hover {
+    background-color: #31b0d5;
+  }
+  
+  .action-button.refund {
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+  }
+  
+  .action-button.refund:hover {
+    background-color: #ec971f;
+  }
+  
+  .no-reservations {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #999;
+    margin-top: 20px;
+    font-style: italic;
+  }
+  
