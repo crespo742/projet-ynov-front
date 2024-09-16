@@ -12,7 +12,7 @@ export default function MotoAdPage({ params }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [message, setMessage] = useState('');
-  const [unavailableDates, setUnavailableDates] = useState([]); // State pour les dates indisponibles
+  const [unavailableDates, setUnavailableDates] = useState([]);
   const { id } = params;
 
   // Récupérer les informations de l'annonce de moto
@@ -22,11 +22,21 @@ export default function MotoAdPage({ params }) {
         try {
           const response = await axios.get(`http://localhost:3001/api/moto-ads/${id}`);
           setMotoAd(response.data);
+
           // Récupérer les dates réservées et les stocker
-          const reservedDates = response.data.reservedDates.map((date) => ({
-            start: new Date(date.startDate),
-            end: new Date(date.endDate),
-          }));
+          const reservedDates = response.data.reservedDates.flatMap((date) => {
+            const dates = [];
+            let currentDate = new Date(date.startDate);
+            const endDate = new Date(date.endDate);
+            
+            while (currentDate <= endDate) {
+              dates.push(new Date(currentDate));
+              currentDate.setDate(currentDate.getDate() + 1);
+            }
+            
+            return dates;
+          });
+
           setUnavailableDates(reservedDates);
         } catch (error) {
           setError('Failed to fetch the ad');
@@ -91,14 +101,16 @@ export default function MotoAdPage({ params }) {
       <DatePicker
         selected={startDate}
         onChange={(date) => setStartDate(date)}
-        excludeDateIntervals={unavailableDates} // Exclure les plages de dates réservées
+        excludeDates={unavailableDates} // Exclure les dates réservées
+        minDate={new Date()} // Exclure les jours passés
       />
       <br />
       <label>End Date:</label>
       <DatePicker
         selected={endDate}
         onChange={(date) => setEndDate(date)}
-        excludeDateIntervals={unavailableDates} // Exclure les plages de dates réservées
+        excludeDates={unavailableDates} // Exclure les dates réservées
+        minDate={new Date()} // Exclure les jours passés
       />
       <br />
       <button onClick={handleRent}>Louer</button>

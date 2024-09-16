@@ -7,8 +7,10 @@ import Link from 'next/link';
 export default function Home() {
   const [motoAds, setMotoAds] = useState([]);
   const [error, setError] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    // Récupérer les annonces de motos
     const fetchMotoAds = async () => {
       try {
         const response = await axios.get('http://localhost:3001/api/moto-ads');
@@ -19,15 +21,29 @@ export default function Home() {
     };
 
     fetchMotoAds();
+
+    // Récupérer les informations de l'utilisateur connecté
+    const currentUser = localStorage.getItem('user');
+    if (currentUser) {
+      setUser(JSON.parse(currentUser)); // Définir l'utilisateur en tant qu'objet parsé
+    }
   }, []);
 
   return (
     <div>
       <h1>All Moto Ads</h1>
 
+      {/* Bouton pour accéder à la page de chat */}
       <Link href={'/chat'}>
         <p>lien vers le chat</p>
       </Link>
+
+      {/* Afficher le bouton "Mes Réservations" uniquement si l'utilisateur est connecté */}
+      {user && (
+        <Link href={`/reservation/${user.id}`}>
+          <button style={{ margin: '20px', padding: '10px' }}>Mes Réservations</button>
+        </Link>
+      )}
 
       {error && <p>{error}</p>}
       <ul>

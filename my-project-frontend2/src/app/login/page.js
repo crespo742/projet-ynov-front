@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import './login.css'; // Import du fichier CSS spécifique à cette page
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -40,28 +41,32 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <br />
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <br />
-        <button type="submit">Login</button>
-      </form>
-      <p>{message}</p>
+    <div className="login-container">
+      <h1 className="login-title">Heureux de vous revoir !</h1>
+      <p className="login-subtitle">Accédez à votre compte pour continuer à profiter de la location et de l'échange de motos.</p>
+      <div className="login-box">
+        <h2>Connectez-vous à votre compte</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Adresse e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="login-input"
+          />
+          <input
+            type="password"
+            placeholder="Mot de passe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="login-input"
+          />
+          <button type="submit" className="form-button">Se connecter</button>
+        </form>
+        <p className="login-message">{message}</p>
+      </div>
     </div>
   );
 }
