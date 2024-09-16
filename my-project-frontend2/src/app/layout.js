@@ -1,6 +1,7 @@
 // src/app/layout.js
 
 import '../styles/layout.css';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Next.js',
@@ -32,8 +33,12 @@ export default function RootLayout({ children }) {
               <a href="/support">Support</a>
             </nav>
             <div className="header-buttons">
-              <button className="login-button">Log in</button>
+              <Link href={'/login'}>
+                <button className="login-button">Log in</button>
+              </Link>
+              <Link href={'/register'}>
               <button className="register-button">Register</button>
+              </Link>
             </div>
           </div>
         </header>
