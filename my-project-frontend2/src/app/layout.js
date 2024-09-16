@@ -10,6 +10,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* Charger Google Maps API */}
+        <script
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}&libraries=places`}
+          async
+          defer
+        ></script>
+      </head>
       <body>
         {/* Header */}
         <header className="site-header">
@@ -38,9 +46,6 @@ export default function RootLayout({ children }) {
         {/* Footer */}
         <footer className="site-footer">
           <div className="footer-content">
-            {/* <div className="footer-logo">
-              <img src="/logo.png" alt="Logo" />
-            </div> */}
             <div className="footer-links">
               <div className="footer-column">
                 <h4>Mobile app</h4>

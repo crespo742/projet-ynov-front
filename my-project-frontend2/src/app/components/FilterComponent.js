@@ -12,7 +12,7 @@ export default function FilterComponent({ setMotoAds }) {
     minPrice: '',
     maxPrice: '',
     search: '',
-    location: '',
+    location: '', // Localisation
   });
 
   const handleInputChange = (e) => {
@@ -26,7 +26,7 @@ export default function FilterComponent({ setMotoAds }) {
     try {
       const { brand, year, minPrice, maxPrice, search, location } = filters;
       const response = await axios.get('http://localhost:3001/api/moto-ads/filter', {
-        params: { brand, year, minPrice, maxPrice, search, location },
+        params: { brand, year, minPrice, maxPrice, search, location }, // Ajout de la localisation dans les filtres
       });
       setMotoAds(response.data);
     } catch (error) {
