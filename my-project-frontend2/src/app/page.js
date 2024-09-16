@@ -80,7 +80,7 @@ export default function Home() {
                   />
                 )}
                 <p>{ad.description}</p>
-                <p>PricePerDay: ${ad.pricePerDay}</p>
+                <p>PricePerDay: {ad.pricePerDay} €</p>
                 <p>Brand: {ad.brand}</p>
                 <p>Model: {ad.model}</p>
                 <p>Year: {ad.year}</p>
