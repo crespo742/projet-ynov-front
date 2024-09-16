@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
                 <button className="login-button">Log in</button>
               </Link>
               <Link href={'/register'}>
-              <button className="register-button">Register</button>
+                <button className="register-button">Register</button>
               </Link>
             </div>
           </div>

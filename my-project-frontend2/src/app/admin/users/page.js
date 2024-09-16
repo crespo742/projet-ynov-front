@@ -27,6 +27,9 @@ export default function UsersPage() {
   return (
     <div>
       <h1>All Users</h1>
+      <Link href={'/admin/moto-ads'}>
+        <p>Lien vers les annonces de motos</p>
+      </Link>
       {error && <p>{error}</p>}
       <ul>
         {users.map((user) => (
