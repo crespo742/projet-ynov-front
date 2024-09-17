@@ -1,11 +1,11 @@
 // src/components/LocationAutocomplete.js
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
 
-export default function LocationAutocomplete({ onSelectLocation }) {
+export default function LocationAutocomplete({ onSelectLocation, resetLocation }) {
   const [inputValue, setInputValue] = useState('');
   const { suggestions: { status, data }, setValue, clearSuggestions } = usePlacesAutocomplete({
     requestOptions: {
@@ -43,6 +43,14 @@ export default function LocationAutocomplete({ onSelectLocation }) {
         </li>
       );
     });
+
+  // Reset the input value when resetLocation changes
+  useEffect(() => {
+    if (resetLocation) {
+      setInputValue(''); // Clear the input field
+      setValue(''); // Reset the internal value of the autocomplete
+    }
+  }, [resetLocation]);
 
   return (
     <div ref={ref}>
