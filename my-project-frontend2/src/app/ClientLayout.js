@@ -3,7 +3,7 @@
 import '../styles/layout.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import axios from 'axios'; // Assurez-vous d'importer axios
+import axios from 'axios';
 
 export default function ClientLayout({ children }) {
   const [user, setUser] = useState(null);
@@ -11,18 +11,16 @@ export default function ClientLayout({ children }) {
   const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
   useEffect(() => {
-    // Simuler un délai pour le chargement de l'utilisateur connecté
     setTimeout(() => {
       const currentUser = localStorage.getItem('user');
       if (currentUser) {
         setUser(JSON.parse(currentUser)); // Définit l'utilisateur comme un objet parsé
       }
-      setLoading(false); // Indique que le chargement est terminé
-    }, 500); // Ajoute un délai de 500ms pour simuler le chargement
+      setLoading(false);
+    }, 500);
   }, []);
 
   useEffect(() => {
-    // Attendre que l'utilisateur soit défini avant de récupérer les messages non lus
     if (user) {
       const fetchUnreadMessagesCount = async () => {
         try {
@@ -38,7 +36,7 @@ export default function ClientLayout({ children }) {
 
       fetchUnreadMessagesCount();
     }
-  }, [user]); // Exécuter l'appel API seulement après que l'utilisateur soit défini
+  }, [user]);
 
   return (
     <>
@@ -93,22 +91,25 @@ export default function ClientLayout({ children }) {
         <div className="footer-content">
           <div className="footer-links">
             <div className="footer-column">
-              <h4>Mobile app</h4>
-              <a href="/features">Features</a>
-              <a href="/live-share">Live Share</a>
-              <a href="/video-record">Video record</a>
+              <h4>Support</h4>
+              <Link href="/faq">FAQ</Link>
+              <Link href="/contact">Contactez-nous</Link>
+              <Link href="/help-center">Centre d'aide</Link>
+              <Link href="/refund-policy">Politique de remboursement</Link>
             </div>
             <div className="footer-column">
-              <h4>Community</h4>
-              <a href="/featured-artists">Featured artists</a>
-              <a href="/portal">The Portal</a>
-              <a href="/live-events">Live events</a>
+              <h4>Ressources</h4>
+              <Link href="/blog">Blog</Link>
+              <Link href="/guides">Guides d'utilisation</Link>
+              <Link href="/safety-tips">Conseils de sécurité</Link>
+              <Link href="/news">Actualités</Link>
             </div>
             <div className="footer-column">
-              <h4>Company</h4>
-              <a href="/about-us">About us</a>
-              <a href="/contact">Contact us</a>
-              <a href="/history">History</a>
+              <h4>À Propos</h4>
+              <Link href="/about-us">À Propos de Nous</Link>
+              <Link href="/careers">Carrières</Link>
+              <Link href="/privacy-policy">Politique de Confidentialité</Link>
+              <Link href="/terms-conditions">Termes et Conditions</Link>
             </div>
           </div>
         </div>
@@ -116,12 +117,18 @@ export default function ClientLayout({ children }) {
         <div className="footer-social-section">
           <hr />
           <div className="footer-social">
-            <span>Follow us:</span>
-            <img src="/facebook.png" alt="Facebook" />
-            <img src="/insta.png" alt="Instagram" />
-            <img src="/twitter.png" alt="Twitter" />
+            <span>Suivez-nous :</span>
+            <Link href="https://www.facebook.com" target="_blank">
+              <img src="/facebook.png" alt="Facebook" />
+            </Link>
+            <Link href="https://www.instagram.com" target="_blank">
+              <img src="/insta.png" alt="Instagram" />
+            </Link>
+            <Link href="https://www.twitter.com" target="_blank">
+              <img src="/twitter.png" alt="Twitter" />
+            </Link>
           </div>
-          <p className="footer-bottom">&copy; Photo, Inc. 2024. We love our users!</p>
+          <p className="footer-bottom">&copy; Votre Entreprise, Inc. 2024. Nous aimons nos utilisateurs !</p>
         </div>
       </footer>
     </>

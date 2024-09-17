@@ -9,14 +9,6 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const router = useRouter();
-  
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // if (user.isAdmin || user.isModo) {
-  //   router.push('/admin/users');
-  // } else {
-  //   router.push('/');
-  // }
-  // c'est une bonne idée mais si il y a rien, il sera bloquer et ne pourras pas se connecter
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,11 +22,19 @@ export default function Login() {
       localStorage.setItem('user', JSON.stringify(response.data.user));
       setMessage('Login successful!');
       const user = JSON.parse(localStorage.getItem('user'));
+
+      // Redirection et rafraîchissement de la page
       if (user.isAdmin || user.isModo) {
         router.push('/admin/users');
       } else {
         router.push('/');
       }
+      
+      // Attendre un court instant avant d'actualiser la page
+      setTimeout(() => {
+        window.location.reload();
+      }, 100); // Délai de 100 ms pour permettre la redirection
+
     } catch (error) {
       setMessage('Login failed. Please try again.');
     }
