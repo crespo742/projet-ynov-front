@@ -24,6 +24,11 @@ export default function Register() {
       localStorage.setItem('user', JSON.stringify(response.data.user));
       setMessage('Registration successful!');
       router.push('/');
+
+      // Attendre un court instant avant d'actualiser la page
+      setTimeout(() => {
+        window.location.reload();
+      }, 100); // Délai de 100 ms pour permettre la redirection
     } catch (error) {
       setMessage('Registration failed. Please try again.');
     }
