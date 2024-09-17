@@ -20,25 +20,36 @@ export default function ClientLayout({ children }) {
       setLoading(false); // Indique que le chargement est terminé
     }, 500); // Ajoute un délai de 500ms pour simuler le chargement
   }, []);
+  
 
-  useEffect(() => {
-    // Attendre que l'utilisateur soit défini avant de récupérer les messages non lus
+  // Fonction pour récupérer les messages non lus
+  const fetchUnreadMessagesCount = async () => {
     if (user) {
-      const fetchUnreadMessagesCount = async () => {
-        try {
-          const token = localStorage.getItem('x-auth-token');
-          const response = await axios.get('http://localhost:3001/api/messages/unread-count', {
-            headers: { 'x-auth-token': token },
-          });
-          setUnreadMessagesCount(response.data.unreadCount);
-        } catch (error) {
-          console.error('Failed to fetch unread messages count:', error);
-        }
-      };
-
-      fetchUnreadMessagesCount();
+      try {
+        const token = localStorage.getItem('x-auth-token');
+        const response = await axios.get('http://localhost:3001/api/messages/unread-count', {
+          headers: { 'x-auth-token': token },
+        });
+        setUnreadMessagesCount(response.data.unreadCount);
+      } catch (error) {
+        console.error('Failed to fetch unread messages count:', error);
+      }
     }
-  }, [user]); // Exécuter l'appel API seulement après que l'utilisateur soit défini
+  };
+
+  // Mettre à jour le nombre de messages non lus toutes les 30 secondes
+  useEffect(() => {
+    if (user) {
+      fetchUnreadMessagesCount(); // Fetch initial count
+
+      const interval = setInterval(() => {
+        fetchUnreadMessagesCount();
+      }, 2000); // Vérifie toutes les 2 secondes
+
+      // Nettoie l'intervalle lorsque le composant est démonté
+      return () => clearInterval(interval);
+    }
+  }, [user]);
 
   return (
     <>

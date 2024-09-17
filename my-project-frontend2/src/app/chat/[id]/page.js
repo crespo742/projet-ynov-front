@@ -16,21 +16,31 @@ export default function ConversationPage({ params }) {
       const user = JSON.parse(localStorage.getItem('user'));
       setCurrentUserName(user.name);
 
+      // Récupérer les messages
       const response = await axios.get(`http://localhost:3001/api/messages/${id}`, {
         headers: { 'x-auth-token': token }
       });
       const fetchedMessages = response.data;
 
-      // Marquer les messages comme lus
-      fetchedMessages.forEach(async (message) => {
-        if (!message.isRead && message.recipient._id === user.id) {
-          await axios.put(`http://localhost:3001/api/messages/mark-as-read/${message._id}`, {}, {
-            headers: { 'x-auth-token': token }
-          });
-        }
-      });
-
       setMessages(fetchedMessages);
+      // Marquer tous les messages non lus comme lus
+      const unreadMessageIds = fetchedMessages
+        .filter(message => !message.isRead && message.recipient._id === user.id)
+        .map(message => message._id);
+      await axios.put('http://localhost:3001/api/messages/mark-as-read', { messageIds: unreadMessageIds }, {
+        headers: { 'x-auth-token': token }
+      });
+      if (!unreadMessageIds) {
+      console.log('!unreadMessageIds');
+      }
+      if (unreadMessageIds < 1) {
+      console.log('unreadMessageIds < 1');
+      }
+      
+      // if (!unreadMessageIds) {
+      //   location.window.reload();
+      // }
+
     } catch (error) {
       setError('Failed to fetch messages');
     }
@@ -50,7 +60,8 @@ export default function ConversationPage({ params }) {
         headers: { 'x-auth-token': token }
       });
       setNewMessage('');
-      fetchMessages(); // Fetch the updated conversation after sending the message
+      fetchMessages(); // Recharger les messages après l'envoi
+      window.location.reload();
     } catch (error) {
       setError('Failed to send message');
     }
