@@ -19,7 +19,7 @@ export default function MotoAdPage({ params }) {
   // Récupérer les informations de l'annonce de moto
   useEffect(() => {
     const token = localStorage.getItem('x-auth-token');
-    
+
     if (token) {
       setIsLoggedIn(true); // Si un token est trouvé, l'utilisateur est connecté
     } else {
@@ -37,12 +37,12 @@ export default function MotoAdPage({ params }) {
             const dates = [];
             let currentDate = new Date(date.startDate);
             const endDate = new Date(date.endDate);
-            
+
             while (currentDate <= endDate) {
               dates.push(new Date(currentDate));
               currentDate.setDate(currentDate.getDate() + 1);
             }
-            
+
             return dates;
           });
 
@@ -107,7 +107,7 @@ export default function MotoAdPage({ params }) {
       <p>Contact: {motoAd.user.email}</p>
       <p>Location: {motoAd.location}</p>
 
-      <label>Start Date:</label>
+      {/* <label>Start Date:</label>
       <DatePicker
         selected={startDate}
         onChange={(date) => setStartDate(date)}
@@ -124,6 +124,49 @@ export default function MotoAdPage({ params }) {
       />
       <br />
       <button onClick={handleRent}>Louer</button>
+      {message && <p>{message}</p>} */}
+
+      {/* Ajout de la vérification lors de la sélection d'une date */}
+      <label>Start Date:</label>
+      <DatePicker
+        selected={startDate}
+        onFocus={() => {
+          const token = localStorage.getItem('x-auth-token');
+          if (!token) {
+            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
+          }
+        }}
+        onChange={(date) => setStartDate(date)}
+        excludeDates={unavailableDates} // Exclure les dates réservées
+        minDate={new Date()} // Exclure les jours passés
+      />
+      <br />
+      <label>End Date:</label>
+      <DatePicker
+        selected={endDate}
+        onFocus={() => {
+          const token = localStorage.getItem('x-auth-token');
+          if (!token) {
+            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
+          }
+        }}
+        onChange={(date) => setEndDate(date)}
+        excludeDates={unavailableDates} // Exclure les dates réservées
+        minDate={new Date()} // Exclure les jours passés
+      />
+      <br />
+      <button
+        onClick={() => {
+          const token = localStorage.getItem('x-auth-token');
+          if (!token) {
+            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
+          } else {
+            handleRent(); // Continue l'opération si l'utilisateur est connecté
+          }
+        }}
+      >
+        Louer
+      </button>
       {message && <p>{message}</p>}
 
       {/* Vérification si l'utilisateur est connecté avant de proposer le lien pour envoyer un message */}
