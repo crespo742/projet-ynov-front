@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Link from 'next/link'; // Importer Link de Next.js
 import './clientReservations.css'; // Import du fichier CSS
 
 export default function ClientReservations({ params }) {
@@ -36,12 +37,15 @@ export default function ClientReservations({ params }) {
         <ul className="reservations-list">
           {reservations.map((reservation) => (
             <li key={reservation._id} className="reservation-item">
-              <div className="reservation-card">
-                <h2 className="reservation-moto">Moto: {reservation.motoAdId ? reservation.motoAdId.title : 'Non spécifiée'}</h2>
-                <p className="reservation-dates">Du {new Date(reservation.startDate).toLocaleDateString()} au {new Date(reservation.endDate).toLocaleDateString()}</p>
-                <p className="reservation-amount">Montant: {reservation.amount} €</p>
-                <p className="reservation-deposit">Caution: {reservation.deposit} €</p>
-              </div>
+              {/* Utiliser Link pour rendre l'élément cliquable */}
+              <Link href={`/${reservation.motoAdId ? reservation.motoAdId._id : ''}`} passHref>
+                <div className="reservation-card">
+                  <h2 className="reservation-moto">Moto: {reservation.motoAdId ? reservation.motoAdId.title : 'Non spécifiée'}</h2>
+                  <p className="reservation-dates">Du {new Date(reservation.startDate).toLocaleDateString()} au {new Date(reservation.endDate).toLocaleDateString()}</p>
+                  <p className="reservation-amount">Montant: {reservation.amount} €</p>
+                  <p className="reservation-deposit">Caution: {reservation.deposit} €</p>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>

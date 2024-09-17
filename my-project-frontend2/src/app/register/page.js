@@ -13,6 +13,14 @@ export default function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Vérifier la force du mot de passe avec une regex
+    const passwordRegex = /^(?=.*[A-Z]).{8,}$/; // Au moins 8 caractères et une majuscule
+    if (!passwordRegex.test(password)) {
+      setMessage('Le mot de passe doit comporter au moins 8 caractères et inclure une majuscule.');
+      return; // Arrêter l'exécution si le mot de passe ne correspond pas au regex
+    }
+
     try {
       const response = await axios.post('http://localhost:3001/api/users/register', {
         name,
@@ -29,7 +37,16 @@ export default function Register() {
         window.location.reload();
       }, 100); // Délai de 100 ms pour permettre la redirection
     } catch (error) {
-      setMessage('Registration failed. Please try again.');
+      // Gestion des différentes erreurs
+      if (error.response) {
+        if (error.response.status === 400) { // 400 Conflict
+          setMessage("Cet e-mail est déjà utilisé. Veuillez essayer de vous connecter.");
+        } else {
+          setMessage(error.response.data.message || 'Une erreur est survenue. Veuillez réessayer.');
+        }
+      } else {
+        setMessage('Registration failed. Please try again.');
+      }
     }
   };
 
@@ -67,6 +84,11 @@ export default function Register() {
           <button type="submit" className="form-button">S'inscrire</button>
         </form>
         <p className="login-message">{message}</p>
+        {/* Ajouter un lien pour se connecter */}
+        <p className="login-link">
+          Vous avez déjà un compte ?{' '}
+          <a href="/login" className="login-link-text">Cliquez ici pour vous connecter</a>
+        </p>
       </div>
     </div>
   );

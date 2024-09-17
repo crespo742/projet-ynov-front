@@ -39,6 +39,17 @@ export default function ProfilePage() {
     }
   };
 
+  const handleLogout = () => {
+    // Effacer le localStorage et rediriger vers la page de base
+    localStorage.clear();
+    router.push('/');
+
+    // Attendre un court instant avant d'actualiser la page
+    setTimeout(() => {
+      window.location.reload();
+    }, 100); // Délai de 100 ms pour permettre la redirection
+  };
+
   if (!profile) {
     return <p>Loading...</p>;
   }
@@ -49,6 +60,9 @@ export default function ProfilePage() {
       {error && <p>{error}</p>}
       <h2>Nom: {profile.user.name}</h2>
       <h2>Email: {profile.user.email}</h2>
+
+      {/* Bouton de déconnexion */}
+      <button onClick={handleLogout}>Déconnecter</button>
 
       <h3>Vos annonces publiées</h3>
       <ul>

@@ -65,6 +65,11 @@ export default function Login() {
           <button type="submit" className="form-button">Se connecter</button>
         </form>
         <p className="login-message">{message}</p>
+        {/* Ajouter un lien pour s'inscrire */}
+        <p className="register-link">
+          Vous n'avez pas de compte ?{' '}
+          <a href="/register" className="register-link-text">Cliquez ici pour vous inscrire</a>
+        </p>
       </div>
     </div>
   );
