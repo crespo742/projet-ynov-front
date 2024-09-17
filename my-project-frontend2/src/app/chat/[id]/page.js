@@ -30,16 +30,6 @@ export default function ConversationPage({ params }) {
       await axios.put('http://localhost:3001/api/messages/mark-as-read', { messageIds: unreadMessageIds }, {
         headers: { 'x-auth-token': token }
       });
-      if (!unreadMessageIds) {
-      console.log('!unreadMessageIds');
-      }
-      if (unreadMessageIds < 1) {
-      console.log('unreadMessageIds < 1');
-      }
-      
-      // if (!unreadMessageIds) {
-      //   location.window.reload();
-      // }
 
     } catch (error) {
       setError('Failed to fetch messages');

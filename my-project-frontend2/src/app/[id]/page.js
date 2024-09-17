@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Link from 'next/link';
+import Link from 'next/link'; // Utilisation de Link pour la navigation
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -14,9 +14,18 @@ export default function MotoAdPage({ params }) {
   const [message, setMessage] = useState('');
   const [unavailableDates, setUnavailableDates] = useState([]);
   const { id } = params;
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // État pour vérifier si l'utilisateur est connecté
 
   // Récupérer les informations de l'annonce de moto
   useEffect(() => {
+    const token = localStorage.getItem('x-auth-token');
+    
+    if (token) {
+      setIsLoggedIn(true); // Si un token est trouvé, l'utilisateur est connecté
+    } else {
+      setIsLoggedIn(false); // Sinon, l'utilisateur n'est pas connecté
+    }
+
     if (id) {
       const fetchMotoAd = async () => {
         try {
@@ -117,9 +126,16 @@ export default function MotoAdPage({ params }) {
       <button onClick={handleRent}>Louer</button>
       {message && <p>{message}</p>}
 
-      <Link href={`/chat/${motoAd.user._id}`}>
-        <button>Send Message</button>
-      </Link>
+      {/* Vérification si l'utilisateur est connecté avant de proposer le lien pour envoyer un message */}
+      {isLoggedIn ? (
+        <Link href={`/chat/${motoAd.user._id}`}>
+          <button>Send Message</button>
+        </Link>
+      ) : (
+        <Link href="/login">
+          <button>Login to Send Message</button>
+        </Link>
+      )}
     </div>
   );
 }
