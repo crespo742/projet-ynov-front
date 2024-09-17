@@ -59,6 +59,14 @@ export default function FilterComponent({ setMotoAds }) {
     fetchAllMotoAds(); // Récupérer toutes les annonces après réinitialisation des filtres
   };
 
+  // Fonction pour gérer l'appui sur "Entrée"
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Empêche le comportement par défaut du formulaire
+      fetchFilteredAds();  // Applique les filtres
+    }
+  };
+
   return (
     <div>
       <input
@@ -67,6 +75,7 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.search}
         onChange={handleInputChange}
         placeholder="Search by title"
+        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
       />
       <input
         type="text"
@@ -74,6 +83,7 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.brand}
         onChange={handleInputChange}
         placeholder="Filter by brand"
+        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
       />
       <input
         type="number"
@@ -81,6 +91,7 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.year}
         onChange={handleInputChange}
         placeholder="Filter by year"
+        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
       />
       <input
         type="number"
@@ -88,6 +99,7 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.minPrice}
         onChange={handleInputChange}
         placeholder="Min price"
+        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
       />
       <input
         type="number"
@@ -95,6 +107,7 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.maxPrice}
         onChange={handleInputChange}
         placeholder="Max price"
+        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
       />
 
       <LocationAutocomplete
