@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import './conversationPage.css'; // Importer le fichier CSS spécifique à cette page
 
 export default function ConversationPage({ params }) {
   const [messages, setMessages] = useState([]);
@@ -9,6 +10,7 @@ export default function ConversationPage({ params }) {
   const [error, setError] = useState('');
   const [currentUserName, setCurrentUserName] = useState('');
   const { id } = params;
+  const messagesEndRef = useRef(null); // Référence pour la fin de la liste de messages
 
   const fetchMessages = async () => {
     try {
@@ -22,7 +24,10 @@ export default function ConversationPage({ params }) {
       });
       const fetchedMessages = response.data;
 
-      setMessages(fetchedMessages);
+      // Trier les messages par date (le plus récent en bas)
+      const sortedMessages = fetchedMessages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      setMessages(sortedMessages);
+
       // Marquer tous les messages non lus comme lus
       const unreadMessageIds = fetchedMessages
         .filter(message => !message.isRead && message.recipient._id === user.id)
@@ -31,9 +36,14 @@ export default function ConversationPage({ params }) {
         headers: { 'x-auth-token': token }
       });
 
+      scrollToBottom(); // Scroller vers le bas après le chargement des messages
     } catch (error) {
       setError('Failed to fetch messages');
     }
+  };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -51,32 +61,41 @@ export default function ConversationPage({ params }) {
       });
       setNewMessage('');
       fetchMessages(); // Recharger les messages après l'envoi
-      window.location.reload();
     } catch (error) {
       setError('Failed to send message');
     }
   };
 
+  useEffect(() => {
+    scrollToBottom(); // Scroller vers le bas quand les messages sont mis à jour
+  }, [messages]);
+
   return (
-    <div>
+    <div className="conversation-container">
       <h1>Conversation</h1>
-      {error && <p>{error}</p>}
-      <ul>
+      {error && <p className="error-message">{error}</p>}
+      <div className="message-list">
         {messages.map((message) => (
-          <li key={message._id}>
-            <p>
-              <strong>{message.sender._id === JSON.parse(localStorage.getItem('user')).id ? currentUserName : message.sender.name}:</strong> {message.content}
+          <div key={message._id} className="message-item">
+            <p className={message.sender._id === JSON.parse(localStorage.getItem('user')).id ? 'sent-message' : 'received-message'}>
+              {message.sender._id === JSON.parse(localStorage.getItem('user')).id 
+                ? <><span>{message.content}</span> : <strong>{currentUserName}</strong></> // Afficher "message : nom" pour les messages envoyés par l'utilisateur actuel
+                : <><strong>{message.sender.name}</strong>: {message.content}</>} {/* Afficher "nom : message" pour les messages reçus */}
             </p>
-          </li>
+          </div>
         ))}
-      </ul>
-      <input
-        type="text"
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
-        placeholder="Type a message"
-      />
-      <button onClick={handleSendMessage}>Send</button>
+        <div ref={messagesEndRef} /> {/* Référence pour scroller vers le bas */}
+      </div>
+      <div className="input-container">
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Tapez un message"
+          className="message-input"
+        />
+        <button onClick={handleSendMessage} className="send-button">Envoyer</button>
+      </div>
     </div>
   );
 }
