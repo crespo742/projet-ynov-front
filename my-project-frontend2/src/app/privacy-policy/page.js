@@ -108,7 +108,7 @@ export default function PrivacyPolicy() {
         </p>
       </section>
 
-      <p className="update-date">Dernière mise à jour : [Date]</p>
+      <p className="update-date">Dernière mise à jour : 17/09/2024</p>
     </div>
   );
 }

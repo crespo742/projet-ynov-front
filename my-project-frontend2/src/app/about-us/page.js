@@ -11,7 +11,7 @@ export default function AboutUs() {
       <section className="about-section">
         <h2>Notre Histoire</h2>
         <p>
-          L'histoire de **Trade Your Bike** commence en 2023, lorsque deux passionnés de moto, Alex et Sarah, décident de transformer leur passion commune en un projet ambitieux. Ils avaient constaté à quel point il était difficile pour les motards de trouver et de louer des motos adaptées à leurs besoins, surtout lorsqu'ils voyageaient dans de nouveaux endroits. Ils voulaient changer cela en créant une plateforme unique pour connecter les motards du monde entier.
+          L'histoire de **Trade Your Bike** commence en 2023, lorsque deux passionnés de moto, Killian et Matthias, décident de transformer leur passion commune en un projet ambitieux. Ils avaient constaté à quel point il était difficile pour les motards de trouver et de louer des motos adaptées à leurs besoins, surtout lorsqu'ils voyageaient dans de nouveaux endroits. Ils voulaient changer cela en créant une plateforme unique pour connecter les motards du monde entier.
         </p>
         <p>
           Après des mois de travail acharné, Trade Your Bike est né. Ce qui a commencé comme une petite communauté de motards partageant leurs expériences et leurs motos est rapidement devenu une plateforme de référence pour la location et l'échange de motos. Aujourd'hui, nous sommes fiers d'avoir des milliers d'utilisateurs actifs dans plus de 30 pays.
