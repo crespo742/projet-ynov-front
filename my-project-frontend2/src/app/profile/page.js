@@ -65,6 +65,9 @@ export default function ProfilePage() {
       <button onClick={handleLogout}>Déconnecter</button>
 
       <h3>Vos annonces publiées</h3>
+      <Link href={`/add-moto`}>
+              <button>Ajouter une annonce</button>
+            </Link>
       <ul>
         {profile.motoAds.map((ad) => (
           <li key={ad._id}>

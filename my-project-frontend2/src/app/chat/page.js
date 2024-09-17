@@ -15,7 +15,18 @@ export default function ConversationsPage() {
         const response = await axios.get('http://localhost:3001/api/messages/conversations', {
           headers: { 'x-auth-token': token }
         });
-        setConversations(response.data);
+
+        // Vérifie que la réponse contient des données valides
+        const data = response.data || [];
+
+        // Trie les conversations par date de dernier message (timestamp) en ordre décroissant
+        const sortedConversations = data.sort((a, b) => {
+          const dateA = new Date(a.latestMessage.timestamp).getTime();
+          const dateB = new Date(b.latestMessage.timestamp).getTime();
+          return dateB - dateA; // Tri par ordre décroissant (le plus récent en premier)
+        });
+
+        setConversations(sortedConversations);
       } catch (error) {
         setError('Failed to fetch conversations');
       }
