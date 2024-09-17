@@ -22,7 +22,6 @@ export default function Register() {
       localStorage.clear();
       localStorage.setItem('x-auth-token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      setMessage('Registration successful!');
       router.push('/');
 
       // Attendre un court instant avant d'actualiser la page

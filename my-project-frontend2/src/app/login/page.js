@@ -20,7 +20,6 @@ export default function Login() {
       localStorage.clear();
       localStorage.setItem('x-auth-token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      setMessage('Login successful!');
       const user = JSON.parse(localStorage.getItem('user'));
 
       // Redirection et rafraîchissement de la page
