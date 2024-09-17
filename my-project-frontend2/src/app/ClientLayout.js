@@ -3,6 +3,7 @@
 import '../styles/layout.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import axios from 'axios'; // Assurez-vous d'importer axios
 
 export default function ClientLayout({ children }) {
   const [user, setUser] = useState(null);
@@ -21,38 +22,38 @@ export default function ClientLayout({ children }) {
   }, []);
 
   useEffect(() => {
-    const fetchUnreadMessagesCount = async () => {
-      try {
-        const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get('http://localhost:3001/api/messages/unread-count', {
-          headers: { 'x-auth-token': token },
-        });
-        setUnreadMessagesCount(response.data.unreadCount);
-      } catch (error) {
-        console.error('Failed to fetch unread messages count:', error);
-      }
-    };
+    // Attendre que l'utilisateur soit défini avant de récupérer les messages non lus
+    if (user) {
+      const fetchUnreadMessagesCount = async () => {
+        try {
+          const token = localStorage.getItem('x-auth-token');
+          const response = await axios.get('http://localhost:3001/api/messages/unread-count', {
+            headers: { 'x-auth-token': token },
+          });
+          setUnreadMessagesCount(response.data.unreadCount);
+        } catch (error) {
+          console.error('Failed to fetch unread messages count:', error);
+        }
+      };
 
-    fetchUnreadMessagesCount();
-  }, []);
+      fetchUnreadMessagesCount();
+    }
+  }, [user]); // Exécuter l'appel API seulement après que l'utilisateur soit défini
 
   return (
     <>
-      {/* Header */}
       <header className="site-header">
         <div className="header-content">
           <div className="logo">
-          <Link href={'/'}>
-            <img src="/logo.png" alt="Logo" />
+            <Link href={'/'}>
+              <img src="/logo.png" alt="Logo" />
             </Link>
           </div>
           <nav className="header-nav">
             {user && (
               <>
                 <Link href={'/chat'}>
-                  
-                    Messagerie {unreadMessagesCount > 0 && `(${unreadMessagesCount} non lu(s))`}
-                  
+                  Messagerie {unreadMessagesCount > 0 && `(${unreadMessagesCount} non lu(s))`}
                 </Link>
                 <Link href={`/location/${user.id}`}>
                   Mes Locations
@@ -64,7 +65,7 @@ export default function ClientLayout({ children }) {
             )}
           </nav>
           <div className="header-buttons">
-            {loading ? null : user ? ( 
+            {loading ? null : user ? (
               <Link href={'/profile'}>
                 <button className="profile-button">Mon Profil</button>
               </Link>

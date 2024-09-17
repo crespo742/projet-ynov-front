@@ -9,7 +9,6 @@ export default function Home() {
   const [motoAds, setMotoAds] = useState([]);
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
-  const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
   useEffect(() => {
     // Récupérer les annonces de motos
@@ -29,22 +28,6 @@ export default function Home() {
     if (currentUser) {
       setUser(JSON.parse(currentUser)); // Définir l'utilisateur en tant qu'objet parsé
     }
-  }, []);
-
-  useEffect(() => {
-    const fetchUnreadMessagesCount = async () => {
-      try {
-        const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get('http://localhost:3001/api/messages/unread-count', {
-          headers: { 'x-auth-token': token },
-        });
-        setUnreadMessagesCount(response.data.unreadCount);
-      } catch (error) {
-        console.error('Failed to fetch unread messages count:', error);
-      }
-    };
-
-    fetchUnreadMessagesCount();
   }, []);
 
   return (
