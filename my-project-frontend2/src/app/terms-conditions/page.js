@@ -84,7 +84,7 @@ export default function TermsAndConditions() {
         </p>
       </section>
 
-      <p className="update-date">Dernière mise à jour : [Date]</p>
+      <p className="update-date">Dernière mise à jour : 19/07/2024</p>
     </div>
   );
 }
