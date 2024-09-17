@@ -47,7 +47,6 @@ export default function ClientLayout({ children }) {
             </Link>
           </div>
           <nav className="header-nav">
-            <a href="/features">Features</a>
             {user && (
               <>
                 <Link href={'/chat'}>
