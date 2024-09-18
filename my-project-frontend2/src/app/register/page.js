@@ -53,7 +53,7 @@ export default function Register() {
   return (
     <div className="login-container">
       <h1 className="login-title">Créer un nouveau compte</h1>
-      <p className="login-subtitle">Rejoignez-nous et commencez à profiter de la location et de l'échange de motos.</p>
+      <p className="login-subtitle">Rejoignez-nous et commencez à profiter de la location et de l&#39;échange de motos.</p>
       <div className="login-box">
         <h2>Inscrivez-vous</h2>
         <form onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ export default function Register() {
             required
             className="login-input"
           />
-          <button type="submit" className="form-button">S'inscrire</button>
+          <button type="submit" className="form-button">S&#39;inscrire</button>
         </form>
         <p className="login-message">{message}</p>
         {/* Ajouter un lien pour se connecter */}

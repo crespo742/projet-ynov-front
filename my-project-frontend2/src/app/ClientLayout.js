@@ -106,13 +106,13 @@ export default function ClientLayout({ children }) {
               <h4>Support</h4>
               <Link href="/faq">FAQ</Link>
               <Link href="/contact">Contactez-nous</Link>
-              <Link href="/help-center">Centre d'aide</Link>
+              <Link href="/help-center">Centre d&#39;aide</Link>
               <Link href="/refund-policy">Politique de remboursement</Link>
             </div>
             <div className="footer-column">
               <h4>Ressources</h4>
               <Link href="/blog">Blog</Link>
-              <Link href="/guides">Guides d'utilisation</Link>
+              <Link href="/guides">Guides d&#39;utilisation</Link>
               <Link href="/safety-tips">Conseils de sécurité</Link>
               <Link href="/news">Actualités</Link>
             </div>

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 
 export default function MotoAdDetail({ params }) {
   const { id } = params; // Récupération de l'ID de l'annonce à partir des paramètres
@@ -23,10 +22,7 @@ export default function MotoAdDetail({ params }) {
     };
 
     fetchMotoAd();
-  }, [id]);
-
-  console.log('test', ad);
-  
+  }, [id]);  
 
   return (
     <div>

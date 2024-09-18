@@ -42,7 +42,7 @@ export default function Login() {
   return (
     <div className="login-container">
       <h1 className="login-title">Heureux de vous revoir !</h1>
-      <p className="login-subtitle">Accédez à votre compte pour continuer à profiter de la location et de l'échange de motos.</p>
+      <p className="login-subtitle">Accédez à votre compte pour continuer à profiter de la location et de l&#39;échange de motos.</p>
       <div className="login-box">
         <h2>Connectez-vous à votre compte</h2>
         <form onSubmit={handleSubmit}>
@@ -67,7 +67,7 @@ export default function Login() {
         <p className="login-message">{message}</p>
         {/* Ajouter un lien pour s'inscrire */}
         <p className="register-link">
-          Vous n'avez pas de compte ?{' '}
+          Vous n&#39;avez pas de compte ?{' '}
           <a href="/register" className="register-link-text">Cliquez ici pour vous inscrire</a>
         </p>
       </div>

@@ -48,8 +48,8 @@ export default function Guides() {
 
   return (
     <div className="guides-container">
-      <h1>Guides d'utilisation</h1>
-      <p>Explorez nos guides d'utilisation pour tirer le meilleur parti de votre expérience sur Trade Your Bike.</p>
+      <h1>Guides d&#39;utilisation</h1>
+      <p>Explorez nos guides d&#39;utilisation pour tirer le meilleur parti de votre expérience sur Trade Your Bike.</p>
 
       {loading ? (
         <p>Chargement des guides...</p>

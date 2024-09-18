@@ -6,19 +6,19 @@ import './careers.css'; // Importer le fichier CSS spécifique à cette page
 export default function Careers() {
   return (
     <div className="careers-container">
-      <h1>Rejoignez l'Aventure de Trade Your Bike</h1>
+      <h1>Rejoignez l&#39;Aventure de Trade Your Bike</h1>
 
       <section className="careers-section">
         <h2>Pourquoi Travailler Avec Nous ?</h2>
         <p>
-          Chez **Trade Your Bike**, nous ne nous contentons pas de construire une plateforme de location et d'échange de motos. Nous créons une communauté mondiale de passionnés de motos qui partagent une vision commune : rendre chaque trajet plus accessible et plus excitant. En rejoignant notre équipe, vous participerez à cette aventure excitante et contribuerez à façonner l'avenir de la mobilité à deux roues.
+          Chez **Trade Your Bike**, nous ne nous contentons pas de construire une plateforme de location et d&#39;échange de motos. Nous créons une communauté mondiale de passionnés de motos qui partagent une vision commune : rendre chaque trajet plus accessible et plus excitant. En rejoignant notre équipe, vous participerez à cette aventure excitante et contribuerez à façonner l&#39;avenir de la mobilité à deux roues.
         </p>
       </section>
 
       <section className="careers-section">
         <h2>Notre Culture</h2>
         <p>
-          Nous croyons en l'innovation, l'intégrité et l'esprit d'équipe. Notre culture est fondée sur la passion pour la moto et l'engagement envers nos utilisateurs. Chez Trade Your Bike, nous valorisons la diversité, l'inclusion et l'apprentissage continu. Nous encourageons chacun à être curieux, créatif et à apporter ses idées pour faire avancer notre mission.
+          Nous croyons en l&#39;innovation, l&#39;intégrité et l&#39;esprit d&#39;équipe. Notre culture est fondée sur la passion pour la moto et l&#39;engagement envers nos utilisateurs. Chez Trade Your Bike, nous valorisons la diversité, l&#39;inclusion et l&#39;apprentissage continu. Nous encourageons chacun à être curieux, créatif et à apporter ses idées pour faire avancer notre mission.
         </p>
       </section>
 
@@ -57,7 +57,7 @@ export default function Careers() {
           </li>
         </ul>
         <p>
-          Nous sommes toujours à la recherche de nouveaux talents ! Même si vous ne voyez pas un poste qui correspond à vos compétences, n'hésitez pas à nous envoyer votre CV à <a href="mailto:careers@tradeyourbike.com">careers@tradeyourbike.com</a>.
+          Nous sommes toujours à la recherche de nouveaux talents ! Même si vous ne voyez pas un poste qui correspond à vos compétences, n&#39;hésitez pas à nous envoyer votre CV à <a href="mailto:careers@tradeyourbike.com">careers@tradeyourbike.com</a>.
         </p>
       </section>
 
@@ -67,7 +67,7 @@ export default function Careers() {
           <li>🏍️ Un environnement de travail flexible et stimulant</li>
           <li>🌍 Opportunités de travailler à distance et de voyager</li>
           <li>💼 Programmes de développement professionnel continus</li>
-          <li>🏅 Réductions exclusives sur la location et l'achat de motos</li>
+          <li>🏅 Réductions exclusives sur la location et l&#39;achat de motos</li>
         </ul>
       </section>
 

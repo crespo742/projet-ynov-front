@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
         </p>
         <ul>
           <li>Votre nom et vos coordonnées (adresse e-mail, numéro de téléphone, adresse postale, etc.).</li>
-          <li>Vos informations de compte (nom d'utilisateur, mot de passe, préférences).</li>
+          <li>Vos informations de compte (nom d&#39;utilisateur, mot de passe, préférences).</li>
           <li>Les détails de vos transactions, y compris les informations de paiement.</li>
           <li>Tout contenu que vous publiez sur notre site (avis, commentaires, etc.).</li>
         </ul>
@@ -34,7 +34,7 @@ export default function PrivacyPolicy() {
         </p>
         <ul>
           <li>Votre adresse IP et les informations de localisation.</li>
-          <li>Votre type de navigateur et système d'exploitation.</li>
+          <li>Votre type de navigateur et système d&#39;exploitation.</li>
           <li>Les pages que vous visitez et le temps passé sur notre site.</li>
           <li>Les informations sur les appareils que vous utilisez pour accéder à notre site.</li>
         </ul>
@@ -48,7 +48,7 @@ export default function PrivacyPolicy() {
           <li>Gérer votre compte et traiter vos transactions.</li>
           <li>Répondre à vos demandes et communiquer avec vous.</li>
           <li>Vous envoyer des mises à jour et des offres promotionnelles (avec votre consentement).</li>
-          <li>Analyser l'utilisation de notre site pour améliorer nos services.</li>
+          <li>Analyser l&#39;utilisation de notre site pour améliorer nos services.</li>
           <li>Protéger contre la fraude, les abus et les activités illégales.</li>
         </ul>
       </section>
@@ -57,9 +57,9 @@ export default function PrivacyPolicy() {
         <h2>4. Partage de Vos Informations</h2>
         <p>Nous pouvons partager vos informations dans les cas suivants :</p>
         <ul>
-          <li>Avec des prestataires de services tiers qui nous aident à fournir nos services (par exemple, processeurs de paiement, services d'hébergement).</li>
-          <li>Si la loi l'exige, ou si nous croyons de bonne foi qu'une telle action est nécessaire pour se conformer aux lois applicables.</li>
-          <li>Dans le cadre d'une fusion, d'une acquisition ou d'une vente d'actifs, vos informations peuvent être transférées.</li>
+          <li>Avec des prestataires de services tiers qui nous aident à fournir nos services (par exemple, processeurs de paiement, services d&#39;hébergement).</li>
+          <li>Si la loi l&#39;exige, ou si nous croyons de bonne foi qu&#39;une telle action est nécessaire pour se conformer aux lois applicables.</li>
+          <li>Dans le cadre d&#39;une fusion, d&#39;une acquisition ou d&#39;une vente d&#39;actifs, vos informations peuvent être transférées.</li>
           <li>Avec votre consentement ou selon vos instructions.</li>
         </ul>
       </section>
@@ -67,7 +67,7 @@ export default function PrivacyPolicy() {
       <section className="privacy-section">
         <h2>5. Sécurité de Vos Informations</h2>
         <p>
-          Nous prenons des mesures de sécurité appropriées pour protéger vos informations contre l'accès, l'altération, la divulgation ou la destruction non autorisés. Ces mesures comprennent, sans s'y limiter, le chiffrement des données, les pare-feu et les contrôles d'accès stricts.
+          Nous prenons des mesures de sécurité appropriées pour protéger vos informations contre l&#39;accès, l&#39;altération, la divulgation ou la destruction non autorisés. Ces mesures comprennent, sans s&#39;y limiter, le chiffrement des données, les pare-feu et les contrôles d&#39;accès stricts.
         </p>
       </section>
 
@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
           <li>Retirer votre consentement à tout moment.</li>
         </ul>
         <p>
-          Pour exercer ces droits, veuillez nous contacter à l'adresse <a href="mailto:privacy@tradeyourbike.com">privacy@tradeyourbike.com</a>.
+          Pour exercer ces droits, veuillez nous contacter à l&#39;adresse <a href="mailto:privacy@tradeyourbike.com">privacy@tradeyourbike.com</a>.
         </p>
       </section>
 
@@ -104,7 +104,7 @@ export default function PrivacyPolicy() {
       <section className="privacy-section">
         <h2>9. Nous Contacter</h2>
         <p>
-          Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité ou nos pratiques de confidentialité, veuillez nous contacter à l'adresse suivante : <a href="mailto:privacy@tradeyourbike.com">privacy@tradeyourbike.com</a>.
+          Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité ou nos pratiques de confidentialité, veuillez nous contacter à l&#39;adresse suivante : <a href="mailto:privacy@tradeyourbike.com">privacy@tradeyourbike.com</a>.
         </p>
       </section>
 

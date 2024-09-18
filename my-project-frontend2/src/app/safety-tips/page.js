@@ -50,7 +50,7 @@ export default function ConseilsSecurite() {
   return (
     <div className="conseils-container">
       <h1>Conseils de sécurité</h1>
-      <p>Suivez ces conseils pour assurer votre sécurité et celle des autres lors de l'utilisation de Trade Your Bike.</p>
+      <p>Suivez ces conseils pour assurer votre sécurité et celle des autres lors de l&#39;utilisation de Trade Your Bike.</p>
 
       <div className="conseils-list">
         {conseils.map((conseil) => (

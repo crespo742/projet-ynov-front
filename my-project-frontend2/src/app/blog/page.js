@@ -50,7 +50,7 @@ export default function Blog() {
   return (
     <div className="blog-container">
       <h1>Blog de Trade Your Bike</h1>
-      <p>Découvrez nos derniers articles sur la moto, l'échange, et la location. Restez informé des nouvelles tendances et des conseils d'experts.</p>
+      <p>Découvrez nos derniers articles sur la moto, l&#39;échange, et la location. Restez informé des nouvelles tendances et des conseils d&#39;experts.</p>
 
       {loading ? (
         <p>Chargement des articles...</p>
