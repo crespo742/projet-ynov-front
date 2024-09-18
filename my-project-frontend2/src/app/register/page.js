@@ -22,7 +22,7 @@ export default function Register() {
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/api/users/register', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/register`, {
         name,
         email,
         password,

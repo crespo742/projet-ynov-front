@@ -13,7 +13,7 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/api/users/login', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/login`, {
         email,
         password,
       });

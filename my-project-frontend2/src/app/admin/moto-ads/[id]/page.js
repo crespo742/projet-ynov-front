@@ -13,7 +13,7 @@ export default function MotoAdDetail({ params }) {
     const fetchMotoAd = async () => {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get(`http://localhost:3001/api/moto-ads/${id}`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${id}`, {
           headers: { 'x-auth-token': token }
         });
         setAd(response.data);

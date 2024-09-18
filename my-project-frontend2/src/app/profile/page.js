@@ -14,7 +14,7 @@ export default function ProfilePage() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get('http://localhost:3001/api/users/profile', {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/profile`, {
           headers: { 'x-auth-token': token },
         });
         setProfile(response.data);
@@ -29,7 +29,7 @@ export default function ProfilePage() {
   const handleDelete = async (adId) => {
     try {
       const token = localStorage.getItem('x-auth-token');
-      await axios.delete(`http://localhost:3001/api/moto-ads/${adId}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${adId}`, {
         headers: { 'x-auth-token': token },
       });
       // Recharger la page après suppression

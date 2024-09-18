@@ -19,7 +19,7 @@ export default function ConversationPage({ params }) {
       setCurrentUserName(user.name);
 
       // Récupérer les messages
-      const response = await axios.get(`http://localhost:3001/api/messages/${id}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/messages/${id}`, {
         headers: { 'x-auth-token': token }
       });
       const fetchedMessages = response.data;
@@ -32,7 +32,7 @@ export default function ConversationPage({ params }) {
       const unreadMessageIds = fetchedMessages
         .filter(message => !message.isRead && message.recipient._id === user.id)
         .map(message => message._id);
-      await axios.put('http://localhost:3001/api/messages/mark-as-read', { messageIds: unreadMessageIds }, {
+      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/messages/mark-as-read`, { messageIds: unreadMessageIds }, {
         headers: { 'x-auth-token': token }
       });
 
@@ -53,7 +53,7 @@ export default function ConversationPage({ params }) {
   const handleSendMessage = async () => {
     try {
       const token = localStorage.getItem('x-auth-token');
-      await axios.post(`http://localhost:3001/api/messages/send`, {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/messages/send`, {
         recipient: id,
         content: newMessage,
       }, {

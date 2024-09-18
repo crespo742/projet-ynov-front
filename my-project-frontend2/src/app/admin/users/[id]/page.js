@@ -22,7 +22,7 @@ export default function UserDetailPage({ params }) {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get(`http://localhost:3001/api/users/${userId}`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/${userId}`, {
           headers: { 'x-auth-token': token }
         });
         setUser(response.data);
@@ -38,7 +38,7 @@ export default function UserDetailPage({ params }) {
   const handleSetModerator = async () => {
     try {
       const token = localStorage.getItem('x-auth-token');
-      await axios.put(`http://localhost:3001/api/users/set-moderator/${userId}`, {}, {
+      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/set-moderator/${userId}`, {}, {
         headers: { 'x-auth-token': token }
       });
       setMessage('User is now a moderator');
@@ -51,7 +51,7 @@ export default function UserDetailPage({ params }) {
   const handleDeleteUser = async () => {
     try {
       const token = localStorage.getItem('x-auth-token');
-      await axios.delete(`http://localhost:3001/api/users/${userId}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/${userId}`, {
         headers: { 'x-auth-token': token }
       });
       setMessage('User deleted successfully');

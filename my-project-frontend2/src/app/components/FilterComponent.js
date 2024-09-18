@@ -27,7 +27,7 @@ export default function FilterComponent({ setMotoAds }) {
   const fetchFilteredAds = async () => {
     try {
       const { brand, year, minPrice, maxPrice, search, location } = filters;
-      const response = await axios.get('http://localhost:3001/api/moto-ads/filter', {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/filter`, {
         params: { brand, year, minPrice, maxPrice, search, location },
       });
       setMotoAds(response.data);
@@ -38,7 +38,7 @@ export default function FilterComponent({ setMotoAds }) {
 
   const fetchAllMotoAds = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/moto-ads'); // Appel pour récupérer toutes les annonces
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads`); // Appel pour récupérer toutes les annonces
       setMotoAds(response.data);
     } catch (error) {
       console.error('Failed to fetch all moto ads:', error);

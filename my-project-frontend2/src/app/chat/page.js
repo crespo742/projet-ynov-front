@@ -12,7 +12,7 @@ export default function ConversationsPage() {
     const fetchConversations = async () => {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get('http://localhost:3001/api/messages/conversations', {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/messages/conversations`, {
           headers: { 'x-auth-token': token }
         });
 

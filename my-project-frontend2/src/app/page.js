@@ -14,7 +14,7 @@ export default function Home() {
     // Récupérer les annonces de motos
     const fetchMotoAds = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/moto-ads');
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads`);
         setMotoAds(response.data);
       } catch (error) {
         setError('Failed to fetch moto ads');

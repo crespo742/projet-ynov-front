@@ -42,7 +42,7 @@ export default function AddMoto() {
       }
 
       await axios.post(
-        'http://localhost:3001/api/moto-ads/create',
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/create`,
         formData,
         {
           headers: {

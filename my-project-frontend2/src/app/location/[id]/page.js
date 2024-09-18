@@ -16,7 +16,7 @@ export default function UserReservations({ params }) {
 
     const fetchReservations = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/rentals/owner/${id}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/rentals/owner/${id}`);
         setReservations(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des réservations:', error);
@@ -30,7 +30,7 @@ export default function UserReservations({ params }) {
   const capturePayment = async (paymentIntentId) => {
     try {
       console.log('Tentative de capture pour:', paymentIntentId);
-      const response = await axios.post('http://localhost:3001/api/rentals/capture-payment', { paymentIntentId });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/rentals/capture-payment`, { paymentIntentId });
       setMessage('Paiement capturé avec succès.');
     } catch (error) {
       console.error('Erreur lors de la capture du paiement:', error.response?.data || error.message);
@@ -41,7 +41,7 @@ export default function UserReservations({ params }) {
   const cancelPayment = async (paymentIntentId) => {
     try {
       console.log('Tentative d\'annulation pour:', paymentIntentId);
-      const response = await axios.post('http://localhost:3001/api/rentals/cancel-payment', { paymentIntentId });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/rentals/cancel-payment`, { paymentIntentId });
       setMessage('Autorisation annulée avec succès.');
     } catch (error) {
       console.error('Erreur lors de l\'annulation de l\'autorisation:', error.response?.data || error.message);
@@ -52,7 +52,7 @@ export default function UserReservations({ params }) {
   const refundDeposit = async (paymentSessionId, deposit) => {
     try {
       console.log('Tentative de remboursement pour la caution:', paymentSessionId);
-      const response = await axios.post('http://localhost:3001/api/payments/refund-deposit', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/payments/refund-deposit`, {
         paymentSessionId,
         deposit,
       });

@@ -17,7 +17,7 @@ export default function ClientReservations({ params }) {
 
     const fetchReservations = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/rentals/user/${id}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/rentals/user/${id}`);
         setReservations(response.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des réservations:', error);

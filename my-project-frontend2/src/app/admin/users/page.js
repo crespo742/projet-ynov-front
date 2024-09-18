@@ -12,7 +12,7 @@ export default function UsersPage() {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get('http://localhost:3001/api/users/users', {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/users`, {
           headers: { 'x-auth-token': token }
         });
         setUsers(response.data);

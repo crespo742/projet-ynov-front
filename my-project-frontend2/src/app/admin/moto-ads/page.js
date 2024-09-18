@@ -14,7 +14,7 @@ export default function MotoAdsPage() {
         const fetchMotoAds = async () => {
             try {
                 const token = localStorage.getItem('x-auth-token');
-                const response = await axios.get('http://localhost:3001/api/admin/all-moto-ads', {
+                const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/all-moto-ads`, {
                     headers: { 'x-auth-token': token }
                 });
                 setMotoAds(response.data);
@@ -31,7 +31,7 @@ export default function MotoAdsPage() {
         if (window.confirm('Are you sure you want to delete this ad?')) {
             try {
                 const token = localStorage.getItem('x-auth-token');
-                await axios.delete(`http://localhost:3001/api/admin/moto-ads/${adId}`, {
+                await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/moto-ads/${adId}`, {
                     headers: { 'x-auth-token': token }
                 });
                 // Filtrer les annonces après suppression

@@ -26,7 +26,7 @@ export default function ClientLayout({ children }) {
     if (user) {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get('http://localhost:3001/api/messages/unread-count', {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/messages/unread-count`, {
           headers: { 'x-auth-token': token },
         });
         setUnreadMessagesCount(response.data.unreadCount);

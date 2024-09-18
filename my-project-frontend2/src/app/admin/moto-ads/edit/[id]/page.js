@@ -26,7 +26,7 @@ export default function EditMotoAd({ params }) {
     const fetchAd = async () => {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get(`http://localhost:3001/api/moto-ads/${id}`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${id}`, {
           headers: { 'x-auth-token': token }
         });
         setAd(response.data);
@@ -62,7 +62,7 @@ export default function EditMotoAd({ params }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem('x-auth-token');
-      await axios.put(`http://localhost:3001/api/admin/moto-ads/${id}`, formData, {
+      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/moto-ads/${id}`, formData, {
         headers: { 'x-auth-token': token }
       });
       alert('Ad updated successfully');
