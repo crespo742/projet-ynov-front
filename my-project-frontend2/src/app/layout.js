@@ -1,6 +1,7 @@
 // src/app/layout.js
 
 import ClientLayout from './ClientLayout';
+import { Analytics } from "@vercel/analytics/react"
 
 export const metadata = {
   title: 'Next.js',
@@ -19,7 +20,10 @@ export default function RootLayout({ children }) {
         ></script>
       </head>
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          {children}
+          <Analytics/>
+        </ClientLayout>
       </body>
     </html>
   );
