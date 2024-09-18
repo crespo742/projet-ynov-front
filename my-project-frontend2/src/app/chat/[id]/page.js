@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './conversationPage.css'; // Importer le fichier CSS spécifique à cette page
+import { useRouter } from 'next/navigation';
 
 export default function ConversationPage({ params }) {
   const [messages, setMessages] = useState([]);
@@ -11,6 +12,17 @@ export default function ConversationPage({ params }) {
   const [currentUserName, setCurrentUserName] = useState('');
   const { id } = params;
   const messagesEndRef = useRef(null); // Référence pour la fin de la liste de messages
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('x-auth-token');
+
+    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
+    if (!token) {
+      router.push('/login');
+      return; // On arrête l'exécution de l'effet
+    }
+  }, [router]);
 
   const fetchMessages = async () => {
     try {
@@ -66,6 +78,12 @@ export default function ConversationPage({ params }) {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && newMessage.trim()) {
+      handleSendMessage();
+    }
+  };
+
   useEffect(() => {
     scrollToBottom(); // Scroller vers le bas quand les messages sont mis à jour
   }, [messages]);
@@ -93,6 +111,7 @@ export default function ConversationPage({ params }) {
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Tapez un message"
           className="message-input"
+          onKeyDown={handleKeyDown} // Ajouter l'événement onKeyDown ici
         />
         <button onClick={handleSendMessage} className="send-button">Envoyer</button>
       </div>

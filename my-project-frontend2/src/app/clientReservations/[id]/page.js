@@ -4,13 +4,24 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link'; // Importer Link de Next.js
 import './clientReservations.css'; // Import du fichier CSS
+import { useRouter } from 'next/navigation';
 
 export default function ClientReservations({ params }) {
   const [reservations, setReservations] = useState([]);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-
   const { id } = params;
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('x-auth-token');
+
+    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
+    if (!token) {
+      router.push('/login');
+      return; // On arrête l'exécution de l'effet
+    }
+  }, [router]);
 
   useEffect(() => {
     if (!id) return;

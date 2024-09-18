@@ -17,13 +17,16 @@ export default function MotoAdPage({ params }) {
   const { id } = params;
   const [isLoggedIn, setIsLoggedIn] = useState(false); // État pour vérifier si l'utilisateur est connecté
   const [showRentButton, setShowRentButton] = useState(false); // État pour le bouton Louer
+  const [currentUserId, setCurrentUserId] = useState(null); // Stocker l'ID de l'utilisateur connecté
 
   // Récupérer les informations de l'annonce de moto
   useEffect(() => {
     const token = localStorage.getItem('x-auth-token');
+    const user = localStorage.getItem('user');
 
-    if (token) {
+    if (token && user) {
       setIsLoggedIn(true); // Si un token est trouvé, l'utilisateur est connecté
+      setCurrentUserId(JSON.parse(user).id); // Stocker l'ID de l'utilisateur connecté
     } else {
       setIsLoggedIn(false); // Sinon, l'utilisateur n'est pas connecté
     }
@@ -106,9 +109,21 @@ export default function MotoAdPage({ params }) {
   return (
     <div>
       <h1>{motoAd.title}</h1>
+
+      {/* Afficher les trois images s'il y en a */}
       {motoAd.image && motoAd.image.length > 0 && (
-        <img src={motoAd.image[0]} alt={motoAd.title} style={{ maxWidth: '400px', maxHeight: '300px' }} />
+        <div style={{ display: 'flex', gap: '10px' }}>
+          {motoAd.image.slice(0, 3).map((imgUrl, index) => (
+            <img
+              key={index}
+              src={imgUrl}
+              alt={`${motoAd.title} - ${index + 1}`}
+              style={{ maxWidth: '400px', maxHeight: '300px' }}
+            />
+          ))}
+        </div>
       )}
+
       <p>{motoAd.description}</p>
       <p>Price: {motoAd.pricePerDay} € / jour</p>
       <p>Brand: {motoAd.brand}</p>
@@ -173,16 +188,16 @@ export default function MotoAdPage({ params }) {
         {message && <p>{message}</p>}
       </div>
 
-      {/* Vérification si l'utilisateur est connecté avant de proposer le lien pour envoyer un message */}
-      {isLoggedIn ? (
+      {/* Vérification si l'utilisateur est connecté et s'il est différent du vendeur avant de proposer le lien pour envoyer un message */}
+      {isLoggedIn && currentUserId !== motoAd.user._id ? (
         <Link href={`/chat/${motoAd.user._id}`}>
           <button>Send Message</button>
         </Link>
-      ) : (
+      ) : !isLoggedIn ? (
         <Link href="/login">
           <button>Login to Send Message</button>
         </Link>
-      )}
+      ) : null}
     </div>
   );
 }

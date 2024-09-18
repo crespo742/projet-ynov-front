@@ -11,9 +11,16 @@ export default function ProfilePage() {
   const router = useRouter();
 
   useEffect(() => {
+    const token = localStorage.getItem('x-auth-token');
+
+    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
+    if (!token) {
+      router.push('/login');
+      return; // On arrête l'exécution de l'effet
+    }
+
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('x-auth-token');
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/profile`, {
           headers: { 'x-auth-token': token },
         });
@@ -24,7 +31,7 @@ export default function ProfilePage() {
     };
 
     fetchProfile();
-  }, []);
+  }, [router]);
 
   const handleDelete = async (adId) => {
     try {
@@ -32,7 +39,6 @@ export default function ProfilePage() {
       await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${adId}`, {
         headers: { 'x-auth-token': token },
       });
-      // Recharger la page après suppression
       router.refresh(); 
     } catch (error) {
       setError('Failed to delete ad');
@@ -40,14 +46,12 @@ export default function ProfilePage() {
   };
 
   const handleLogout = () => {
-    // Effacer le localStorage et rediriger vers la page de base
     localStorage.clear();
     router.push('/');
 
-    // Attendre un court instant avant d'actualiser la page
     setTimeout(() => {
       window.location.reload();
-    }, 100); // Délai de 100 ms pour permettre la redirection
+    }, 1); // Délai de 100 ms pour permettre la redirection
   };
 
   if (!profile) {
@@ -66,8 +70,8 @@ export default function ProfilePage() {
 
       <h3>Vos annonces publiées</h3>
       <Link href={`/add-moto`}>
-              <button>Ajouter une annonce</button>
-            </Link>
+        <button>Ajouter une annonce</button>
+      </Link>
       <ul>
         {profile.motoAds.map((ad) => (
           <li key={ad._id}>

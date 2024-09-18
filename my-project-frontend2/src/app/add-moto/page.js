@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import LocationAutocomplete from '../components/LocationAutocomplete'; // Import du composant
@@ -14,13 +14,24 @@ export default function AddMoto() {
   const [year, setYear] = useState('');
   const [mileage, setMileage] = useState('');
   const [location, setLocation] = useState(''); // Localisation
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([null, null, null]); // Tableau pour 3 images
   const [message, setMessage] = useState('');
-
   const router = useRouter();
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+  useEffect(() => {
+    const token = localStorage.getItem('x-auth-token');
+
+    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
+    if (!token) {
+      router.push('/login');
+      return; // On arrête l'exécution de l'effet
+    }
+  }, [router]);
+
+  const handleImageChange = (index, event) => {
+    const newImages = [...images];
+    newImages[index] = event.target.files[0];
+    setImages(newImages); // Mettez à jour l'image à l'index correct
   };
 
   const handleSubmit = async (event) => {
@@ -37,9 +48,13 @@ export default function AddMoto() {
       formData.append('year', year);
       formData.append('mileage', mileage);
       formData.append('location', location); // Ajouter la localisation
-      if (image) {
-        formData.append('image', image);
-      }
+
+      // Ajouter les 3 images (si elles sont sélectionnées)
+      images.forEach((image, index) => {
+        if (image) {
+          formData.append(`image${index + 1}`, image); // Nom unique pour chaque image
+        }
+      });
 
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/create`,
@@ -117,10 +132,27 @@ export default function AddMoto() {
           required
         />
         <br />
-        <label>Image:</label>
+        <label>Image 1:</label>
         <input
           type="file"
-          onChange={handleImageChange}
+          name="images"
+          onChange={(e) => handleImageChange(0, e)}
+          accept="image/*"
+        />
+        <br />
+        <label>Image 2:</label>
+        <input
+          type="file"
+          name="images"
+          onChange={(e) => handleImageChange(1, e)}
+          accept="image/*"
+        />
+        <br />
+        <label>Image 3:</label>
+        <input
+          type="file"
+          name="images"
+          onChange={(e) => handleImageChange(2, e)}
           accept="image/*"
         />
         <br />

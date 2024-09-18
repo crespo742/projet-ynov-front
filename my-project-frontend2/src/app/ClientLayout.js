@@ -11,15 +11,12 @@ export default function ClientLayout({ children }) {
   const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      const currentUser = localStorage.getItem('user');
-      if (currentUser) {
-        setUser(JSON.parse(currentUser)); // Définit l'utilisateur comme un objet parsé
-      }
-      setLoading(false);
-    }, 500);
+    const currentUser = localStorage.getItem('user');
+    if (currentUser) {
+      setUser(JSON.parse(currentUser)); // Définit l'utilisateur comme un objet parsé
+    }
+    setLoading(false);
   }, []);
-  
 
   // Fonction pour récupérer les messages non lus
   const fetchUnreadMessagesCount = async () => {
@@ -50,6 +47,10 @@ export default function ClientLayout({ children }) {
     }
   }, [user]);
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <>
       <header className="site-header">
@@ -60,7 +61,7 @@ export default function ClientLayout({ children }) {
             </Link>
           </div>
           <nav className="header-nav">
-            {user && (
+            {user ? (
               <>
                 <Link href={'/chat'}>
                   Messagerie {unreadMessagesCount > 0 && `(${unreadMessagesCount} non lu(s))`}
@@ -71,25 +72,23 @@ export default function ClientLayout({ children }) {
                 <Link href={`/clientReservations/${user.id}`}>
                   Mes Réservations
                 </Link>
+                <div className="header-buttons">
+                  <Link href={'/profile'}>
+                    <button className="profile-button">Mon Profil</button>
+                  </Link>
+                </div>
               </>
-            )}
-          </nav>
-          <div className="header-buttons">
-            {loading ? null : user ? (
-              <Link href={'/profile'}>
-                <button className="profile-button">Mon Profil</button>
-              </Link>
             ) : (
-              <>
+              <div className="header-buttons">
                 <Link href={'/login'}>
                   <button className="login-button">Log in</button>
                 </Link>
                 <Link href={'/register'}>
                   <button className="register-button">Register</button>
                 </Link>
-              </>
+              </div>
             )}
-          </div>
+          </nav>
         </div>
       </header>
 
