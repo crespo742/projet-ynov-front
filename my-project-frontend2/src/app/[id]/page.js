@@ -5,16 +5,18 @@ import axios from 'axios';
 import Link from 'next/link'; // Utilisation de Link pour la navigation
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import './MotoAdPage.css'; // CSS for animations
 
 export default function MotoAdPage({ params }) {
   const [motoAd, setMotoAd] = useState(null);
   const [error, setError] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [message, setMessage] = useState('');
   const [unavailableDates, setUnavailableDates] = useState([]);
   const { id } = params;
   const [isLoggedIn, setIsLoggedIn] = useState(false); // État pour vérifier si l'utilisateur est connecté
+  const [showRentButton, setShowRentButton] = useState(false); // État pour le bouton Louer
 
   // Récupérer les informations de l'annonce de moto
   useEffect(() => {
@@ -55,6 +57,16 @@ export default function MotoAdPage({ params }) {
       fetchMotoAd();
     }
   }, [id]);
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+    setEndDate(null); // Reset end date when selecting a new start date
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+    setShowRentButton(true); // Show the rent button only when valid dates are selected
+  };
 
   const handleRent = async () => {
     try {
@@ -107,67 +119,59 @@ export default function MotoAdPage({ params }) {
       <p>Contact: {motoAd.user.email}</p>
       <p>Location: {motoAd.location}</p>
 
-      {/* <label>Start Date:</label>
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        excludeDates={unavailableDates} // Exclure les dates réservées
-        minDate={new Date()} // Exclure les jours passés
-      />
-      <br />
-      <label>End Date:</label>
-      <DatePicker
-        selected={endDate}
-        onChange={(date) => setEndDate(date)}
-        excludeDates={unavailableDates} // Exclure les dates réservées
-        minDate={new Date()} // Exclure les jours passés
-      />
-      <br />
-      <button onClick={handleRent}>Louer</button>
-      {message && <p>{message}</p>} */}
-
-      {/* Ajout de la vérification lors de la sélection d'une date */}
-      <label>Start Date:</label>
-      <DatePicker
-        selected={startDate}
-        onFocus={() => {
-          const token = localStorage.getItem('x-auth-token');
-          if (!token) {
-            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
-          }
-        }}
-        onChange={(date) => setStartDate(date)}
-        excludeDates={unavailableDates} // Exclure les dates réservées
-        minDate={new Date()} // Exclure les jours passés
-      />
-      <br />
-      <label>End Date:</label>
-      <DatePicker
-        selected={endDate}
-        onFocus={() => {
-          const token = localStorage.getItem('x-auth-token');
-          if (!token) {
-            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
-          }
-        }}
-        onChange={(date) => setEndDate(date)}
-        excludeDates={unavailableDates} // Exclure les dates réservées
-        minDate={new Date()} // Exclure les jours passés
-      />
-      <br />
-      <button
-        onClick={() => {
-          const token = localStorage.getItem('x-auth-token');
-          if (!token) {
-            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
-          } else {
-            handleRent(); // Continue l'opération si l'utilisateur est connecté
-          }
-        }}
-      >
-        Louer
-      </button>
-      {message && <p>{message}</p>}
+      {/* Date picker with restrictions and animation */}
+      <div className="date-picker">
+        <label>Start Date:</label>
+        <DatePicker
+          selected={startDate}
+          onFocus={() => {
+            const token = localStorage.getItem('x-auth-token');
+            if (!token) {
+              window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
+            }
+          }}
+          onChange={handleStartDateChange}
+          excludeDates={unavailableDates} // Exclure les dates réservées
+          minDate={new Date()} // Exclure les jours passés
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
+        />
+        <br />
+        <label>End Date:</label>
+        <DatePicker
+          selected={endDate}
+          onFocus={() => {
+            const token = localStorage.getItem('x-auth-token');
+            if (!token) {
+              window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
+            }
+          }}
+          onChange={handleEndDateChange}
+          excludeDates={unavailableDates} // Exclure les dates réservées
+          minDate={startDate} // Fin sélectionnée après la date de début
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+        />
+        <br />
+        {/* Button to rent only appears when dates are selected */}
+        {showRentButton && (
+          <button
+            onClick={() => {
+              const token = localStorage.getItem('x-auth-token');
+              if (!token) {
+                window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
+              } else {
+                handleRent(); // Continue l'opération si l'utilisateur est connecté
+              }
+            }}
+          >
+            Louer
+          </button>
+        )}
+        {message && <p>{message}</p>}
+      </div>
 
       {/* Vérification si l'utilisateur est connecté avant de proposer le lien pour envoyer un message */}
       {isLoggedIn ? (
