@@ -3,13 +3,23 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function ConversationsPage() {
   const [conversations, setConversations] = useState([]);
   const [error, setError] = useState('');
   const [currentUserId, setCurrentUserId] = useState(null); // Stocker l'ID utilisateur
+  const router = useRouter();
 
   useEffect(() => {
+    const token = localStorage.getItem('x-auth-token');
+
+    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
+    if (!token) {
+      router.push('/login');
+      return; // On arrête l'exécution de l'effet
+    }
+
     // Vérifier si l'environnement est côté client avant d'accéder à localStorage
     if (typeof window !== 'undefined') {
       const storedUser = localStorage.getItem('user');
@@ -18,7 +28,7 @@ export default function ConversationsPage() {
         setCurrentUserId(parsedUser.id); // Définir l'ID utilisateur
       }
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const fetchConversations = async () => {
