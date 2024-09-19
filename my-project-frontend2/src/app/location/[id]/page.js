@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './userReservations.css'; // Import du fichier CSS
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'; // Import Link pour redirection
 
 export default function UserReservations({ params }) {
   const [reservations, setReservations] = useState([]);
@@ -29,6 +30,7 @@ export default function UserReservations({ params }) {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/rentals/owner/${id}`);
         setReservations(response.data);
+        console.log('response.data', response.data); // Affiche les données reçues
       } catch (error) {
         console.error('Erreur lors de la récupération des réservations:', error);
         setError('Échec de la récupération des réservations');
@@ -98,7 +100,13 @@ export default function UserReservations({ params }) {
                 {reservation.paymentIntentId && (
                   <div className="reservation-actions">
                     <button className="action-button cancel" onClick={() => cancelPayment(reservation.paymentIntentId)}>Annuler la caution</button>
-                    <button className="action-button capture">Envoyer un message</button>
+
+                    {/* Bouton pour envoyer un message à l'utilisateur qui a réservé */}
+                    {reservation.userId && (
+                      <Link href={`/chat/${reservation.userId}`}>
+                        <button className="action-button capture">Envoyer un message</button>
+                      </Link>
+                    )}
                   </div>
                 )}
               </div>

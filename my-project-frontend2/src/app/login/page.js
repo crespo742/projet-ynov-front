@@ -25,17 +25,15 @@ export default function Login() {
 
       // Redirection et rafraîchissement de la page
       if (user.isAdmin || user.isModo) {
-        console.log('trois');
         router.push('/admin/users');
       } else {
-        console.log('deux');
         router.push('/');
       }
       
       // Attendre un court instant avant d'actualiser la page
       setTimeout(() => {
         window.location.reload();
-      }, 1); // Délai de 100 ms pour permettre la redirection
+      }, 100); // Délai de 100 ms pour permettre la redirection
 
     } catch (error) {
       setMessage('Login failed. Please try again.');

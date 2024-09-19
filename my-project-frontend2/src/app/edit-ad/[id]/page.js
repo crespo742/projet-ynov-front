@@ -19,6 +19,10 @@ export default function EditMotoAd({ params }) {
     location: ''
   });
 
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -46,9 +50,30 @@ export default function EditMotoAd({ params }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem('x-auth-token');
-      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${id}`, formData, {
-        headers: { 'x-auth-token': token }
+
+      // Utilisation de FormData pour envoyer des fichiers et des données
+      const form = new FormData();
+      form.append('title', formData.title);
+      form.append('description', formData.description);
+      form.append('pricePerDay', formData.pricePerDay);
+      form.append('brand', formData.brand);
+      form.append('model', formData.model);
+      form.append('year', formData.year);
+      form.append('mileage', formData.mileage);
+      form.append('location', formData.location);
+
+      // Ajouter les images si elles sont sélectionnées
+      if (image1) form.append('image1', image1);
+      if (image2) form.append('image2', image2);
+      if (image3) form.append('image3', image3);
+
+      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${id}`, form, {
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'multipart/form-data',
+        },
       });
+
       router.push('/profile'); // Redirige vers le profil après la mise à jour
     } catch (error) {
       console.error('Failed to update ad', error);
@@ -120,10 +145,32 @@ export default function EditMotoAd({ params }) {
           />
           <br />
 
+          {/* Inputs pour les nouvelles images */}
+          <label>Image 1:</label>
+          <input
+            type="file"
+            onChange={(e) => setImage1(e.target.files[0])}
+            accept="image/*"
+          />
+          <br />
+          <label>Image 2:</label>
+          <input
+            type="file"
+            onChange={(e) => setImage2(e.target.files[0])}
+            accept="image/*"
+          />
+          <br />
+          <label>Image 3:</label>
+          <input
+            type="file"
+            onChange={(e) => setImage3(e.target.files[0])}
+            accept="image/*"
+          />
+          <br />
+
           {/* Champ de localisation avec l'autocomplétion */}
           <LocationAutocomplete onSelectLocation={handleLocationSelect} />
 
-          <br />
           <button type="submit">Update Ad</button>
         </form>
       ) : (

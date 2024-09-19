@@ -35,7 +35,7 @@ export default function Register() {
       // Attendre un court instant avant d'actualiser la page
       setTimeout(() => {
         window.location.reload();
-      }, 1); // Délai de 100 ms pour permettre la redirection
+      }, 100); // Délai de 100 ms pour permettre la redirection
     } catch (error) {
       // Gestion des différentes erreurs
       if (error.response) {

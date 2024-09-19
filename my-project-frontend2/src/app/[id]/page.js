@@ -118,51 +118,47 @@ export default function MotoAdPage({ params }) {
       <p>Model: {motoAd.model}</p>
       <p>Year: {motoAd.year}</p>
       <p>Mileage: {motoAd.mileage} km</p>
-      <p>Seller: {motoAd.user.name}</p>
+      {/* Lien vers le profil de l'utilisateur qui a posté l'annonce */}
+      <p>Seller: <Link href={`/user/${motoAd.user._id}`}>{motoAd.user.name}</Link></p>
       <p>Contact: {motoAd.user.email}</p>
       <p>Location: {motoAd.location}</p>
 
-      {/* Ajout de la vérification lors de la sélection d'une date */}
-      <label>Start Date:</label>
-      <DatePicker
-        selected={startDate}
-        onFocus={() => {
-          const token = localStorage.getItem('x-auth-token');
-          if (!token) {
-            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
-          }
-        }}
-        onChange={(date) => setStartDate(date)}
-        excludeDates={unavailableDates} // Exclure les dates réservées
-        minDate={new Date()} // Exclure les jours passés
-      />
-      <br />
-      <label>End Date:</label>
-      <DatePicker
-        selected={endDate}
-        onFocus={() => {
-          const token = localStorage.getItem('x-auth-token');
-          if (!token) {
-            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
-          }
-        }}
-        onChange={(date) => setEndDate(date)}
-        excludeDates={unavailableDates} // Exclure les dates réservées
-        minDate={new Date()} // Exclure les jours passés
-      />
-      <br />
-      <button
-        onClick={() => {
-          const token = localStorage.getItem('x-auth-token');
-          if (!token) {
-            window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
-          } else {
-            handleRent(); // Continue l'opération si l'utilisateur est connecté
-          }
-        }}
-      >
-        Louer
-      </button>
+      {/* Empêcher l'utilisateur de louer sa propre moto */}
+      {isLoggedIn && currentUserId !== motoAd.user._id ? (
+        <>
+          {/* Ajout de la vérification lors de la sélection d'une date */}
+          <label>Start Date:</label>
+          <DatePicker
+            selected={startDate}
+            onFocus={() => {
+              const token = localStorage.getItem('x-auth-token');
+              if (!token) {
+                window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
+              }
+            }}
+            onChange={(date) => setStartDate(date)}
+            excludeDates={unavailableDates} // Exclure les dates réservées
+            minDate={new Date()} // Exclure les jours passés
+          />
+          <br />
+          <label>End Date:</label>
+          <DatePicker
+            selected={endDate}
+            onFocus={() => {
+              const token = localStorage.getItem('x-auth-token');
+              if (!token) {
+                window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
+              }
+            }}
+            onChange={(date) => setEndDate(date)}
+            excludeDates={unavailableDates} // Exclure les dates réservées
+            minDate={new Date()} // Exclure les jours passés
+          />
+          <br />
+          <button onClick={handleRent}>Louer</button>
+        </>
+      ) : null}
+
       {message && <p>{message}</p>}
 
       {/* Vérification si l'utilisateur est connecté et s'il est différent du vendeur avant de proposer le lien pour envoyer un message */}

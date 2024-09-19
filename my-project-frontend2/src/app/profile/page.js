@@ -39,7 +39,7 @@ export default function ProfilePage() {
       await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${adId}`, {
         headers: { 'x-auth-token': token },
       });
-      router.refresh(); 
+      window.location.reload(); 
     } catch (error) {
       setError('Failed to delete ad');
     }
@@ -51,7 +51,7 @@ export default function ProfilePage() {
 
     setTimeout(() => {
       window.location.reload();
-    }, 1); // Délai de 100 ms pour permettre la redirection
+    }, 100); // Délai de 100 ms pour permettre la redirection
   };
 
   if (!profile) {
@@ -64,6 +64,12 @@ export default function ProfilePage() {
       {error && <p>{error}</p>}
       <h2>Nom: {profile.user.name}</h2>
       <h2>Email: {profile.user.email}</h2>
+      <h2>Telephone: {profile.phone ? profile.phone : 'pas de numero de telephone'}</h2>
+
+      {/* Lien vers la page de modification du profil */}
+      <Link href={`/profile/${profile.user._id}`}>
+        <button>Modifier le profil</button>
+      </Link>
 
       {/* Bouton de déconnexion */}
       <button onClick={handleLogout}>Déconnecter</button>
@@ -75,7 +81,7 @@ export default function ProfilePage() {
       <ul>
         {profile.motoAds.map((ad) => (
           <li key={ad._id}>
-            <Link href={`/edit-ad/${ad._id}`}>
+            <Link href={`/${ad._id}`}>
               <div style={{ cursor: 'pointer', border: '1px solid black', padding: '10px', margin: '10px 0' }}>
                 <h4>{ad.title}</h4>
                 <p>Prix par jour: {ad.pricePerDay}€</p>
