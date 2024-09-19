@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import useOnclickOutside from 'react-cool-onclickoutside';
+import './FilterComponent.css'; // Import du fichier CSS
 
 export default function LocationAutocomplete({ onSelectLocation, resetLocation }) {
   const [inputValue, setInputValue] = useState('');
@@ -38,13 +39,12 @@ export default function LocationAutocomplete({ onSelectLocation, resetLocation }
       } = suggestion;
 
       return (
-        <li key={place_id} onClick={handleSelect(suggestion)}>
+        <li key={place_id} onClick={handleSelect(suggestion)} className="autocomplete-suggestion">
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       );
     });
 
-  // Reset the input value when resetLocation changes
   useEffect(() => {
     if (resetLocation) {
       setInputValue(''); // Clear the input field
@@ -53,13 +53,14 @@ export default function LocationAutocomplete({ onSelectLocation, resetLocation }
   }, [resetLocation]);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="autocomplete-container">
       <input
         value={inputValue}
         onChange={handleInput}
         placeholder="Enter a city"
+        className="filter-input" // Appliquer le style des inputs
       />
-      {status === 'OK' && <ul>{renderSuggestions()}</ul>}
+      {status === 'OK' && <ul className="autocomplete-suggestions">{renderSuggestions()}</ul>}
     </div>
   );
 }

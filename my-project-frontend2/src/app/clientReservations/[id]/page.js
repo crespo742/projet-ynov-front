@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Link from 'next/link'; // Importer Link de Next.js
-import './clientReservations.css'; // Import du fichier CSS
+import Link from 'next/link';
+import './clientReservations.css';
 import { useRouter } from 'next/navigation';
 
 export default function ClientReservations({ params }) {
@@ -19,7 +19,7 @@ export default function ClientReservations({ params }) {
     // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
     if (!token) {
       router.push('/login');
-      return; // On arrête l'exécution de l'effet
+      return;
     }
   }, [router]);
 
@@ -51,10 +51,20 @@ export default function ClientReservations({ params }) {
               {/* Utiliser Link pour rendre l'élément cliquable */}
               <Link href={`/${reservation.motoAdId ? reservation.motoAdId._id : ''}`} passHref>
                 <div className="reservation-card">
-                  <h2 className="reservation-moto">Moto: {reservation.motoAdId ? reservation.motoAdId.title : 'Non spécifiée'}</h2>
-                  <p className="reservation-dates">Du {new Date(reservation.startDate).toLocaleDateString()} au {new Date(reservation.endDate).toLocaleDateString()}</p>
-                  <p className="reservation-amount">Montant: {reservation.amount} €</p>
-                  <p className="reservation-deposit">Caution: {reservation.deposit} €</p>
+                  {/* Affichage de l'image si disponible */}
+                  {reservation.motoAdId && reservation.motoAdId.image && (
+                    <img
+                      src={reservation.motoAdId.image[0]} // Afficher la première image de l'annonce
+                      alt={`${reservation.motoAdId.title}`}
+                      className="reservation-moto-image"
+                    />
+                  )}
+                  <div className="reservation-details">
+                    <h2 className="reservation-moto">Moto: {reservation.motoAdId ? reservation.motoAdId.title : 'Non spécifiée'}</h2>
+                    <p className="reservation-dates">Du {new Date(reservation.startDate).toLocaleDateString()} au {new Date(reservation.endDate).toLocaleDateString()}</p>
+                    <p className="reservation-amount">Montant: {reservation.amount} €</p>
+                    <p className="reservation-deposit">Caution: {reservation.deposit} €</p>
+                  </div>
                 </div>
               </Link>
             </li>

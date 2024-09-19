@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import LocationAutocomplete from '../../components/LocationAutocomplete'; // Import du composant d'autocomplétion
+import LocationAutocomplete from '../../components/LocationAutocomplete';
+import './EditMotoAd.css'; // Utiliser le même fichier CSS que la page de création
 
 export default function EditMotoAd({ params }) {
   const { id } = params;
@@ -18,6 +19,10 @@ export default function EditMotoAd({ params }) {
     mileage: '',
     location: ''
   });
+
+  const [image1, setImage1] = useState(null);
+  const [image2, setImage2] = useState(null);
+  const [image3, setImage3] = useState(null);
 
   const router = useRouter();
 
@@ -46,88 +51,155 @@ export default function EditMotoAd({ params }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem('x-auth-token');
-      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${id}`, formData, {
-        headers: { 'x-auth-token': token }
+
+      const form = new FormData();
+      form.append('title', formData.title);
+      form.append('description', formData.description);
+      form.append('pricePerDay', formData.pricePerDay);
+      form.append('brand', formData.brand);
+      form.append('model', formData.model);
+      form.append('year', formData.year);
+      form.append('mileage', formData.mileage);
+      form.append('location', formData.location);
+
+      if (image1) form.append('image1', image1);
+      if (image2) form.append('image2', image2);
+      if (image3) form.append('image3', image3);
+
+      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${id}`, form, {
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'multipart/form-data',
+        },
       });
-      router.push('/profile'); // Redirige vers le profil après la mise à jour
+
+      router.push('/profile'); // Redirige vers la page de profil après la mise à jour
     } catch (error) {
       console.error('Failed to update ad', error);
     }
   };
 
   const handleLocationSelect = (location) => {
-    setFormData({ ...formData, location }); // Mettre à jour la localisation sélectionnée
+    setFormData({ ...formData, location });
+  };
+
+  const handleImageChange = (index, event) => {
+    if (index === 0) setImage1(event.target.files[0]);
+    if (index === 1) setImage2(event.target.files[0]);
+    if (index === 2) setImage3(event.target.files[0]);
+  };
+
+  const handleImageClick = (index) => {
+    document.getElementById(`image-input-${index}`).click(); // Simuler un clic sur l'input file
   };
 
   return (
-    <div>
-      <h1>Edit Moto Ad</h1>
+    <div className="add-moto-container">
+      <h1 className="page-title">Modifier l'annonce de moto</h1>
       {ad ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="add-moto-form">
+          <label>Titre:</label>
           <input
             type="text"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            placeholder="Title"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Description:</label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            placeholder="Description"
+            className="textarea-field"
             required
           />
-          <br />
+
+          <label>Prix par jour (€):</label>
           <input
             type="number"
             value={formData.pricePerDay}
             onChange={(e) => setFormData({ ...formData, pricePerDay: e.target.value })}
-            placeholder="Price per day"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Marque:</label>
           <input
             type="text"
             value={formData.brand}
             onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-            placeholder="Brand"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Modèle:</label>
           <input
             type="text"
             value={formData.model}
             onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-            placeholder="Model"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Année:</label>
           <input
             type="number"
             value={formData.year}
             onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-            placeholder="Year"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Kilométrage:</label>
           <input
             type="number"
             value={formData.mileage}
             onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
-            placeholder="Mileage"
+            className="input-field"
             required
           />
-          <br />
 
-          {/* Champ de localisation avec l'autocomplétion */}
-          <LocationAutocomplete onSelectLocation={handleLocationSelect} />
+          <div className="image-upload-section">
+            <label>Images:</label>
+            <div className="image-inputs">
+              {[image1, image2, image3].map((image, index) => (
+                <div
+                  key={index}
+                  className="image-upload-wrapper"
+                  onClick={() => handleImageClick(index)}
+                >
+                  <input
+                    type="file"
+                    id={`image-input-${index}`}
+                    name={`image${index + 1}`}
+                    onChange={(e) => handleImageChange(index, e)}
+                    accept="image/*"
+                    className="input-file"
+                  />
+                  {image ? (
+                    <img
+                      src={URL.createObjectURL(image)}
+                      alt={`Aperçu image ${index + 1}`}
+                      className="image-preview"
+                    />
+                  ) : (
+                    <div className="placeholder">Ajouter une image</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
-          <br />
-          <button type="submit">Update Ad</button>
+          <label>Localisation:</label>
+          <div className="location-autocomplete">
+            <LocationAutocomplete onSelectLocation={handleLocationSelect} />
+          </div>
+
+          <button type="submit" className="submit-button">Mettre à jour l'annonce</button>
         </form>
       ) : (
-        <p>Loading...</p>
+        <p>Chargement...</p>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import FilterComponent from './components/FilterComponent';
+import './Home.css'; // Import du fichier CSS pour un style similaire à l'exemple donné.
 
 export default function Home() {
   const [motoAds, setMotoAds] = useState([]);
@@ -11,7 +12,6 @@ export default function Home() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Récupérer les annonces de motos
     const fetchMotoAds = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads`);
@@ -23,7 +23,6 @@ export default function Home() {
 
     fetchMotoAds();
 
-    // Récupérer les informations de l'utilisateur connecté
     const currentUser = localStorage.getItem('user');
     if (currentUser) {
       setUser(JSON.parse(currentUser)); // Définir l'utilisateur en tant qu'objet parsé
@@ -31,38 +30,36 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <h1>All Moto Ads</h1>
+    <div className="home-container">
+      <h1 className="page-title">Toutes nos motos à louer</h1>
 
-      {/* Bouton pour accéder à la page de chat */}
-      <FilterComponent setMotoAds={setMotoAds} />
+      {/* Section des filtres */}
+      <div className="filters-container">
+        <FilterComponent setMotoAds={setMotoAds} />
+      </div>
 
-      {error && <p>{error}</p>}
-      <ul>
+      {/* Section des annonces */}
+      <div className="ads-grid">
+        {error && <p>{error}</p>}
         {motoAds.map((ad) => (
-          <li key={ad._id}>
+          <div key={ad._id} className="ad-card">
             <Link href={`/${ad._id}`}>
-              <div style={{ cursor: 'pointer', border: '1px solid black', padding: '10px', margin: '10px 0' }}>
-                <h2>{ad.title}</h2>
+              <div className="ad-content">
                 {ad.image && ad.image.length > 0 && (
                   <img
                     src={ad.image[0]}
                     alt={ad.title}
-                    style={{ maxWidth: '100%', height: '300px', marginBottom: '10px' }}
+                    className="ad-image"
                   />
                 )}
-                <p>{ad.description}</p>
-                <p>PricePerDay: {ad.pricePerDay} €</p>
-                <p>Brand: {ad.brand}</p>
-                <p>Model: {ad.model}</p>
-                <p>Year: {ad.year}</p>
-                <p>Mileage: {ad.mileage} km</p>
-                <p>Location: {ad.location}</p>
+                <h2 className="ad-title">{ad.title}</h2>
+                <p className="ad-price">{ad.pricePerDay} € / jour</p>
+                <button className="ad-button">Réserver ce véhicule</button>
               </div>
             </Link>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
