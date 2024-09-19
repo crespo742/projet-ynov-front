@@ -91,7 +91,7 @@ export default function ProfilePage() {
                     className="ad-image"
                   />
                 ) : (
-                  <div className="no-image">Pas d'image</div>
+                  <div className="no-image">Pas d&#39;image</div>
                 )}
                 <div className="ad-info">
                   <h4 className="ad-title">{ad.title}</h4>

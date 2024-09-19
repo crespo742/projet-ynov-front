@@ -95,7 +95,7 @@ export default function EditMotoAd({ params }) {
 
   return (
     <div className="add-moto-container">
-      <h1 className="page-title">Modifier l'annonce de moto</h1>
+      <h1 className="page-title">Modifier l&#39;annonce de moto</h1>
       {ad ? (
         <form onSubmit={handleSubmit} className="add-moto-form">
           <label>Titre:</label>
@@ -196,7 +196,7 @@ export default function EditMotoAd({ params }) {
             <LocationAutocomplete onSelectLocation={handleLocationSelect} />
           </div>
 
-          <button type="submit" className="submit-button">Mettre à jour l'annonce</button>
+          <button type="submit" className="submit-button">Mettre à jour l&#39;annonce</button>
         </form>
       ) : (
         <p>Chargement...</p>
