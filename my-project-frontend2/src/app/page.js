@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import FilterComponent from './components/FilterComponent';
-// import './Home.css'; // Import du fichier CSS pour un style similaire à l'exemple donné.
+import './Home.css'; // Import du fichier CSS pour un style similaire à l'exemple donné.
 
 export default function Home() {
   const [motoAds, setMotoAds] = useState([]);
@@ -16,7 +16,6 @@ export default function Home() {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads`);
         setMotoAds(response.data);
-        console.log(response.data);
       } catch (error) {
         setError('Failed to fetch moto ads');
       }
