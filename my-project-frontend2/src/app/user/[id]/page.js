@@ -73,7 +73,7 @@ export default function UserProfile({ params }) {
 
     return (
         <div>
-            <h1>{user.name}'s Profile</h1>
+            <h1>{user.name}&#39;s Profile</h1>
             <p>Email: {user.email}</p>
             <p>Telephone: {user.phone ? user.phone : 'pas de numero de telephone'}</p>
             <p>Current Rating: {userRating ? userRating.toFixed(1) : 'Not rated yet'}</p>
@@ -102,7 +102,7 @@ export default function UserProfile({ params }) {
                 </>
             ) : null}
 
-            <h3>{user.name}'s Ads</h3>
+            <h3>{user.name}&#39;s Ads</h3>
             {ads.length > 0 ? (
                 <ul>
                     {ads.map((ad) => (
