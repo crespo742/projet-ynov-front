@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import LocationAutocomplete from '../../components/LocationAutocomplete'; // Import du composant d'autocomplétion
+import LocationAutocomplete from '../../components/LocationAutocomplete';
+import './EditMotoAd.css'; // Utiliser le même fichier CSS que la page de création
 
 export default function EditMotoAd({ params }) {
   const { id } = params;
@@ -81,69 +82,85 @@ export default function EditMotoAd({ params }) {
   };
 
   const handleLocationSelect = (location) => {
-    setFormData({ ...formData, location }); // Mettre à jour la localisation sélectionnée
+    setFormData({ ...formData, location });
+  };
+
+  const handleImageChange = (index, event) => {
+    if (index === 0) setImage1(event.target.files[0]);
+    if (index === 1) setImage2(event.target.files[0]);
+    if (index === 2) setImage3(event.target.files[0]);
+  };
+
+  const handleImageClick = (index) => {
+    document.getElementById(`image-input-${index}`).click(); // Simuler un clic sur l'input file
   };
 
   return (
-    <div>
-      <h1>Edit Moto Ad</h1>
+    <div className="add-moto-container">
+      <h1 className="page-title">Modifier l&#39;annonce de moto</h1>
       {ad ? (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="add-moto-form">
+          <label>Titre:</label>
           <input
             type="text"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            placeholder="Title"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Description:</label>
           <textarea
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            placeholder="Description"
+            className="textarea-field"
             required
           />
-          <br />
+
+          <label>Prix par jour (€):</label>
           <input
             type="number"
             value={formData.pricePerDay}
             onChange={(e) => setFormData({ ...formData, pricePerDay: e.target.value })}
-            placeholder="Price per day"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Marque:</label>
           <input
             type="text"
             value={formData.brand}
             onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-            placeholder="Brand"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Modèle:</label>
           <input
             type="text"
             value={formData.model}
             onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-            placeholder="Model"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Année:</label>
           <input
             type="number"
             value={formData.year}
             onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-            placeholder="Year"
+            className="input-field"
             required
           />
-          <br />
+
+          <label>Kilométrage:</label>
           <input
             type="number"
             value={formData.mileage}
             onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
-            placeholder="Mileage"
+            className="input-field"
             required
           />
-          <br />
 
           {/* Inputs pour les nouvelles images */}
           <label>Image 1:</label>
@@ -174,7 +191,7 @@ export default function EditMotoAd({ params }) {
           <button type="submit">Update Ad</button>
         </form>
       ) : (
-        <p>Loading...</p>
+        <p>Chargement...</p>
       )}
     </div>
   );

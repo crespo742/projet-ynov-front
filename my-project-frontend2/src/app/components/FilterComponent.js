@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import LocationAutocomplete from './LocationAutocomplete';
+import './FilterComponent.css'; // Import du fichier CSS
 
 export default function FilterComponent({ setMotoAds }) {
   const [filters, setFilters] = useState({
@@ -14,8 +15,8 @@ export default function FilterComponent({ setMotoAds }) {
     search: '',
     location: '',
   });
-  
-  const [resetLocation, setResetLocation] = useState(false); // State to reset the location input
+
+  const [resetLocation, setResetLocation] = useState(false); 
 
   const handleInputChange = (e) => {
     setFilters({
@@ -38,7 +39,7 @@ export default function FilterComponent({ setMotoAds }) {
 
   const fetchAllMotoAds = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads`); // Appel pour récupérer toutes les annonces
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads`);
       setMotoAds(response.data);
     } catch (error) {
       console.error('Failed to fetch all moto ads:', error);
@@ -54,28 +55,27 @@ export default function FilterComponent({ setMotoAds }) {
       search: '',
       location: '',
     });
-    setResetLocation(true); // Trigger reset for the location field
-
-    fetchAllMotoAds(); // Récupérer toutes les annonces après réinitialisation des filtres
+    setResetLocation(true); 
+    fetchAllMotoAds();
   };
 
-  // Fonction pour gérer l'appui sur "Entrée"
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Empêche le comportement par défaut du formulaire
-      fetchFilteredAds();  // Applique les filtres
+      e.preventDefault();
+      fetchFilteredAds();
     }
   };
 
   return (
-    <div>
+    <div className="filter-container">
       <input
         type="text"
         name="search"
         value={filters.search}
         onChange={handleInputChange}
         placeholder="Search by title"
-        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
+        onKeyDown={handleKeyPress}
+        className="filter-input"
       />
       <input
         type="text"
@@ -83,7 +83,8 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.brand}
         onChange={handleInputChange}
         placeholder="Filter by brand"
-        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
+        onKeyDown={handleKeyPress}
+        className="filter-input"
       />
       <input
         type="number"
@@ -91,7 +92,8 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.year}
         onChange={handleInputChange}
         placeholder="Filter by year"
-        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
+        onKeyDown={handleKeyPress}
+        className="filter-input"
       />
       <input
         type="number"
@@ -99,7 +101,8 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.minPrice}
         onChange={handleInputChange}
         placeholder="Min price"
-        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
+        onKeyDown={handleKeyPress}
+        className="filter-input"
       />
       <input
         type="number"
@@ -107,16 +110,19 @@ export default function FilterComponent({ setMotoAds }) {
         value={filters.maxPrice}
         onChange={handleInputChange}
         placeholder="Max price"
-        onKeyDown={handleKeyPress} // Ajoute le listener sur "Entrée"
+        onKeyDown={handleKeyPress}
+        className="filter-input"
       />
 
       <LocationAutocomplete
         onSelectLocation={(location) => setFilters({ ...filters, location })}
-        resetLocation={resetLocation} // Pass the resetLocation state to the component
+        resetLocation={resetLocation}
       />
+    <div>
+            <button onClick={fetchFilteredAds} className="filter-button">Apply Filters</button>
+      <button onClick={resetFilters} className="filter-button reset-button">Reset Filters</button>
+    </div>
 
-      <button onClick={fetchFilteredAds}>Apply Filters</button>
-      <button onClick={resetFilters} style={{ marginLeft: '10px' }}>Reset Filters</button>
     </div>
   );
 }

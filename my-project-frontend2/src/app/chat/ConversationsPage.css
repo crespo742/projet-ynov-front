@@ -1,0 +1,84 @@
+/* ConversationsPage.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .conversations-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .conversations-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #007bff;
+  }
+  
+  .error-message {
+    text-align: center;
+    color: #d9534f;
+    margin-bottom: 1rem;
+  }
+  
+  .conversations-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .conversation-item {
+    margin-bottom: 1rem;
+  }
+  
+  .conversation-card {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .conversation-card:hover {
+    transform: translateY(-8px);
+    background-color: #eef2f7;
+  }
+  
+  .conversation-with {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  .latest-message {
+    font-size: 1rem;
+    color: #555;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .conversation-item a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  a:hover .conversation-with {
+    color: #0056b3;
+  }
+  

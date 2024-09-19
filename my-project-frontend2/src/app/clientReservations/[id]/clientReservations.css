@@ -2,25 +2,25 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f0f4f8;
   margin: 0;
   padding: 0;
   color: #333;
 }
 
 .reservations-container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 2rem auto;
   padding: 2rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .reservations-title {
   font-size: 2.5rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
   color: #007bff;
 }
@@ -47,9 +47,10 @@ body {
 }
 
 .reservation-card {
+  display: flex;
   background-color: #ffffff;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
@@ -59,6 +60,19 @@ body {
 
 .reservation-card:hover {
   transform: translateY(-5px);
+}
+
+.reservation-moto-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 1.5rem;
+}
+
+.reservation-details {
+  display: flex;
+  flex-direction: column;
 }
 
 .reservation-moto {

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import './ProfilePage.css'; // Import du fichier CSS mis à jour
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState(null);
@@ -13,10 +14,9 @@ export default function ProfilePage() {
   useEffect(() => {
     const token = localStorage.getItem('x-auth-token');
 
-    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
     if (!token) {
       router.push('/login');
-      return; // On arrête l'exécution de l'effet
+      return;
     }
 
     const fetchProfile = async () => {
@@ -26,7 +26,7 @@ export default function ProfilePage() {
         });
         setProfile(response.data);
       } catch (error) {
-        setError('Failed to fetch profile');
+        setError('Échec de la récupération du profil');
       }
     };
 
@@ -39,9 +39,9 @@ export default function ProfilePage() {
       await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${adId}`, {
         headers: { 'x-auth-token': token },
       });
-      window.location.reload(); 
+      window.location.reload();
     } catch (error) {
-      setError('Failed to delete ad');
+      setError("Échec de la suppression de l'annonce");
     }
   };
 
@@ -55,50 +55,59 @@ export default function ProfilePage() {
   };
 
   if (!profile) {
-    return <p>Loading...</p>;
+    return <p>Chargement...</p>;
   }
 
   return (
-    <div>
-      <h1>Profil Utilisateur</h1>
-      {error && <p>{error}</p>}
-      <h2>Nom: {profile.user.name}</h2>
-      <h2>Email: {profile.user.email}</h2>
-      <h2>Telephone: {profile.phone ? profile.phone : 'pas de numero de telephone'}</h2>
+    <div className="profile-container">
+      <h1 className="profile-title">Profil Utilisateur</h1>
+      {error && <p className="error-message">{error}</p>}
+      <h2 className="profile-detail">Nom: {profile.user.name}</h2>
+      <h2 className="profile-detail">Email: {profile.user.email}</h2>
+      <h2 className="profile-detail">Telephone: {profile.phone ? profile.phone : 'pas de numero de telephone'}</h2>
 
       {/* Lien vers la page de modification du profil */}
       <Link href={`/profile/${profile.user._id}`}>
         <button>Modifier le profil</button>
       </Link>
 
-      {/* Bouton de déconnexion */}
-      <button onClick={handleLogout}>Déconnecter</button>
+      <button onClick={handleLogout} className="logout-button">Déconnexion</button>
 
-      <h3>Vos annonces publiées</h3>
+      <h3 className="profile-subtitle">Vos annonces publiées</h3>
       <Link href={`/add-moto`}>
-        <button>Ajouter une annonce</button>
+        <button className="add-ad-button">Ajouter une annonce</button>
       </Link>
-      <ul>
+
+      <div className="ad-list">
         {profile.motoAds.map((ad) => (
-          <li key={ad._id}>
+          <div key={ad._id} className="ad-card">
             <Link href={`/${ad._id}`}>
-              <div style={{ cursor: 'pointer', border: '1px solid black', padding: '10px', margin: '10px 0' }}>
-                <h4>{ad.title}</h4>
-                <p>Prix par jour: {ad.pricePerDay}€</p>
-                <p>Marque: {ad.brand}</p>
-                <p>Modèle: {ad.model}</p>
-                <p>Année: {ad.year}</p>
-                <p>Kilométrage: {ad.mileage} km</p>
-                <p>Location: {ad.location}</p>
+              <div className="ad-card-inner">
+                {/* Vérifiez ici si le chemin de l'image est directement utilisable comme dans la page des réservations */}
+                {ad.image && ad.image.length > 0 ? (
+                  <img
+                    src={ad.image[0]} // Utilisation directe de l'image comme sur la page de réservation
+                    alt={ad.title}
+                    className="ad-image"
+                  />
+                ) : (
+                  <div className="no-image">Pas d&#39;image</div>
+                )}
+                <div className="ad-info">
+                  <h4 className="ad-title">{ad.title}</h4>
+                  <p className="ad-price">{ad.pricePerDay}€/jour</p>
+                </div>
               </div>
             </Link>
-            <button onClick={() => handleDelete(ad._id)}>Supprimer</button>
-            <Link href={`/edit-ad/${ad._id}`}>
-              <button>Modifier</button>
-            </Link>
-          </li>
+            <div className="ad-actions">
+              <button onClick={() => handleDelete(ad._id)} className="delete-button">Supprimer</button>
+              <Link href={`/edit-ad/${ad._id}`}>
+                <button className="edit-button">Modifier</button>
+              </Link>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

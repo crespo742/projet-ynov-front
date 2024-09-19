@@ -18,6 +18,11 @@ export default function Register() {
     const passwordRegex = /^(?=.*[A-Z]).{8,}$/; // Au moins 8 caractères et une majuscule
     if (!passwordRegex.test(password)) {
       setMessage('Le mot de passe doit comporter au moins 8 caractères et inclure une majuscule.');
+
+      // Effacer le message après 4 secondes
+      setTimeout(() => {
+        setMessage('');
+      }, 4000); // Le message disparaîtra après 4 secondes
       return; // Arrêter l'exécution si le mot de passe ne correspond pas au regex
     }
 
@@ -47,6 +52,11 @@ export default function Register() {
       } else {
         setMessage('Registration failed. Please try again.');
       }
+
+      // Effacer le message d'erreur après 4 secondes
+      setTimeout(() => {
+        setMessage('');
+      }, 4000); // Le message disparaîtra après 4 secondes
     }
   };
 

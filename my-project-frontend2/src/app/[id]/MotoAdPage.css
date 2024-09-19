@@ -1,0 +1,170 @@
+.moto-ad-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.moto-ad-images {
+    margin-bottom: 20px;
+}
+
+.image-grid {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.moto-image {
+    width: 375px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 0 10px;
+    border: 2px solid #ddd;
+}
+
+.moto-ad-details {
+    margin-top: 20px;
+}
+
+.moto-title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.moto-location-year {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.moto-price {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #2980b9;
+    text-align: left;
+}
+
+.secure-payment-desc {
+    font-size: 1.1rem;
+    color: #34495e;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.criteria-list {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    display: grid;
+    gap: 10px;
+}
+
+.moto-description {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 40px;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.date-picker-section {
+    margin: 40px 0;
+    display: grid;
+}
+
+.date-picker-section label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #2980b9;
+    font-weight: bold;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.rent-button {
+    padding: 12px 40px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.2);
+}
+
+.rent-button:hover {
+    background-color: #228b22;
+}
+
+.send-message-button,
+.login-button {
+    padding: 12px 40px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.2);
+}
+
+.send-message-button:hover,
+.login-button:hover {
+    background-color: #2980b9;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover .learn-more {
+    color: #1abc9c;
+}
+
+
+/* Ajoute cette règle pour positionner correctement le calendrier sous les inputs */
+.react-datepicker-wrapper {
+    display: inline-block; /* Force l'input à s'aligner en ligne */
+    width: auto; /* Ajuste la largeur pour l'adapter au contenu */
+}
+
+.date-picker-section {
+    margin: 40px 0;
+    display: flex;
+    flex-direction: column; /* S'assure que les labels et les inputs soient alignés verticalement */
+    align-items: flex-start; /* Aligne à gauche les labels et les inputs */
+}
+
+.date-picker-section label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #2980b9;
+    font-weight: bold;
+}

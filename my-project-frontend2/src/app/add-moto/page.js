@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import LocationAutocomplete from '../components/LocationAutocomplete'; // Import du composant
+import LocationAutocomplete from '../components/LocationAutocomplete';
+import './AddMoto.css';
 
 export default function AddMoto() {
   const [title, setTitle] = useState('');
@@ -13,25 +14,37 @@ export default function AddMoto() {
   const [model, setModel] = useState('');
   const [year, setYear] = useState('');
   const [mileage, setMileage] = useState('');
-  const [location, setLocation] = useState(''); // Localisation
-  const [images, setImages] = useState([null, null, null]); // Tableau pour 3 images
+  const [location, setLocation] = useState('');
+  const [images, setImages] = useState([null, null, null]); // Pour les 3 images
   const [message, setMessage] = useState('');
   const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem('x-auth-token');
 
-    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
     if (!token) {
       router.push('/login');
-      return; // On arrête l'exécution de l'effet
+      return;
     }
   }, [router]);
 
+  // Fonction pour gérer les changements d'image
   const handleImageChange = (index, event) => {
     const newImages = [...images];
     newImages[index] = event.target.files[0];
-    setImages(newImages); // Mettez à jour l'image à l'index correct
+    setImages(newImages);
+  };
+
+  const handleImageClick = (index) => {
+    document.getElementById(`image-input-${index}`).click(); // Simuler le clic sur l'input file
+  };
+
+  // Validation pour n'accepter que des chiffres dans les champs Year, Mileage et PricePerDay
+  const handleNumericChange = (setter) => (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) { // Vérifier que la valeur contient uniquement des chiffres
+      setter(value);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -47,12 +60,11 @@ export default function AddMoto() {
       formData.append('model', model);
       formData.append('year', year);
       formData.append('mileage', mileage);
-      formData.append('location', location); // Ajouter la localisation
+      formData.append('location', location);
 
-      // Ajouter les 3 images (si elles sont sélectionnées)
       images.forEach((image, index) => {
         if (image) {
-          formData.append(`image${index + 1}`, image); // Nom unique pour chaque image
+          formData.append(`image${index + 1}`, image);
         }
       });
 
@@ -66,105 +78,114 @@ export default function AddMoto() {
           },
         }
       );
-      setMessage('Ad created successfully!');
+      setMessage('Annonce créée avec succès !');
       router.push('/');
     } catch (error) {
-      setMessage('Failed to create ad. Please try again.');
+      setMessage('Échec de la création de l\'annonce. Veuillez réessayer.');
     }
   };
 
   return (
-    <div>
-      <h1>Add a New Moto Ad</h1>
-      <form encType="multipart/form-data" onSubmit={handleSubmit}>
-        <label>Title:</label>
+    <div className="add-moto-container">
+      <h1 className="page-title">Ajouter une nouvelle annonce de moto</h1>
+      <form encType="multipart/form-data" onSubmit={handleSubmit} className="add-moto-form">
+        <label>Titre:</label>
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
+          className="input-field"
         />
-        <br />
+
         <label>Description:</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
+          className="textarea-field"
         />
-        <br />
-        <label>PricePerDay:</label>
+
+        <label>Prix par jour (€):</label>
         <input
-          type="number"
+          type="text"
           value={pricePerDay}
-          onChange={(e) => setPricePerDay(e.target.value)}
+          onChange={handleNumericChange(setPricePerDay)} // Utilisation de la validation pour chiffres uniquement
           required
+          className="input-field"
         />
-        <br />
-        <label>Brand:</label>
+
+        <label>Marque:</label>
         <input
           type="text"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
           required
+          className="input-field"
         />
-        <br />
-        <label>Model:</label>
+
+        <label>Modèle:</label>
         <input
           type="text"
           value={model}
           onChange={(e) => setModel(e.target.value)}
           required
+          className="input-field"
         />
-        <br />
-        <label>Year:</label>
+
+        <label>Année:</label>
         <input
-          type="number"
+          type="text"
           value={year}
-          onChange={(e) => setYear(e.target.value)}
+          onChange={handleNumericChange(setYear)} // Validation pour chiffres uniquement
           required
+          className="input-field"
         />
-        <br />
-        <label>Mileage:</label>
+
+        <label>Kilométrage:</label>
         <input
-          type="number"
+          type="text"
           value={mileage}
-          onChange={(e) => setMileage(e.target.value)}
+          onChange={handleNumericChange(setMileage)} // Validation pour chiffres uniquement
           required
+          className="input-field"
         />
-        <br />
-        <label>Image 1:</label>
-        <input
-          type="file"
-          name="images"
-          onChange={(e) => handleImageChange(0, e)}
-          accept="image/*"
-        />
-        <br />
-        <label>Image 2:</label>
-        <input
-          type="file"
-          name="images"
-          onChange={(e) => handleImageChange(1, e)}
-          accept="image/*"
-        />
-        <br />
-        <label>Image 3:</label>
-        <input
-          type="file"
-          name="images"
-          onChange={(e) => handleImageChange(2, e)}
-          accept="image/*"
-        />
-        <br />
 
-        {/* Ajouter le champ d'autocomplétion de localisation */}
-        <label>Location:</label>
-        <LocationAutocomplete onSelectLocation={setLocation} />
-        <br />
+        <div className="image-upload-section">
+          <label>Images:</label>
+          <div className="image-inputs">
+            {[0, 1, 2].map((index) => (
+              <div key={index} className="image-upload-wrapper" onClick={() => handleImageClick(index)}>
+                <input
+                  type="file"
+                  id={`image-input-${index}`}
+                  name={`image${index + 1}`}
+                  onChange={(e) => handleImageChange(index, e)}
+                  accept="image/*"
+                  className="input-file"
+                />
+                {images[index] ? (
+                  <img
+                    src={URL.createObjectURL(images[index])}
+                    alt={`Image preview ${index + 1}`}
+                    className="image-preview"
+                  />
+                ) : (
+                  <div className="placeholder">Ajouter une image</div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <button type="submit">Create Ad</button>
+        <label>Localisation:</label>
+        <div className="location-autocomplete">
+          <LocationAutocomplete onSelectLocation={setLocation} />
+        </div>
+
+        <button type="submit" className="submit-button">Créer l&#39;annonce</button>
       </form>
-      <p>{message}</p>
+      {message && <p className="message">{message}</p>}
     </div>
   );
 }
