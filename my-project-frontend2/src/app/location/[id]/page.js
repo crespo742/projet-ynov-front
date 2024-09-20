@@ -1,74 +1,74 @@
-"use client"; // Nécessaire pour utiliser les hooks React
+'use client';
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './userReservations.css'; // Import du fichier CSS
-import { useRouter } from 'next/navigation';
-import Link from 'next/link'; // Import Link pour redirection
+import './locationRentals.css'; // Nouveau fichier CSS adapté
+import Link from 'next/link';
 
-export default function UserReservations({ params }) {
-  const [reservations, setReservations] = useState([]);
+export default function UserRentals({ params }) {
+  const [rentals, setRentals] = useState([]);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
-  const [refundAmounts, setRefundAmounts] = useState({}); // Associer chaque réservation avec son propre montant de remboursement
+  const [refundAmounts, setRefundAmounts] = useState({});
   const { id } = params;
-  const router = useRouter();
-
-  useEffect(() => {
-    const token = localStorage.getItem('x-auth-token');
-
-    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
-    if (!token) {
-      router.push('/login');
-      return; // On arrête l'exécution de l'effet
-    }
-  }, [router]);
 
   useEffect(() => {
     if (!id) return;
 
-    const fetchReservations = async () => {
-      const token = localStorage.getItem('token'); // Assurez-vous que le token est stocké dans localStorage
+    const fetchRentals = async () => {
+      const token = localStorage.getItem('x-auth-token'); // Assure-toi que le bon token est utilisé
+
+      if (!token) {
+        setError('Token non disponible. Veuillez vous connecter.');
+        return;
+      }
 
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/rentals/owner/${id}`, {
-          headers: {
-            'x-auth-token': token, // Envoyer le token pour authentification
-          },
+          headers: { 'x-auth-token': token },
         });
-        setReservations(response.data);
-        console.log('response.data', response.data); // Affiche les données reçues
+
+        const rentalsWithUserDetails = await Promise.all(
+          response.data.map(async (rental) => {
+            try {
+              // Récupérer l'utilisateur en utilisant l'userId dans le rental
+              const userResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/${rental.userId}`, {
+                headers: { 'x-auth-token': token }, // Utilise le token dans les headers pour chaque requête
+              });
+              rental.userDetails = userResponse.data;
+            } catch (error) {
+              console.error('Erreur lors de la récupération de l\'utilisateur:', error);
+              rental.userDetails = { name: 'Utilisateur inconnu' }; // Si l'utilisateur n'est pas trouvé
+            }
+            return rental;
+          })
+        );
+
+        setRentals(rentalsWithUserDetails);
       } catch (error) {
-        console.error('Erreur lors de la récupération des réservations:', error);
-        setError('Échec de la récupération des réservations');
+        console.error('Erreur lors de la récupération des locations:', error);
+        setError('Échec de la récupération des locations.');
       }
     };
 
-    fetchReservations();
+    fetchRentals();
   }, [id]);
 
   const handleRefund = async (sessionId, maxRefund) => {
-    const token = localStorage.getItem('token'); // Récupérer le token JWT
+    const token = localStorage.getItem('x-auth-token'); // Assure-toi que le token est bien récupéré
 
     try {
-      const amountToRefund = refundAmounts[sessionId]; // On récupère le montant correspondant à cette sessionId
+      const amountToRefund = refundAmounts[sessionId];
 
       if (!amountToRefund || amountToRefund > maxRefund || amountToRefund <= 0) {
         setMessage(`Le montant doit être inférieur ou égal à ${maxRefund} € et supérieur à 0 €.`);
         return;
       }
 
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/payment/refund-deposit`,
-        {
-          sessionId,
-          refundAmount: amountToRefund,
-        },
-        {
-          headers: {
-            'x-auth-token': token, // Envoi du token JWT
-          }
-        }
+        { sessionId, refundAmount: amountToRefund },
+        { headers: { 'x-auth-token': token } }
       );
 
       setMessage('Remboursement effectué avec succès.');
@@ -80,51 +80,77 @@ export default function UserReservations({ params }) {
 
   const handleRefundAmountChange = (e, sessionId) => {
     const value = e.target.value;
-    setRefundAmounts(prev => ({
+    setRefundAmounts((prev) => ({
       ...prev,
-      [sessionId]: value, // Associer le montant de remboursement à la sessionId spécifique
+      [sessionId]: value,
     }));
   };
 
   return (
-    <div className="reservations-wrapper">
-      <div className="reservations-header">
-        <h1 className="reservations-title">Mes Locations</h1>
-        {message && <p className="reservations-message">{message}</p>}
-        {error && <p className="reservations-error">{error}</p>}
-      </div>
+    <div className="rentals-container">
+      <h1 className="rentals-title">Mes Locations</h1>
+      {message && <p className="rentals-message">{message}</p>}
+      {error && <p className="rentals-error">{error}</p>}
 
-      {reservations.length > 0 ? (
-        <div className="reservations-list">
-          {reservations.map((reservation) => (
-            <div key={reservation._id} className="reservation-card">
-              <div className="reservation-header">
-                <h2 className="reservation-moto">{reservation.motoAdId ? reservation.motoAdId.title : 'Moto non spécifiée'}</h2>
-              </div>
-              <div className="reservation-details">
-                <p className="reservation-dates">
-                  Du <span>{new Date(reservation.startDate).toLocaleDateString()}</span> au <span>{new Date(reservation.endDate).toLocaleDateString()}</span>
-                </p>
-                <p className="reservation-amount"><strong>Montant total payé:</strong> {reservation.amount + reservation.deposit} €</p>
-                <p className="reservation-deposit"><strong>Caution:</strong> {reservation.deposit} €</p>
-                {reservation.paymentIntentId && (
-                  <div className="reservation-actions">
-                    <button className="action-button cancel" onClick={() => cancelPayment(reservation.paymentIntentId)}>Annuler la caution</button>
+      {rentals.length > 0 ? (
+        <ul className="rentals-list">
+          {rentals.map((rental) => (
+            <li key={rental._id} className="rental-item">
+              <div className="rental-card">
+                <div className="rental-header">
+                  <div className="rental-image-wrapper">
+                    {rental.motoAdId && rental.motoAdId.image && (
+                      <img
+                        src={rental.motoAdId.image[0]}
+                        alt={`${rental.motoAdId.title}`}
+                        className="rental-moto-image"
+                      />
+                    )}
+                  </div>
+                  <div className="rental-details-wrapper">
+                    <h2 className="rental-moto-title">{rental.motoAdId ? rental.motoAdId.title : 'Moto non spécifiée'}</h2>
+                    <p className="rental-user">
+                      <strong>Réservé par :</strong> {rental.userDetails ? rental.userDetails.name : 'Utilisateur inconnu'}
+                    </p>
+                    <p className="rental-dates">
+                      Du <span>{new Date(rental.startDate).toLocaleDateString()}</span> au <span>{new Date(rental.endDate).toLocaleDateString()}</span>
+                    </p>
+                  </div>
+                </div>
 
-                    {/* Bouton pour envoyer un message à l'utilisateur qui a réservé */}
-                    {reservation.userId && (
-                      <Link href={`/chat/${reservation.userId}`}>
+                <div className="rental-footer">
+                  <p className="rental-amount"><strong>Montant total payé :</strong> {rental.amount + rental.deposit} €</p>
+                  <p className="rental-deposit"><strong>Caution :</strong> {rental.deposit} €</p>
+
+                  <div className="rental-actions">
+                    <input
+                      type="number"
+                      value={refundAmounts[rental.sessionId] || ''}
+                      placeholder={`Montant à rembourser (max ${rental.deposit} €)`}
+                      max={rental.deposit}
+                      min="1"
+                      onChange={(e) => handleRefundAmountChange(e, rental.sessionId)}
+                      className="rental-refund-input"
+                    />
+                    <button
+                      className="rental-refund-button"
+                      onClick={() => handleRefund(rental.sessionId, rental.deposit)}
+                    >
+                      Rembourser
+                    </button>
+                    {rental.userId && (
+                      <Link href={`/chat/${rental.userId}`}>
                         <button className="action-button capture">Envoyer un message</button>
                       </Link>
                     )}
                   </div>
-                )}
+                </div>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       ) : (
-        <p className="no-reservations">Aucune location trouvée.</p>
+        <p className="no-rentals">Aucune location trouvée.</p>
       )}
     </div>
   );

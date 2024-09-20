@@ -1,0 +1,110 @@
+.rentals-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.rentals-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #007bff;
+}
+
+.rentals-list {
+  list-style: none;
+  padding: 0;
+}
+
+.rental-item {
+  margin-bottom: 1.5rem;
+}
+
+.rental-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rental-header {
+  display: flex;
+  align-items: center;
+}
+
+.rental-image-wrapper {
+  flex: 0 0 150px;
+  margin-right: 1.5rem;
+}
+
+.rental-moto-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.rental-details-wrapper {
+  flex-grow: 1;
+}
+
+.rental-moto-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #007bff;
+}
+
+.rental-user,
+.rental-dates {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.rental-footer {
+  margin-top: 1rem;
+}
+
+.rental-amount,
+.rental-deposit {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.rental-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rental-refund-input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.rental-refund-button {
+  background-color: #28a745;
+  color: white;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.rental-refund-button:hover {
+  background-color: #218838;
+}
+
+.no-rentals {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}

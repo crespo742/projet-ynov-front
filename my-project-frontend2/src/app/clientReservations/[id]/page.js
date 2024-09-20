@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import './clientReservations.css';
+import './clientReservations.css'; // Assurez-vous que ce fichier CSS est spécifique à cette page
 import { useRouter } from 'next/navigation';
 
 export default function ClientReservations({ params }) {
@@ -16,7 +16,6 @@ export default function ClientReservations({ params }) {
   useEffect(() => {
     const token = localStorage.getItem('x-auth-token');
 
-    // Vérifier si l'utilisateur est connecté, sinon rediriger vers la page de login
     if (!token) {
       router.push('/login');
       return;
@@ -48,20 +47,20 @@ export default function ClientReservations({ params }) {
         <ul className="reservations-list">
           {reservations.map((reservation) => (
             <li key={reservation._id} className="reservation-item">
-              {/* Utiliser Link pour rendre l'élément cliquable */}
               <Link href={`/${reservation.motoAdId ? reservation.motoAdId._id : ''}`} passHref>
                 <div className="reservation-card">
-                  {/* Affichage de l'image si disponible */}
                   {reservation.motoAdId && reservation.motoAdId.image && (
                     <img
-                      src={reservation.motoAdId.image[0]} // Afficher la première image de l'annonce
+                      src={reservation.motoAdId.image[0]}
                       alt={`${reservation.motoAdId.title}`}
                       className="reservation-moto-image"
                     />
                   )}
                   <div className="reservation-details">
                     <h2 className="reservation-moto">Moto: {reservation.motoAdId ? reservation.motoAdId.title : 'Non spécifiée'}</h2>
-                    <p className="reservation-dates">Du {new Date(reservation.startDate).toLocaleDateString()} au {new Date(reservation.endDate).toLocaleDateString()}</p>
+                    <p className="reservation-dates">
+                      Du {new Date(reservation.startDate).toLocaleDateString()} au {new Date(reservation.endDate).toLocaleDateString()}
+                    </p>
                     <p className="reservation-amount">Montant: {reservation.amount} €</p>
                     <p className="reservation-deposit">Caution: {reservation.deposit} €</p>
                   </div>

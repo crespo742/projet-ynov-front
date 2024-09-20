@@ -5,7 +5,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './MotoAdPage.css';
+import './MotoAdPage.css'; // Utilisez ce fichier CSS pour votre style
 
 export default function MotoAdPage({ params }) {
   const [motoAd, setMotoAd] = useState(null);
@@ -16,7 +16,6 @@ export default function MotoAdPage({ params }) {
   const [unavailableDates, setUnavailableDates] = useState([]);
   const { id } = params;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showRentButton, setShowRentButton] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
@@ -61,12 +60,11 @@ export default function MotoAdPage({ params }) {
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
-    setEndDate(null); // Reset end date when selecting a new start date
+    setEndDate(null); // Réinitialiser la date de fin lorsqu'on change la date de début
   };
 
   const handleEndDateChange = (date) => {
     setEndDate(date);
-    setShowRentButton(true); // Show the rent button only when valid dates are selected
   };
 
   const handleRent = async () => {
@@ -181,52 +179,13 @@ export default function MotoAdPage({ params }) {
           />
         </div>
 
-        <p>{motoAd.description}</p>
-        <p>Price: {motoAd.pricePerDay} € / jour</p>
-        <p>Brand: {motoAd.brand}</p>
-        <p>Model: {motoAd.model}</p>
-        <p>Year: {motoAd.year}</p>
-        <p>Mileage: {motoAd.mileage} km</p>
-        {/* Lien vers le profil de l'utilisateur qui a posté l'annonce */}
-        <p>Seller: <Link href={`/user/${motoAd.user._id}`}>{motoAd.user.name}</Link></p>
-        <p>Contact: {motoAd.user.email}</p>
-        <p>Location: {motoAd.location}</p>
-
-        {/* Empêcher l'utilisateur de louer sa propre moto */}
+        {/* Boutons de location et de message, seulement si l'utilisateur est connecté et n'est pas le propriétaire */}
         {
           isLoggedIn && currentUserId !== motoAd.user._id ? (
             <>
-              {/* Ajout de la vérification lors de la sélection d'une date */}
-              <label>Start Date:</label>
-              <DatePicker
-                selected={startDate}
-                onFocus={() => {
-                  const token = localStorage.getItem('x-auth-token');
-                  if (!token) {
-                    window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
-                  }
-                }}
-                onChange={(date) => setStartDate(date)}
-                excludeDates={unavailableDates} // Exclure les dates réservées
-                minDate={new Date()} // Exclure les jours passés
-              />
-              <br />
-              <label>End Date:</label>
-              <DatePicker
-                selected={endDate}
-                onFocus={() => {
-                  const token = localStorage.getItem('x-auth-token');
-                  if (!token) {
-                    window.location.href = '/login'; // Redirige vers la page de login si l'utilisateur n'est pas connecté
-                  }
-                }}
-                onChange={(date) => setEndDate(date)}
-                excludeDates={unavailableDates} // Exclure les dates réservées
-                minDate={new Date()} // Exclure les jours passés
-              />
-              <br />
-              <button className="rent-button" onClick={handleRent}>Louer</button>
-              <br />
+              {endDate && (
+                <button className="rent-button" onClick={handleRent}>Louer</button>
+              )}
               <Link href={`/chat/${motoAd.user._id}`}>
                 <button className="send-message-button">Envoyer un message</button>
               </Link>

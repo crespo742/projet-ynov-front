@@ -1,6 +1,6 @@
-/* src/app/clientReservations.css */
+/* Spécifique à ClientReservations */
 
-body {
+body.client-reservations-body {
   font-family: 'Arial', sans-serif;
   background-color: #f0f4f8;
   margin: 0;
