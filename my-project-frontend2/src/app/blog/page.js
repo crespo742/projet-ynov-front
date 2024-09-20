@@ -35,6 +35,41 @@ export default function Blog() {
             date: "2024-07-15",
             author: "Lucie Martin",
           },
+          {
+            id: 4,
+            title: "Les accessoires indispensables pour chaque motard",
+            excerpt: "Découvrez les équipements essentiels pour assurer votre sécurité et améliorer votre confort sur la route.",
+            date: "2024-09-20",
+            author: "Paul Moreau",
+          },
+          {
+            id: 5,
+            title: "Les motos électriques : L’avenir du deux-roues ?",
+            excerpt: "Avec l'essor des véhicules électriques. Explorez comment cette technologie transforme le marché du deux-roues.",
+            date: "2024-08-18",
+            author: "Alice Bernard",
+          },
+          {
+            id: 6,
+            title: "Les motos tout-terrain : Guide pour débutants",
+            excerpt: "Envie de vous lancer dans l’aventure tout-terrain ? Voici un guide pour choisir votre moto et explorer les pistes en toute sécurité.",
+            date: "2024-10-01",
+            author: "Maxime Durand",
+          },
+          {
+            id: 7,
+            title: "Les motos classiques : Une mode éternelle",
+            excerpt: "Pourquoi les motos vintage et classiques reviennent-elles à la mode ? Retour sur l'histoire et le renouveau des motos classiques.",
+            date: "2024-11-12",
+            author: "Camille Duval",
+          },
+          {
+            id: 8,
+            title: "Moto et voyage : Préparez-vous pour un road trip inoubliable",
+            excerpt: "Rien ne vaut la sensation de liberté sur la route. Voici nos meilleurs conseils pour planifier votre prochain road trip à moto.",
+            date: "2024-12-01",
+            author: "Nicolas Martin",
+          },
         ];
         setArticles(mockArticles);
         setLoading(false);

@@ -1,0 +1,65 @@
+/* Container principal de la politique de remboursement */
+.refund-policy-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.8;
+    color: #333;
+    background-color: #f4f6f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titre principal */
+  .refund-policy-container h1 {
+    text-align: center;
+    font-size: 2.8em;
+    color: #0056b3;
+    margin-bottom: 30px;
+  }
+  
+  /* Texte sous le titre */
+  .refund-policy-container p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: justify;
+  }
+  
+  /* Sections de la politique */
+  .section {
+    margin-bottom: 40px;
+  }
+  
+  /* Titres des sections */
+  .section h2 {
+    font-size: 1.8em;
+    color: #003a6b;
+    margin-bottom: 15px;
+  }
+  
+  /* Listes à puces et numérotées */
+  .section ul,
+  .section ol {
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .section ul li,
+  .section ol li {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  /* Liens dans la section */
+  .section a {
+    color: #0056b3;
+    text-decoration: none;
+  }
+  
+  .section a:hover {
+    text-decoration: underline;
+  }
+  

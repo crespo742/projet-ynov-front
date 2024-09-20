@@ -11,7 +11,7 @@ export default function PrivacyPolicy() {
       <section className="privacy-section">
         <h2>1. Introduction</h2>
         <p>
-          Bienvenue sur **Trade Your Bike**. Nous nous engageons à protéger et à respecter votre vie privée. Cette politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous utilisez notre site web et nos services.
+          Bienvenue sur <strong>Trade Your Bike</strong>. Nous nous engageons à protéger et à respecter votre vie privée. Cette politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous utilisez notre site web et nos services.
         </p>
       </section>
 
@@ -83,7 +83,7 @@ export default function PrivacyPolicy() {
           <li>Retirer votre consentement à tout moment.</li>
         </ul>
         <p>
-          Pour exercer ces droits, veuillez nous contacter à l&#39;adresse <a href="mailto:privacy@tradeyourbike.com">privacy@tradeyourbike.com</a>.
+          Pour exercer ces droits, veuillez nous contacter à l&#39;adresse <a href="mailto:privacy@tradeyourbike.com">privacy@tradeyourbike.com</a> ou via notre <a href="/contact">page de contact</a>.
         </p>
       </section>
 
@@ -104,7 +104,7 @@ export default function PrivacyPolicy() {
       <section className="privacy-section">
         <h2>9. Nous Contacter</h2>
         <p>
-          Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité ou nos pratiques de confidentialité, veuillez nous contacter à l&#39;adresse suivante : <a href="mailto:privacy@tradeyourbike.com">privacy@tradeyourbike.com</a>.
+          Si vous avez des questions ou des préoccupations concernant cette politique de confidentialité ou nos pratiques de confidentialité, veuillez nous contacter à l&#39;adresse suivante : <a href="mailto:privacy@tradeyourbike.com">privacy@tradeyourbike.com</a> ou via notre <a href="/contact">page de contact</a>.
         </p>
       </section>
 

@@ -1,0 +1,58 @@
+/* Container principal pour les détails du guide */
+.guide-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.8;
+    color: #333;
+    background-color: #f9fafc;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Titre principal du guide */
+  .guide-container h1 {
+    font-size: 2.8em;
+    margin-bottom: 25px;
+    color: #0056b3;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  /* Métadonnées du guide */
+  .guide-meta {
+    font-size: 1.1em;
+    color: #888;
+    margin-bottom: 25px;
+    font-style: italic;
+  }
+  
+  /* Contenu du guide */
+  .guide-content {
+    font-size: 1.2em;
+    line-height: 1.9;
+    color: #444;
+    margin-bottom: 50px;
+  }
+  
+  /* Styles spécifiques aux paragraphes */
+  .guide-content p {
+    margin-bottom: 20px;
+  }
+  
+  /* Media queries pour la réactivité */
+  @media (max-width: 768px) {
+    .guide-container h1 {
+      font-size: 2.2em;
+    }
+  
+    .guide-content {
+      font-size: 1.1em;
+    }
+  
+    .guide-meta {
+      font-size: 1em;
+    }
+  }
+  

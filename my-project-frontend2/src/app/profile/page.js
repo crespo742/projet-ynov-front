@@ -64,11 +64,11 @@ export default function ProfilePage() {
       {error && <p className="error-message">{error}</p>}
       <h2 className="profile-detail">Nom: {profile.user.name}</h2>
       <h2 className="profile-detail">Email: {profile.user.email}</h2>
-      <h2 className="profile-detail">Telephone: {profile.phone ? profile.phone : 'pas de numero de telephone'}</h2>
+      <h2 className="profile-detail">Telephone: {profile.user.telephone	 ? profile.user.telephone	 : 'pas de numero de telephone'}</h2>
 
       {/* Lien vers la page de modification du profil */}
       <Link href={`/profile/${profile.user._id}`}>
-        <button>Modifier le profil</button>
+        <button className="add-ad-button">Modifier le profil</button>
       </Link>
 
       <button onClick={handleLogout} className="logout-button">Déconnexion</button>

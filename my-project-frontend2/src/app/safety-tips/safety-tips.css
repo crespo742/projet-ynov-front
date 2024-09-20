@@ -1,53 +1,103 @@
 .conseils-container {
-    max-width: 900px;
-    margin: 0 auto;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.8;
+  color: #333;
+  background-color: #f0f2f5;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Style du titre principal */
+.conseils-container h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #0056b3;
+  font-size: 2.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Paragraphe d'introduction */
+.conseils-container p {
+  font-size: 1.3em;
+  margin-bottom: 40px;
+  color: #666;
+}
+
+/* Grille pour afficher les conseils */
+.conseils-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Carte pour chaque conseil */
+.conseil-card {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet d'élévation au hover */
+.conseil-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Titre de chaque conseil */
+.conseil-card h2 {
+  color: #d9534f;
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  text-align: center;
+}
+
+/* Changement de couleur au hover */
+.conseil-card:hover h2 {
+  color: #c9302c;
+}
+
+/* Texte de chaque conseil */
+.conseil-card p {
+  font-size: 1.2em;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Effet de surbrillance des liens (s'il y en a) */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Media queries pour la réactivité */
+@media (max-width: 768px) {
+  .conseils-container {
     padding: 20px;
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #0056b3;
-    font-size: 2.5em;
+
+  .conseils-container h1 {
+    font-size: 2.2em;
   }
-  
-  p {
-    text-align: center;
-    font-size: 1.2em;
-    margin-bottom: 20px;
+
+  .conseils-container p {
+    font-size: 1.1em;
   }
-  
-  .conseils-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  
-  .conseil-card {
-    background-color: white;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  }
-  
-  .conseil-card:hover {
-    transform: translateY(-5px);
-  }
-  
+
   .conseil-card h2 {
-    color: #d9534f;
-    margin-bottom: 10px;
     font-size: 1.5em;
   }
-  
+
   .conseil-card p {
     font-size: 1.1em;
   }
-  
+}

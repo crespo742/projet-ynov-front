@@ -27,7 +27,7 @@ export default function Guides() {
           {
             id: 3,
             title: "Gestion des paiements et des cautions",
-            excerpt: "Comprenez comment fonctionnent les paiements et la gestion des cautions sur Trade Your Bike.",
+            excerpt: "Comprenez comment fonctionnent les paiements et la gestion des cautions.",
           },
           {
             id: 4,

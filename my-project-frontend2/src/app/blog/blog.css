@@ -1,74 +1,138 @@
+/* Container principal du blog */
 .blog-container {
-    max-width: 900px;
-    margin: 0 auto;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.8;
+  color: #333;
+  background-color: #f4f6f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre principal du blog */
+.blog-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #0056b3;
+  font-size: 2.8em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Texte sous le titre */
+.blog-container p {
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 40px;
+  color: #666;
+}
+
+/* Grille pour la liste des articles */
+.articles-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+  margin-bottom: 60px;
+}
+
+/* Carte pour chaque article */
+.article-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet d'élévation et d'animation au hover */
+.article-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Titre de chaque article */
+.article-card h2 {
+  color: #003a6b;
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  text-align: center;
+}
+
+/* Modification de la couleur du titre au hover */
+.article-card:hover h2 {
+  color: #0056b3;
+}
+
+/* Extrait de l'article */
+.article-excerpt {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* Métadonnées de l'article */
+.article-meta {
+  font-size: 0.95em;
+  color: #888;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+/* Bouton "Lire la suite" */
+.read-more-button {
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+  outline: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Effet sur le bouton au hover */
+.read-more-button:hover {
+  background-color: #003a6b;
+}
+
+/* Style des liens */
+a {
+  text-decoration: none;
+}
+
+/* Media queries pour la réactivité */
+@media (max-width: 768px) {
+  .blog-container {
     padding: 20px;
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #0056b3;
-    font-size: 2.5em;
+
+  .blog-container h1 {
+    font-size: 2.2em;
   }
-  
-  p {
-    text-align: center;
-    font-size: 1.2em;
-    margin-bottom: 20px;
-  }
-  
-  .articles-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  
-  .article-card {
-    background-color: white;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  }
-  
-  .article-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .article-card h2 {
-    color: #007bff;
-    margin-bottom: 10px;
-    font-size: 1.6em;
-  }
-  
-  .article-excerpt {
+
+  .blog-container p {
     font-size: 1.1em;
-    margin-bottom: 15px;
   }
-  
-  .article-meta {
-    font-size: 0.9em;
-    color: #666;
-    margin-bottom: 15px;
+
+  .article-card h2 {
+    font-size: 1.5em;
   }
-  
+
   .read-more-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
     padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+    font-size: 0.9em;
   }
-  
-  .read-more-button:hover {
-    background-color: #0056b3;
-  }
-  
+}

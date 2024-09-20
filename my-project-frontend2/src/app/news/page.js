@@ -20,7 +20,7 @@ export default function Actualites() {
           },
           {
             id: 2,
-            title: "Partenariat avec Moto Expo 2024",
+            title: "Partenariat exclusif avec le salon Moto Expo 2024",
             content: "Trade Your Bike est fier d'être partenaire officiel de Moto Expo 2024, le plus grand salon de la moto en Europe. Rejoignez-nous pour des offres exclusives et des événements en direct.",
             date: "2024-07-30"
           },

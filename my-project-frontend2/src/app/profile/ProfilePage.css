@@ -39,6 +39,23 @@
     background-color: #c0392b;
 }
 
+.edit-profile-button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 20px auto;
+    display: block;
+}
+
+.edit-profile-button:hover {
+    background-color: #2980b9;
+}
+
 .profile-subtitle {
     font-size: 2rem;
     color: #2c3e50;

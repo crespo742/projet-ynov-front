@@ -1,0 +1,96 @@
+/* Container principal du formulaire de contact */
+.contact-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f6f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+  
+  /* Titre principal */
+  .contact-container h1 {
+    text-align: center;
+    font-size: 2.8em;
+    color: #0056b3;
+    margin-bottom: 30px;
+  }
+  
+  /* Texte d'introduction */
+  .contact-container p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 30px;
+  }
+  
+  /* Style du formulaire de contact */
+  .contact-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  /* Groupe de formulaires */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Label pour chaque champ */
+  .form-group label {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Champs de saisie */
+  .form-group input,
+  .form-group textarea {
+    padding: 12px;
+    font-size: 1.1em;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+    outline: none;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #0056b3;
+  }
+  
+  /* Champ de texte */
+  .form-group textarea {
+    resize: vertical;
+    height: 150px;
+  }
+  
+  /* Bouton de soumission */
+  .submit-button {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #003a6b;
+  }
+  
+  /* Statut du formulaire (message de succès ou d'erreur) */
+  .form-status {
+    text-align: center;
+    font-size: 1.2em;
+    color: green;
+    margin-top: 20px;
+  }
+  

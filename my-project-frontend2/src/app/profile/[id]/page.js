@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import './EditUserProfile.css'; // Import du fichier CSS
 
 export default function EditUserProfile({ params }) {
     const { id } = params;
@@ -11,7 +12,7 @@ export default function EditUserProfile({ params }) {
         telephone: ''
     });
     const [message, setMessage] = useState('');
-    const router = useRouter();
+    const router = useRouter(); // Utilisation du hook useRouter pour la redirection
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -39,6 +40,12 @@ export default function EditUserProfile({ params }) {
                 headers: { 'x-auth-token': token }
             });
             setMessage('Profil mis à jour avec succès');
+            
+            // Redirection vers la page de profil après une courte pause pour montrer le message de succès
+            setTimeout(() => {
+                router.push('/profile');
+            }, 1000); // Redirection après 1 seconde
+
         } catch (error) {
             console.error('Erreur lors de la mise à jour du profil', error);
             setMessage('Erreur lors de la mise à jour du profil');
@@ -46,9 +53,9 @@ export default function EditUserProfile({ params }) {
     };
 
     return (
-        <div>
-            <h1>Modifier le profil</h1>
-            <form onSubmit={handleSubmit}>
+        <div className="profile-edit-container">
+            <h1 className="profile-edit-title">Modifier le profil</h1>
+            <form onSubmit={handleSubmit} className="profile-edit-form">
                 <label>Email :</label>
                 <input
                     type="email"
@@ -56,17 +63,15 @@ export default function EditUserProfile({ params }) {
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
                 />
-                <br />
                 <label>Téléphone :</label>
                 <input
                     type="number"
                     value={formData.telephone}
                     onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
                 />
-                <br />
-                <button type="submit">Mettre à jour</button>
+                <button type="submit" className="profile-edit-button">Mettre à jour</button>
             </form>
-            {message && <p>{message}</p>}
+            {message && <p className="message">{message}</p>}
         </div>
     );
 }
