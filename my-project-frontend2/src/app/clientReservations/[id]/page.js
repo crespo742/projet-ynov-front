@@ -41,6 +41,9 @@ export default function ClientReservations({ params }) {
   return (
     <div className="reservations-container">
       <h1 className="reservations-title">Mes Réservations</h1>
+      <p className="reservations-description">
+        Consultez vos réservations et les détails des véhicules que vous avez loués.
+      </p>
       {message && <p className="reservations-message">{message}</p>}
       {error && <p className="reservations-error">{error}</p>}
       {reservations.length > 0 ? (

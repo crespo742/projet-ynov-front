@@ -74,17 +74,17 @@ export default function ClientLayout({ children }) {
                 </Link>
                 <div className="header-buttons">
                   <Link href={'/profile'}>
-                    <button className="profile-button">Mon Profil</button>
+                    <img src="/profile.png" alt="Mon Profil" className="profile-icon" />
                   </Link>
                 </div>
               </>
             ) : (
               <div className="header-buttons">
                 <Link href={'/login'}>
-                  <button className="login-button">Log in</button>
+                  <button className="login-button">Se connecter</button>
                 </Link>
                 <Link href={'/register'}>
-                  <button className="register-button">Register</button>
+                  <button className="register-button">S'inscrire</button>
                 </Link>
               </div>
             )}
@@ -139,7 +139,7 @@ export default function ClientLayout({ children }) {
               <img src="/twitter.png" alt="Twitter" />
             </Link>
           </div>
-          <p className="footer-bottom">&copy; Votre Entreprise, Inc. 2024. Nous aimons nos utilisateurs !</p>
+          <p className="footer-bottom">&copy; TradeUrBike, Inc. 2024. Nous aimons nos utilisateurs !</p>
         </div>
       </footer>
     </>

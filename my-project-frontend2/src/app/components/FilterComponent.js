@@ -73,7 +73,7 @@ export default function FilterComponent({ setMotoAds }) {
         name="search"
         value={filters.search}
         onChange={handleInputChange}
-        placeholder="Search by title"
+        placeholder="Rechercher par titre"
         onKeyDown={handleKeyPress}
         className="filter-input"
       />
@@ -82,7 +82,7 @@ export default function FilterComponent({ setMotoAds }) {
         name="brand"
         value={filters.brand}
         onChange={handleInputChange}
-        placeholder="Filter by brand"
+        placeholder="Filtrer par marque"
         onKeyDown={handleKeyPress}
         className="filter-input"
       />
@@ -91,7 +91,7 @@ export default function FilterComponent({ setMotoAds }) {
         name="year"
         value={filters.year}
         onChange={handleInputChange}
-        placeholder="Filter by year"
+        placeholder="Filtrer par année"
         onKeyDown={handleKeyPress}
         className="filter-input"
       />
@@ -100,7 +100,7 @@ export default function FilterComponent({ setMotoAds }) {
         name="minPrice"
         value={filters.minPrice}
         onChange={handleInputChange}
-        placeholder="Min price"
+        placeholder="Prix min"
         onKeyDown={handleKeyPress}
         className="filter-input"
       />
@@ -109,7 +109,7 @@ export default function FilterComponent({ setMotoAds }) {
         name="maxPrice"
         value={filters.maxPrice}
         onChange={handleInputChange}
-        placeholder="Max price"
+        placeholder="Prix max"
         onKeyDown={handleKeyPress}
         className="filter-input"
       />
@@ -118,10 +118,10 @@ export default function FilterComponent({ setMotoAds }) {
         onSelectLocation={(location) => setFilters({ ...filters, location })}
         resetLocation={resetLocation}
       />
-    <div>
-            <button onClick={fetchFilteredAds} className="filter-button">Apply Filters</button>
-      <button onClick={resetFilters} className="filter-button reset-button">Reset Filters</button>
-    </div>
+      <div>
+        <button onClick={fetchFilteredAds} className="filter-button">Appliquer les filtres</button>
+        <button onClick={resetFilters} className="filter-button reset-button">Réinitialiser les filtres</button>
+      </div>
 
     </div>
   );

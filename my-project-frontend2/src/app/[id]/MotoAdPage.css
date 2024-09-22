@@ -1,10 +1,20 @@
+/* Arrière-plan texturé */
+body {
+    background-image: url('/background-pattern.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
 .moto-ad-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.5); /* Transparence légère pour voir le fond */
+    backdrop-filter: blur(5px); /* Ajoute un effet de flou */
 }
 
 .moto-ad-images {
@@ -23,6 +33,12 @@
     border-radius: 8px;
     margin: 0 10px;
     border: 2px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.moto-image:hover {
+    transform: scale(1.05); /* Agrandit légèrement l'image au survol */
 }
 
 .moto-ad-details {
@@ -30,11 +46,12 @@
 }
 
 .moto-title {
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: bold;
     color: #2c3e50;
     margin-bottom: 30px;
     text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Effet d'ombre sur le texte */
 }
 
 .moto-location-year {
@@ -44,9 +61,10 @@
 }
 
 .moto-price {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     margin-bottom: 30px;
     font-weight: bold;
+    color: #e74c3c;
 }
 
 .section-title {
@@ -74,30 +92,27 @@
 }
 
 .moto-description {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #7f8c8d;
     margin-bottom: 40px;
     text-align: justify;
     line-height: 1.6;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
 }
 
 .date-picker-section {
     margin: 40px 0;
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .date-picker-section label {
-    display: block;
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
     color: #2980b9;
     font-weight: bold;
-}
-
-.button-group {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .rent-button {
@@ -118,7 +133,7 @@
 }
 
 .send-message-button,
-.login-button {
+.login-button-message {
     padding: 12px 40px;
     background-color: #3498db;
     color: white;
@@ -131,10 +146,11 @@
 }
 
 .send-message-button:hover,
-.login-button:hover {
+.login-button-message:hover {
     background-color: #2980b9;
 }
 
+/* Liens */
 a {
     text-decoration: none;
     color: inherit;
@@ -148,18 +164,17 @@ a:hover .learn-more {
     color: #1abc9c;
 }
 
-
-/* Ajoute cette règle pour positionner correctement le calendrier sous les inputs */
+/* Positionne correctement le calendrier sous les inputs */
 .react-datepicker-wrapper {
-    display: inline-block; /* Force l'input à s'aligner en ligne */
-    width: auto; /* Ajuste la largeur pour l'adapter au contenu */
+    display: inline-block;
+    width: auto;
 }
 
+/* Style spécifique aux sections des pickers */
 .date-picker-section {
-    margin: 40px 0;
     display: flex;
-    flex-direction: column; /* S'assure que les labels et les inputs soient alignés verticalement */
-    align-items: flex-start; /* Aligne à gauche les labels et les inputs */
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .date-picker-section label {

@@ -62,16 +62,19 @@ export default function ProfilePage() {
     <div className="profile-container">
       <h1 className="profile-title">Profil Utilisateur</h1>
       {error && <p className="error-message">{error}</p>}
-      <h2 className="profile-detail">Nom: {profile.user.name}</h2>
-      <h2 className="profile-detail">Email: {profile.user.email}</h2>
-      <h2 className="profile-detail">Telephone: {profile.user.telephone	 ? profile.user.telephone	 : 'pas de numero de telephone'}</h2>
+      <div className="profile-info">
+        <h2 className="profile-detail">Nom: {profile.user.name}</h2>
+        <h2 className="profile-detail">Email: {profile.user.email}</h2>
+        <h2 className="profile-detail">Téléphone: {profile.user.telephone || 'Pas de numéro de téléphone'}</h2>
+      </div>
 
-      {/* Lien vers la page de modification du profil */}
-      <Link href={`/profile/${profile.user._id}`}>
-        <button className="add-ad-button">Modifier le profil</button>
-      </Link>
+      <div className="profile-actions">
+        <Link href={`/profile/${profile.user._id}`}>
+          <button className="edit-profile-button">Modifier le profil</button>
+        </Link>
 
-      <button onClick={handleLogout} className="logout-button">Déconnexion</button>
+        <button onClick={handleLogout} className="logout-button">Déconnexion</button>
+      </div>
 
       <h3 className="profile-subtitle">Vos annonces publiées</h3>
       <Link href={`/add-moto`}>
@@ -83,10 +86,9 @@ export default function ProfilePage() {
           <div key={ad._id} className="ad-card">
             <Link href={`/${ad._id}`}>
               <div className="ad-card-inner">
-                {/* Vérifiez ici si le chemin de l'image est directement utilisable comme dans la page des réservations */}
                 {ad.image && ad.image.length > 0 ? (
                   <img
-                    src={ad.image[0]} // Utilisation directe de l'image comme sur la page de réservation
+                    src={ad.image[0]}
                     alt={ad.title}
                     className="ad-image"
                   />

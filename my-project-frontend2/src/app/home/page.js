@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Link from 'next/link';
 import './homepage.css'; // Import du fichier CSS spécifique à cette page
 
 export default function HomePage() {
@@ -10,7 +11,9 @@ export default function HomePage() {
         <div className="hero-overlay">
           <h1 className="hero-title">La plus grande communauté de passionnés de motos</h1>
           <p className="hero-subtitle">Louez et échangez des motos en toute simplicité</p>
-          <button className="hero-button">Découvrir</button>
+          <Link href="/">
+            <button className="hero-button">Découvrir</button>
+          </Link>
         </div>
       </header>
 
@@ -21,22 +24,30 @@ export default function HomePage() {
           <div className="info-item">
             <h3>Mettez votre moto en location</h3>
             <p>Créez une annonce pour votre moto et laissez les passionnés la louer. Profitez d&#39;une assurance complète et d&#39;une gestion facile. Gagnez de l&#39;argent tout en partageant votre passion pour les motos.</p>
-            <button className="info-button">En savoir plus</button>
+            <Link href="/guides">
+              <button className="info-button">En savoir plus</button>
+            </Link>
           </div>
           <div className="info-item">
             <h3>Trouvez la moto de vos rêves</h3>
             <p>Explorez notre large gamme de motos à louer. Trouvez celle qui correspond à vos envies et partez à l&#39;aventure. La moto parfaite pour chaque occasion vous attend dès maintenant.</p>
-            <button className="info-button">Louer une moto</button>
+            <Link href="/">
+              <button className="info-button">Louer une moto</button>
+            </Link>
           </div>
           <div className="info-item">
             <h3>Échangez vos motos</h3>
             <p>Échangez votre moto avec celle d&#39;un autre passionné. Vivez une nouvelle expérience de conduite à chaque échange. Découvrez de nouvelles sensations en essayant différentes motos excitantes.</p>
-            <button className="info-button">Découvrir</button>
+            <Link href="/">
+              <button className="info-button">Découvrir</button>
+            </Link>
           </div>
           <div className="info-item">
             <h3>Système de paiement sécurisé</h3>
             <p>Effectuez vos paiements en toute sécurité grâce à notre système intégré. Transactions sans soucis garanties avec les dernières technologies de sécurité avancées.</p>
-            <button className="info-button">Plus d&#39;infos</button>
+            <Link href="/guides">
+              <button className="info-button">Plus d&#39;infos</button>
+            </Link>
           </div>
         </div>
       </section>
@@ -77,8 +88,12 @@ export default function HomePage() {
       <section className="final-section">
         <p className="final-text">Créez votre compte et commencez à explorer les possibilités de location et d&#39;échange de motos. Une aventure vous attend.</p>
         <div className="final-buttons">
-          <button className="register-button">Inscription</button>
-          <button className="login-button">Connexion</button>
+          <Link href="/register">
+            <button className="register-button">Inscription</button>
+          </Link>
+          <Link href="/login">
+            <button className="login-button">Connexion</button>
+          </Link>
         </div>
       </section>
     </div>

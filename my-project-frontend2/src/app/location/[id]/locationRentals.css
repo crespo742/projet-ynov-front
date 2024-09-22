@@ -154,3 +154,11 @@
 .rental-refund-button-auto:hover {
   background-color: #138496;
 }
+
+.rentals-description {
+  font-size: 1.2rem;
+  color: #555;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+

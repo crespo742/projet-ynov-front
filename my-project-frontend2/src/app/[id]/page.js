@@ -192,7 +192,7 @@ export default function MotoAdPage({ params }) {
             </>
           ) : !isLoggedIn ? (
             <Link href="/login">
-              <button className="login-button">Se connecter pour envoyer un message</button>
+              <button className="login-button-message">Se connecter pour envoyer un message</button>
             </Link>
           ) : null
         }

@@ -124,6 +124,9 @@ export default function UserRentals({ params }) {
   return (
     <div className="rentals-container">
       <h1 className="rentals-title">Mes Locations</h1>
+      <p className="rentals-description">
+        Sur cette page, vous pouvez consulter toutes les locations de vos véhicules, gérer les remboursements et les communications avec les locataires.
+      </p>
       {message && <p className="rentals-message">{message}</p>}
       {error && <p className="rentals-error">{error}</p>}
 

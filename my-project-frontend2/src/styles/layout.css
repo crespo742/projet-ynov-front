@@ -69,7 +69,10 @@ body {
   
   .site-main {
     flex: 1;
-    padding: 1rem;
+    background-image: url('/background-pattern.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     width: 100%;
     box-sizing: border-box;
   }
@@ -197,3 +200,7 @@ body {
     }
   }
   
+  .profile-icon {
+    width: 25px;
+    height: auto;
+  }

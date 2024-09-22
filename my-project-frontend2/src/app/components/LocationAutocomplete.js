@@ -57,7 +57,7 @@ export default function LocationAutocomplete({ onSelectLocation, resetLocation }
       <input
         value={inputValue}
         onChange={handleInput}
-        placeholder="Enter a city"
+        placeholder="Entrez une ville"
         className="filter-input" // Appliquer le style des inputs
       />
       {status === 'OK' && <ul className="autocomplete-suggestions">{renderSuggestions()}</ul>}
