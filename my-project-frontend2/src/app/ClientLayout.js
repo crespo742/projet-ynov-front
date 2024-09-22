@@ -84,7 +84,7 @@ export default function ClientLayout({ children }) {
                   <button className="login-button">Se connecter</button>
                 </Link>
                 <Link href={'/register'}>
-                  <button className="register-button">S'inscrire</button>
+                  <button className="register-button">S&#39;inscrire</button>
                 </Link>
               </div>
             )}
