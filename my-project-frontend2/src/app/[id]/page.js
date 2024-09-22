@@ -143,46 +143,46 @@ export default function MotoAdPage({ params }) {
           <p>{motoAd.description}</p>
         </section>
 
-        <div className="date-picker-section">
-          <label>Date de début:</label>
-          <DatePicker
-            selected={startDate}
-            onFocus={() => {
-              const token = localStorage.getItem('x-auth-token');
-              if (!token) {
-                window.location.href = '/login';
-              }
-            }}
-            onChange={handleStartDateChange}
-            excludeDates={unavailableDates}
-            minDate={new Date()}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-          />
-          <br />
-          <label>Date de fin:</label>
-          <DatePicker
-            selected={endDate}
-            onFocus={() => {
-              const token = localStorage.getItem('x-auth-token');
-              if (!token) {
-                window.location.href = '/login';
-              }
-            }}
-            onChange={handleEndDateChange}
-            excludeDates={unavailableDates}
-            minDate={startDate}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-          />
-        </div>
 
         {/* Boutons de location et de message, seulement si l'utilisateur est connecté et n'est pas le propriétaire */}
         {
           isLoggedIn && currentUserId !== motoAd.user._id ? (
             <>
+                    <div className="date-picker-section">
+                      <label>Date de début:</label>
+                      <DatePicker
+                        selected={startDate}
+                        onFocus={() => {
+                          const token = localStorage.getItem('x-auth-token');
+                          if (!token) {
+                            window.location.href = '/login';
+                          }
+                        }}
+                        onChange={handleStartDateChange}
+                        excludeDates={unavailableDates}
+                        minDate={new Date()}
+                        selectsStart
+                        startDate={startDate}
+                        endDate={endDate}
+                      />
+                      <br />
+                      <label>Date de fin:</label>
+                      <DatePicker
+                        selected={endDate}
+                        onFocus={() => {
+                          const token = localStorage.getItem('x-auth-token');
+                          if (!token) {
+                            window.location.href = '/login';
+                          }
+                        }}
+                        onChange={handleEndDateChange}
+                        excludeDates={unavailableDates}
+                        minDate={startDate}
+                        selectsEnd
+                        startDate={startDate}
+                        endDate={endDate}
+                      />
+                    </div>
               {endDate && (
                 <button className="rent-button" onClick={handleRent}>Louer</button>
               )}
