@@ -9,10 +9,8 @@ export default function Guides() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simuler un appel API pour récupérer les guides d'utilisation
     const fetchGuides = async () => {
       try {
-        // Remplacer ceci par un appel réel à votre API
         const mockGuides = [
           {
             id: 1,

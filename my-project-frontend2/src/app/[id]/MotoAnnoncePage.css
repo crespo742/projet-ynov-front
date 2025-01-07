@@ -9,7 +9,7 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-.moto-ad-container {
+.moto-annonce-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 20px;
@@ -17,7 +17,7 @@ body {
     backdrop-filter: blur(5px); /* Ajoute un effet de flou */
 }
 
-.moto-ad-images {
+.moto-annonce-images {
     margin-bottom: 20px;
 }
 
@@ -41,7 +41,7 @@ body {
     transform: scale(1.05); /* Agrandit légèrement l'image au survol */
 }
 
-.moto-ad-details {
+.moto-annonce-details {
     margin-top: 20px;
 }
 

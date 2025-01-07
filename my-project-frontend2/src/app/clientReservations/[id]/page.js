@@ -50,17 +50,17 @@ export default function ClientReservations({ params }) {
         <ul className="reservations-list">
           {reservations.map((reservation) => (
             <li key={reservation._id} className="reservation-item">
-              <Link href={`/${reservation.motoAdId ? reservation.motoAdId._id : ''}`} passHref>
+              <Link href={`/${reservation.motoAnnonceId ? reservation.motoAnnonceId._id : ''}`} passHref>
                 <div className="reservation-card">
-                  {reservation.motoAdId && reservation.motoAdId.image && (
+                  {reservation.motoAnnonceId && reservation.motoAnnonceId.image && (
                     <img
-                      src={reservation.motoAdId.image[0]}
-                      alt={`${reservation.motoAdId.title}`}
+                      src={reservation.motoAnnonceId.image[0]}
+                      alt={`${reservation.motoAnnonceId.title}`}
                       className="reservation-moto-image"
                     />
                   )}
                   <div className="reservation-details">
-                    <h2 className="reservation-moto">Moto: {reservation.motoAdId ? reservation.motoAdId.title : 'Non spécifiée'}</h2>
+                    <h2 className="reservation-moto">Moto: {reservation.motoAnnonceId ? reservation.motoAnnonceId.title : 'Non spécifiée'}</h2>
                     <p className="reservation-dates">
                       Du {new Date(reservation.startDate).toLocaleDateString()} au {new Date(reservation.endDate).toLocaleDateString()}
                     </p>

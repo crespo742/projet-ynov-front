@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import LocationAutocomplete from '../../components/LocationAutocomplete';
-import './EditMotoAd.css'; // Utiliser le même fichier CSS que la page de création
+import './EditMotoAnnonce.css'; // Utiliser le même fichier CSS que la page de création
 
-export default function EditMotoAd({ params }) {
+export default function EditMotoAnnonce({ params }) {
   const { id } = params;
-  const [ad, setAd] = useState(null);
+  const [annonce, setAnnonce] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -27,12 +27,12 @@ export default function EditMotoAd({ params }) {
   const router = useRouter();
 
   useEffect(() => {
-    const fetchAd = async () => {
+    const fetchAnnonce = async () => {
       const token = localStorage.getItem('x-auth-token');
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${id}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-Annonces/${id}`, {
         headers: { 'x-auth-token': token }
       });
-      setAd(response.data);
+      setAnnonce(response.data);
       setFormData({
         title: response.data.title,
         description: response.data.description,
@@ -44,7 +44,7 @@ export default function EditMotoAd({ params }) {
         location: response.data.location
       });
     };
-    fetchAd();
+    fetchAnnonce();
   }, [id]);
 
   const handleSubmit = async (e) => {
@@ -68,7 +68,7 @@ export default function EditMotoAd({ params }) {
       if (image2) form.append('image2', image2);
       if (image3) form.append('image3', image3);
 
-      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${id}`, form, {
+      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-Annonces/${id}`, form, {
         headers: {
           'x-auth-token': token,
           'Content-Type': 'multipart/form-data',
@@ -77,7 +77,7 @@ export default function EditMotoAd({ params }) {
 
       router.push('/profile'); // Redirige vers le profil après la mise à jour
     } catch (error) {
-      console.error('Failed to update ad', error);
+      console.error('Failed to update Annonce', error);
     }
   };
 
@@ -98,7 +98,7 @@ export default function EditMotoAd({ params }) {
   return (
     <div className="add-moto-container">
       <h1 className="page-title">Modifier l&#39;annonce de moto</h1>
-      {ad ? (
+      {annonce ? (
         <form onSubmit={handleSubmit} className="add-moto-form">
           <label>Titre:</label>
           <input
@@ -188,7 +188,7 @@ export default function EditMotoAd({ params }) {
           {/* Champ de localisation avec l'autocomplétion */}
           <LocationAutocomplete onSelectLocation={handleLocationSelect} />
 
-          <button type="submit">Update Ad</button>
+          <button type="submit">Update Annonce</button>
         </form>
       ) : (
         <p>Chargement...</p>

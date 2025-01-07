@@ -11,10 +11,8 @@ export default function ArticlePage({ params }) {
   const { id } = params; // On récupère l'id de l'article depuis l'URL
 
   useEffect(() => {
-    // Simuler la récupération d'un article via l'API
     const fetchArticle = async () => {
       try {
-        // Simuler un appel API pour récupérer les détails de l'article
         const mockArticles = [
           {
             id: 1,

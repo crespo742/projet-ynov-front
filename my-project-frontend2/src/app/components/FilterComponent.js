@@ -6,7 +6,7 @@ import axios from 'axios';
 import LocationAutocomplete from './LocationAutocomplete';
 import './FilterComponent.css'; // Import du fichier CSS
 
-export default function FilterComponent({ setMotoAds }) {
+export default function FilterComponent({ setMotoAnnonces }) {
   const [filters, setFilters] = useState({
     brand: '',
     year: '',
@@ -25,24 +25,24 @@ export default function FilterComponent({ setMotoAds }) {
     });
   };
 
-  const fetchFilteredAds = async () => {
+  const fetchFilteredAnnonces = async () => {
     try {
       const { brand, year, minPrice, maxPrice, search, location } = filters;
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/filter`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-Annonces/filter`, {
         params: { brand, year, minPrice, maxPrice, search, location },
       });
-      setMotoAds(response.data);
+      setMotoAnnonces(response.data);
     } catch (error) {
-      console.error('Failed to fetch filtered ads:', error);
+      console.error('Failed to fetch filtered Annonces:', error);
     }
   };
 
-  const fetchAllMotoAds = async () => {
+  const fetchAllMotoAnnonces = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads`);
-      setMotoAds(response.data);
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-Annonces`);
+      setMotoAnnonces(response.data);
     } catch (error) {
-      console.error('Failed to fetch all moto ads:', error);
+      console.error('Failed to fetch all moto Annonces:', error);
     }
   };
 
@@ -56,13 +56,13 @@ export default function FilterComponent({ setMotoAds }) {
       location: '',
     });
     setResetLocation(true); 
-    fetchAllMotoAds();
+    fetchAllMotoAnnonces();
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      fetchFilteredAds();
+      fetchFilteredAnnonces();
     }
   };
 
@@ -119,7 +119,7 @@ export default function FilterComponent({ setMotoAds }) {
         resetLocation={resetLocation}
       />
       <div>
-        <button onClick={fetchFilteredAds} className="filter-button">Appliquer les filtres</button>
+        <button onClick={fetchFilteredAnnonces} className="filter-button">Appliquer les filtres</button>
         <button onClick={resetFilters} className="filter-button reset-button">Réinitialiser les filtres</button>
       </div>
 

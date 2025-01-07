@@ -137,16 +137,16 @@ export default function UserRentals({ params }) {
               <div className="rental-card">
                 <div className="rental-header">
                   <div className="rental-image-wrapper">
-                    {rental.motoAdId && rental.motoAdId.image && (
+                    {rental.motoAnnonceId && rental.motoAnnonceId.image && (
                       <img
-                        src={rental.motoAdId.image[0]}
-                        alt={`${rental.motoAdId.title}`}
+                        src={rental.motoAnnonceId.image[0]}
+                        alt={`${rental.motoAnnonceId.title}`}
                         className="rental-moto-image"
                       />
                     )}
                   </div>
                   <div className="rental-details-wrapper">
-                    <h2 className="rental-moto-title">{rental.motoAdId ? rental.motoAdId.title : 'Moto non spécifiée'}</h2>
+                    <h2 className="rental-moto-title">{rental.motoAnnonceId ? rental.motoAnnonceId.title : 'Moto non spécifiée'}</h2>
                     <p className="rental-user">
                       <strong>Réservé par :</strong> {rental.userDetails ? rental.userDetails.name : 'Utilisateur inconnu'}
                     </p>

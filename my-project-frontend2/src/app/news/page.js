@@ -7,10 +7,8 @@ export default function Actualites() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    // Simuler un appel API pour récupérer les actualités
     const fetchNews = async () => {
       try {
-        // Remplacer ceci par un appel réel à votre API
         const mockNews = [
           {
             id: 1,

@@ -9,10 +9,8 @@ export default function Blog() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simuler un appel API pour récupérer les articles de blog
     const fetchArticles = async () => {
       try {
-        // Remplacer ceci par un appel réel à votre API
         const mockArticles = [
           {
             id: 1,

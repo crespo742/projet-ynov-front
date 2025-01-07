@@ -11,10 +11,8 @@ export default function GuidePage({ params }) {
   const { id } = params; // On récupère l'id du guide depuis l'URL
 
   useEffect(() => {
-    // Simuler la récupération d'un guide via l'API
     const fetchGuide = async () => {
       try {
-        // Simuler un appel API pour récupérer les détails du guide
         const mockGuides = [
           {
             id: 1,

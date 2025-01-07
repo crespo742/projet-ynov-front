@@ -11,12 +11,12 @@ export default function UserProfile({ params }) {
     const [message, setMessage] = useState('');
     const [hasRated, setHasRated] = useState(false);
     const [userRating, setUserRating] = useState(null); 
-    const [ads, setAds] = useState([]);
+    const [annonces, setAnnonces] = useState([]);
     const [isOwnProfile, setIsOwnProfile] = useState(false); // Nouvel état pour vérifier si l'utilisateur est sur son propre profil
     const router = useRouter();
 
     useEffect(() => {
-        const fetchUserAndAds = async () => {
+        const fetchUserAndAnnonces = async () => {
             try {
                 const token = localStorage.getItem('x-auth-token');
                 const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -32,7 +32,7 @@ export default function UserProfile({ params }) {
                 const adsResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/my-ads/${id}`, {
                     headers: { 'x-auth-token': token },
                 });
-                setAds(adsResponse.data);
+                setAnnonces(adsResponse.data);
 
                 // Vérifier si l'utilisateur connecté a déjà noté ce profil
                 if (userResponse.data.ratedBy.includes(currentUser.id)) {
@@ -44,11 +44,11 @@ export default function UserProfile({ params }) {
                     setIsOwnProfile(true); // L'utilisateur connecté ne peut pas se noter lui-même
                 }
             } catch (error) {
-                console.error('Failed to fetch user or ads', error);
+                console.error('Failed to fetch user or Annonces', error);
             }
         };
 
-        fetchUserAndAds();
+        fetchUserAndAnnonces();
     }, [id]);
 
     const handleRating = async () => {
@@ -102,16 +102,16 @@ export default function UserProfile({ params }) {
                 </>
             ) : null}
 
-            <h3>{user.name}&#39;s Ads</h3>
-            {ads.length > 0 ? (
+            <h3>{user.name}&#39;s Annonces</h3>
+            {annonces.length > 0 ? (
                 <ul>
-                    {ads.map((ad) => (
-                        <li key={ad._id}>
+                    {annonces.map((annonce) => (
+                        <li key={annonce._id}>
                             <div style={{ border: '1px solid black', padding: '10px', margin: '10px 0', cursor: 'pointer' }}>
-                                <h4>{ad.title}</h4>
-                                <p>Price: {ad.pricePerDay}€ / jour</p>
-                                <p>Brand: {ad.brand}</p>
-                                <p>Model: {ad.model}</p>
+                                <h4>{annonce.title}</h4>
+                                <p>Price: {annonce.pricePerDay}€ / jour</p>
+                                <p>Brand: {annonce.brand}</p>
+                                <p>Model: {annonce.model}</p>
                             </div>
                         </li>
                     ))}

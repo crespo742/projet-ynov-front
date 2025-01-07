@@ -33,10 +33,10 @@ export default function ProfilePage() {
     fetchProfile();
   }, [router]);
 
-  const handleDelete = async (adId) => {
+  const handleDelete = async (annonceId) => {
     try {
       const token = localStorage.getItem('x-auth-token');
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads/${adId}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-Annonces/${annonceId}`, {
         headers: { 'x-auth-token': token },
       });
       window.location.reload();
@@ -78,32 +78,32 @@ export default function ProfilePage() {
 
       <h3 className="profile-subtitle">Vos annonces publiées</h3>
       <Link href={`/add-moto`}>
-        <button className="add-ad-button">Ajouter une annonce</button>
+        <button className="add-annonce-button">Ajouter une annonce</button>
       </Link>
 
-      <div className="ad-list">
-        {profile.motoAds.map((ad) => (
-          <div key={ad._id} className="ad-card">
-            <Link href={`/${ad._id}`}>
-              <div className="ad-card-inner">
-                {ad.image && ad.image.length > 0 ? (
+      <div className="annonce-list">
+        {profile.motoAnnonces.map((annonce) => (
+          <div key={annonce._id} className="annonce-card">
+            <Link href={`/${annonce._id}`}>
+              <div className="annonce-card-inner">
+                {annonce.image && annonce.image.length > 0 ? (
                   <img
-                    src={ad.image[0]}
-                    alt={ad.title}
-                    className="ad-image"
+                    src={annonce.image[0]}
+                    alt={annonce.title}
+                    className="annonce-image"
                   />
                 ) : (
                   <div className="no-image">Pas d&#39;image</div>
                 )}
-                <div className="ad-info">
-                  <h4 className="ad-title">{ad.title}</h4>
-                  <p className="ad-price">{ad.pricePerDay}€/jour</p>
+                <div className="annonce-info">
+                  <h4 className="annonce-title">{annonce.title}</h4>
+                  <p className="annonce-price">{annonce.pricePerDay}€/jour</p>
                 </div>
               </div>
             </Link>
-            <div className="ad-actions">
-              <button onClick={() => handleDelete(ad._id)} className="delete-button">Supprimer</button>
-              <Link href={`/edit-ad/${ad._id}`}>
+            <div className="annonce-actions">
+              <button onClick={() => handleDelete(annonce._id)} className="delete-button">Supprimer</button>
+              <Link href={`/edit-annonce/${annonce._id}`}>
                 <button className="edit-button">Modifier</button>
               </Link>
             </div>

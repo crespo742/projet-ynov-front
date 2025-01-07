@@ -7,21 +7,23 @@ import FilterComponent from './components/FilterComponent';
 import './Home.css'; // Import du fichier CSS pour un style similaire à l'exemple donné.
 
 export default function Home() {
-  const [motoAds, setMotoAds] = useState([]);
+  const [motoAnnonces, setMotoAnnonces] = useState([]);
   const [error, setError] = useState('');
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchMotoAds = async () => {
+    const fetchMotoAnnonces = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-ads`);
-        setMotoAds(response.data);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/moto-Annonces`);
+        setMotoAnnonces(response.data);
       } catch (error) {
-        setError('Failed to fetch moto ads');
+        console.log('dzdzdzdzd', error);
+        
+        setError('Failed to fetch moto Annonces');
       }
     };
 
-    fetchMotoAds();
+    fetchMotoAnnonces();
 
     const currentUser = localStorage.getItem('user');
     if (currentUser) {
@@ -36,26 +38,26 @@ export default function Home() {
 
         {/* Section des filtres */}
         <div className="filters-container">
-          <FilterComponent setMotoAds={setMotoAds} />
+          <FilterComponent setMotoAnnonces={setMotoAnnonces} />
         </div>
 
         {/* Section des annonces */}
-        <div className="ads-grid">
+        <div className="annonces-grid">
           {error && <p>{error}</p>}
-          {motoAds.map((ad) => (
-            <div key={ad._id} className="ad-card">
-              <Link href={`/${ad._id}`}>
-                <div className="ad-content">
-                  {ad.image && ad.image.length > 0 && (
+          {motoAnnonces.map((annonce) => (
+            <div key={annonce._id} className="annonce-card">
+              <Link href={`/${annonce._id}`}>
+                <div className="annonce-content">
+                  {annonce.image && annonce.image.length > 0 && (
                     <img
-                      src={ad.image[0]}
-                      alt={ad.title}
-                      className="ad-image"
+                      src={annonce.image[0]}
+                      alt={annonce.title}
+                      className="annonce-image"
                     />
                   )}
-                  <h2 className="ad-title">{ad.title}</h2>
-                  <p className="ad-price">{ad.pricePerDay} € / jour</p>
-                  <button className="ad-button">Réserver ce véhicule</button>
+                  <h2 className="annonce-title">{annonce.title}</h2>
+                  <p className="annonce-price">{annonce.pricePerDay} € / jour</p>
+                  <button className="annonce-button">Réserver ce véhicule</button>
                 </div>
               </Link>
             </div>

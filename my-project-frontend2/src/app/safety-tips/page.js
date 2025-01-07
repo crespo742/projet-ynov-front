@@ -7,10 +7,8 @@ export default function ConseilsSecurite() {
   const [conseils, setConseils] = useState([]);
 
   useEffect(() => {
-    // Simuler un appel API pour récupérer les conseils de sécurité
     const fetchConseils = async () => {
       try {
-        // Remplacer ceci par un appel réel à votre API
         const mockConseils = [
           {
             id: 1,
